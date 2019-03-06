@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -65,6 +67,22 @@ class Customer
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $country;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\FlatRate", mappedBy="customer_id")
+     */
+    private $flatRates;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Bill", mappedBy="customer_id")
+     */
+    private $bills;
+
+    public function __construct()
+    {
+        $this->flatRates = new ArrayCollection();
+        $this->bills = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -187,6 +205,68 @@ class Customer
     public function setCity(?string $city): self
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|FlatRate[]
+     */
+    public function getFlatRates(): Collection
+    {
+        return $this->flatRates;
+    }
+
+    public function addFlatRate(FlatRate $flatRate): self
+    {
+        if (!$this->flatRates->contains($flatRate)) {
+            $this->flatRates[] = $flatRate;
+            $flatRate->setCustomerId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFlatRate(FlatRate $flatRate): self
+    {
+        if ($this->flatRates->contains($flatRate)) {
+            $this->flatRates->removeElement($flatRate);
+            // set the owning side to null (unless already changed)
+            if ($flatRate->getCustomerId() === $this) {
+                $flatRate->setCustomerId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Bill[]
+     */
+    public function getBills(): Collection
+    {
+        return $this->bills;
+    }
+
+    public function addBill(Bill $bill): self
+    {
+        if (!$this->bills->contains($bill)) {
+            $this->bills[] = $bill;
+            $bill->setCustomerId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBill(Bill $bill): self
+    {
+        if ($this->bills->contains($bill)) {
+            $this->bills->removeElement($bill);
+            // set the owning side to null (unless already changed)
+            if ($bill->getCustomerId() === $this) {
+                $bill->setCustomerId(null);
+            }
+        }
 
         return $this;
     }

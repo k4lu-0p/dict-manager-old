@@ -31,6 +31,11 @@ class Session
      */
     private $note;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\FlatRate", inversedBy="sessions")
+     */
+    private $flatRate_id;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +73,18 @@ class Session
     public function setNote(?string $note): self
     {
         $this->note = $note;
+
+        return $this;
+    }
+
+    public function getFlatRateId(): ?FlatRate
+    {
+        return $this->flatRate_id;
+    }
+
+    public function setFlatRateId(?FlatRate $flatRate_id): self
+    {
+        $this->flatRate_id = $flatRate_id;
 
         return $this;
     }
