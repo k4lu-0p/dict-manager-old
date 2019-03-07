@@ -14,9 +14,9 @@
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
 
-            <input type="email" id="inputName" class="" placeholder="Enter your email" value="{{ last_username }}" name="_username" required autofocus>
-            <input type="password" id="inputPassword" class="" placeholder="Enter your password" name="_password" required>
-            <button class="" type="submit">Sign in</button>
+            <input type="email" id="input-email" class="input-email" placeholder="Enter your email" value="{{ last_username }}" name="_username" required autofocus>
+            <input type="password" id="input-password" class="input-password" placeholder="Enter your password" name="_password" required>
+            <button class="button-connexion" type="submit">Sign in</button>
 
         </form>
 

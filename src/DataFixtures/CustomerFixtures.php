@@ -21,15 +21,15 @@ class CustomerFixtures extends Fixture
 
 // ===== Forfaits ============================================================
             
-            $flatRate = new FlatRate();
-            
-            $nombreSession = 10 ; // $faker->numberBetween($min = 5,$max = 20);
+                $flatRate = new FlatRate();
+                
+                $nombreSession = 10 ; // $faker->numberBetween($min = 5,$max = 20);
 
-            $freeSession = $nombreSession/10;
+                $freeSession = $nombreSession/10;
 
-            $flatRate->setDateStart($faker->dateTime($max = 'now', $timezone = null))
-                     ->setSessionNumber($nombreSession)
-                     ->setPrice(($nombreSession-$freeSession)*250);
+                $flatRate->setDateStart($faker->dateTime($max = 'now', $timezone = null))
+                        ->setSessionNumber($nombreSession)
+                        ->setPrice(($nombreSession-$freeSession)*250);
 
 // ===== Sessions ============================================================
                             
