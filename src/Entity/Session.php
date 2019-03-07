@@ -34,7 +34,7 @@ class Session
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\FlatRate", inversedBy="sessions")
      */
-    private $flatRate_id;
+    private $flatRate;
 
     public function getId(): ?int
     {
@@ -79,12 +79,12 @@ class Session
 
     public function getFlatRateId(): ?FlatRate
     {
-        return $this->flatRate_id;
+        return $this->flatRate;
     }
 
-    public function setFlatRateId(?FlatRate $flatRate_id): self
+    public function setFlatRateId(?FlatRate $flatRate): self
     {
-        $this->flatRate_id = $flatRate_id;
+        $this->flatRate = $flatRate;
 
         return $this;
     }

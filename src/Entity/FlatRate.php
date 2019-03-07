@@ -37,7 +37,7 @@ class FlatRate
      * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="flatRates")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $customer_id;
+    private $customer;
 
     /**
      * @ORM\Column(type="datetime")
@@ -111,12 +111,12 @@ class FlatRate
 
     public function getCustomerId(): ?Customer
     {
-        return $this->customer_id;
+        return $this->customer;
     }
 
-    public function setCustomerId(?Customer $customer_id): self
+    public function setCustomerId(?Customer $customer): self
     {
-        $this->customer_id = $customer_id;
+        $this->customer = $customer;
 
         return $this;
     }
