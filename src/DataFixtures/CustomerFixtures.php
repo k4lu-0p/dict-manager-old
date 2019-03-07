@@ -27,7 +27,7 @@ class CustomerFixtures extends Fixture
 
             $freeSession = $nombreSession/10;
 
-            $flatRate->setDate($faker->dateTime($max = 'now', $timezone = null))
+            $flatRate->setDateStart($faker->dateTime($max = 'now', $timezone = null))
                      ->setSessionNumber($nombreSession)
                      ->setPrice(($nombreSession-$freeSession)*250);
 
@@ -77,7 +77,7 @@ class CustomerFixtures extends Fixture
 // ===== NewsLetter ============================================================
 
         $newsLetter = new Newsletter();
-        
+
         $newsLetter->setSubject($faker->sentence($nb = 3, $variableNbWordds = true))
                    ->setContent($faker->paragraph($nbSentences = 4, $variableNbSentences = true))
                    ->setPicture($faker->imageUrl($width = 640, $height = 240));
