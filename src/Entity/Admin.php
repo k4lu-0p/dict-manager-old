@@ -3,11 +3,20 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AdminRepository")
+ * 
+ * @UniqueEntity(
+ *   fields={"username"},
+ *   message="Le nom d'utilisateur que vous avez indiqué est déjà utilisé !" 
+ * )
  */
-class Admin
+class Admin implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -36,15 +45,27 @@ class Admin
      */
     private $society_number;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $email;
-
+    
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $password;
+
+    /**
+     * @Assert\Email(
+     *    message = "The email '{{ value }}' is not a valid email.",
+     *    checkMX = true
+     * 
+     * )
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $username;
+
+    /**
+     * @ORM\Column(type="simple_array")
+     */
+    private $roles = [];
+
 
     public function getId(): ?int
     {
@@ -99,18 +120,7 @@ class Admin
         return $this;
     }
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
+    
     public function getPassword(): ?string
     {
         return $this->password;
@@ -121,5 +131,38 @@ class Admin
         $this->password = $password;
 
         return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+    
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+        return $this;
+    }
+
+    public function getRoles(): ?array
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+        
     }
 }

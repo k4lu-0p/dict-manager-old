@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome to DICT Manager!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        {{ encore_entry_link_tags("app")}}
+    </head>
+    <body>
+
+        <form action="{{ path('login') }}" method="post" class="">
+
+            {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            <input type="email" id="inputName" class="" placeholder="Enter your email" value="{{ last_username }}" name="_username" required autofocus>
+            <input type="password" id="inputPassword" class="" placeholder="Enter your password" name="_password" required>
+            <button class="" type="submit">Sign in</button>
+
+        </form>
+
+        {% block javascripts %}{% endblock %}
+        {{ encore_entry_script_tags("app")}}
+    </body>
+</html>
+
+
+

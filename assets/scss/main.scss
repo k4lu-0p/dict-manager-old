@@ -1,3 +1,6 @@
-body {
-    background-color: lightgray;
+@import 'login';
+@import 'statistics';
+
+h1 {
+    color: red;
 }
