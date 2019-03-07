@@ -13,7 +13,7 @@ Encore
     // Activer TS
     .enableTypeScriptLoader()
     // Activer Vue.Js
-    .enableVueLoader()
+    // .enableVueLoader()
     // Activer jQuery
     .autoProvideVariables({
         $: 'jquery',

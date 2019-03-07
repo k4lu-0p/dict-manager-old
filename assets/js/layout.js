@@ -7,6 +7,5 @@ require('../../node_modules/bootstrap/dist/css/bootstrap.min.css');
 // Feuilles de style et script personnel
 require('../scss/main.scss');
 require('../js/login_verification');
-require('../js/main');
 
 
