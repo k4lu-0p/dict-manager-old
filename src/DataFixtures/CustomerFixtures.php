@@ -17,14 +17,13 @@ class CustomerFixtures extends Fixture
         
         $faker = \Faker\Factory::create('fr_FR');
 
-            for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 10; $i++) {
 
 // ===== Forfaits ============================================================
             
             $flatRate = new FlatRate();
             
             $nombreSession = 10 ; // $faker->numberBetween($min = 5,$max = 20);
-
             $freeSession = $nombreSession/10;
 
             $flatRate->setDateStart($faker->dateTime($max = 'now', $timezone = null))
@@ -34,7 +33,7 @@ class CustomerFixtures extends Fixture
 // ===== Sessions ============================================================
                             
             for ($j=0; $j < 10; $j++) { 
-                
+
                 $session = new Session();
 
                 $session->setDate($faker->dateTime($max = 'now', $timezone = null));
@@ -43,11 +42,11 @@ class CustomerFixtures extends Fixture
                 } else {
                     $session->setFree(false);
                 }
+
                 $session->setFlatRateId($flatRate);
+
                 $manager->persist($session);
-
             }
-
             $manager->persist($flatRate);
 
 // ===== Factures ============================================================
@@ -61,7 +60,6 @@ class CustomerFixtures extends Fixture
 // ===== Clients ============================================================
 
             $customer = new Customer();
-
             $customer->setFirstname($faker->firstName)
                      ->setLastname($faker->lastName)
                      ->setPhone($faker->phoneNumber)
@@ -69,7 +67,6 @@ class CustomerFixtures extends Fixture
                      ->setAddressNumber($faker->numerify('##### #####'))
                      ->addFlatRate($flatRate)
                      ->addBill($bill);
-
             $manager->persist($customer);
             
         }
