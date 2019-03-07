@@ -24,6 +24,8 @@ class CustomersController extends AbstractController
         ]);
     }
 
+// Probleme de autowire
+
     /**
      * @Route("/show/{id}", name="customer")
      */
@@ -42,7 +44,7 @@ class CustomersController extends AbstractController
     public function editCustomer(Customer $customer)
     {
         $test = $customer->getId();
-        // dump($customers);die;
+        // dump($test);die;
         return $this->render('customers/edit.html.twig', [
             'customer' => $test,
         ]);
