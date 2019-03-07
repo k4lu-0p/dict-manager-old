@@ -12,6 +12,8 @@ Encore
     .enableSassLoader()
     // Activer TS
     .enableTypeScriptLoader()
+    // Activer Vue.Js
+    .enableVueLoader()
     // Activer jQuery
     .autoProvideVariables({
         $: 'jquery',
