@@ -22,6 +22,8 @@ class CustomersController extends AbstractController
         ]);
     }
 
+// Problem autowire
+
     /**
      * @Route("/show/{id}", name="customerById")
      */
