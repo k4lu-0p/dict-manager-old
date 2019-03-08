@@ -15,23 +15,20 @@ class CustomersController extends AbstractController
     /**
      * @Route("/show/all", name="customers")
      */
-    public function index()
+    public function showCustomers(CustomerRepository $repo)
     {
+        $customers = $repo->findAll();
         return $this->render('customers/index.html.twig', [
-            'controller_name' => 'CustomersController',
+            'customers' => $customers,
         ]);
     }
-
-// Problem autowire
 
     /**
      * @Route("/show/{id}", name="customerById")
      */
-    public function test(CustomerRepository $customer, Customer $test){
-        dump($test);
-        dump($customer->findAll(), $customer->findOneById(1));
-        die;
+    public function showCustomer(Customer $customer){
         return $this->render('customers/details.html.twig', [
-        ]);
+            'customerId' => $customer->getId()
+            ]);
     }
 }

@@ -83,6 +83,11 @@ class Customer
      */
     private $flatRates;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $picture = "/build/images/user.png";
+
     public function __construct()
     {
         $this->bills = new ArrayCollection();
@@ -284,6 +289,18 @@ class Customer
                 $flatRate->setCustomer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }

@@ -5,18 +5,18 @@
 {% block main %}
 
 <h1>Customers</h1>
-
+<div class="container">
     {% for customer in customers %}
-        <div class="card-customer">
-            {{ customer.id }}
-            <p class="p-0 m-0">{{ customer.firstname }}</p>
-            <p class="p-0 m-0">{{ customer.lastname }}</p>
-            <p class="p-0 m-0">{{ customer.phone }}</p>
-            <p class="p-0 m-0">{{ customer.addressNumber }}</p>
-            {# <a href="{{path('customer',{id: customer.id})}}"><button class="show-details">Details</button></a> #}
-            {# <a href="{{path('editCustomer',{id: customer.id})}}"><button class="edit">Edit</button></a> #}
-            {# <a href="{{path('deleteCustomer',{id: customer.id})}}"><button class="delete">Delete</button></a> #}
-        </div>
+    <div class="card-customer row p-4 my-5">
+        <p class="p-0 m-0">{{ customer.firstname }}</p>
+        <p class="p-0 m-0">{{ customer.lastname }}</p>
+        <p class="p-0 m-0">{{ customer.phone }}</p>
+        <p class="p-0 m-0">{{ customer.addressNumber }}</p>
+        <a href=""><button class="show-details">Details</button></a> {# {{path('customer',{id: customer.id})}} #}
+        <a href=""><button class="edit">Edit</button></a>            {# {{path('editCustomer',{id: customer.id})}} #}
+        <a href=""><button class="delete">Delete</button></a>        {# {{path('deleteCustomer',{id: customer.id})}} #}
+    </div>
     {% endfor %}
+</div>
 
 {% endblock %}
