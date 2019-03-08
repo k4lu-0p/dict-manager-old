@@ -1,4 +1,48 @@
-.icons-navbar {
-    background-color : #404956;
-    color: white;
+.navbar {
+
+    background-color : $overlay-color;
+    height: 190px;
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    
+    ul {
+
+        list-style: none;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+
+        li{
+            width: 20%;
+            height: 100%;
+
+            button {
+
+                background-color: transparent;
+                border: none;
+                display: inline-block;
+                text-decoration: none;
+                height: 100%;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                
+                i {
+                    color: $white-color;
+                    font-size: 70px;
+                }
+
+                i ::before {
+                    height: 100%;
+                    width: 100%;
+                
+                }  
+                
+                
+            }
+        }
+    }
 }
