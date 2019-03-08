@@ -19,6 +19,16 @@ class FlatRate
     private $id;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date_start;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $date_end;
+
+    /**
      * @ORM\Column(type="integer")
      */
     private $session_number;
@@ -29,25 +39,15 @@ class FlatRate
     private $price;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="flateRate_id")
-     */
-    private $sessions;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="flatRates")
      * @ORM\JoinColumn(nullable=false)
      */
     private $customer;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="flat_rate", orphanRemoval=true)
      */
-    private $dateStart;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $dateEnd;
+    private $sessions;
 
     public function __construct()
     {
@@ -57,6 +57,30 @@ class FlatRate
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getDateStart(): ?\DateTimeInterface
+    {
+        return $this->date_start;
+    }
+
+    public function setDateStart(\DateTimeInterface $date_start): self
+    {
+        $this->date_start = $date_start;
+
+        return $this;
+    }
+
+    public function getDateEnd(): ?\DateTimeInterface
+    {
+        return $this->date_end;
+    }
+
+    public function setDateEnd(\DateTimeInterface $date_end): self
+    {
+        $this->date_end = $date_end;
+
+        return $this;
     }
 
     public function getSessionNumber(): ?int
@@ -83,6 +107,18 @@ class FlatRate
         return $this;
     }
 
+    public function getCustomer(): ?Customer
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(?Customer $customer): self
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Session[]
      */
@@ -95,7 +131,7 @@ class FlatRate
     {
         if (!$this->sessions->contains($session)) {
             $this->sessions[] = $session;
-            $session->setFlateRateId($this);
+            $session->setFlatRate($this);
         }
 
         return $this;
@@ -106,46 +142,10 @@ class FlatRate
         if ($this->sessions->contains($session)) {
             $this->sessions->removeElement($session);
             // set the owning side to null (unless already changed)
-            if ($session->getFlateRateId() === $this) {
-                $session->setFlateRateId(null);
+            if ($session->getFlatRate() === $this) {
+                $session->setFlatRate(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getCustomerId(): ?Customer
-    {
-        return $this->customer;
-    }
-
-    public function setCustomerId(?Customer $customer): self
-    {
-        $this->customer = $customer;
-
-        return $this;
-    }
-
-    public function getDateStart(): ?\DateTimeInterface
-    {
-        return $this->dateStart;
-    }
-
-    public function setDateStart(\DateTimeInterface $dateStart): self
-    {
-        $this->dateStart = $dateStart;
-
-        return $this;
-    }
-
-    public function getDateEnd(): ?\DateTimeInterface
-    {
-        return $this->dateEnd;
-    }
-
-    public function setDateEnd(?\DateTimeInterface $dateEnd): self
-    {
-        $this->dateEnd = $dateEnd;
 
         return $this;
     }

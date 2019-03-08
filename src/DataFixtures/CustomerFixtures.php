@@ -43,7 +43,7 @@ class CustomerFixtures extends Fixture
                     $session->setFree(false);
                 }
 
-                $session->setFlatRateId($flatRate);
+                $session->setFlatRate($flatRate);
 
                 $manager->persist($session);
             }

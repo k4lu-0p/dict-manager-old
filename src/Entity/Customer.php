@@ -19,12 +19,12 @@ class Customer
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=65)
+     * @ORM\Column(type="string", length=45)
      */
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=65)
+     * @ORM\Column(type="string", length=50)
      */
     private $lastname;
 
@@ -44,6 +44,11 @@ class Customer
     private $address_number;
 
     /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $street_number;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $street_name;
@@ -51,8 +56,8 @@ class Customer
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $building;
-    
+    private $city;
+
     /**
      * @ORM\Column(type="string", length=25, nullable=true)
      */
@@ -61,27 +66,27 @@ class Customer
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $city;
+    private $country;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $country;
+    private $building;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\FlatRate", mappedBy="customer_id")
-     */
-    private $flatRates;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Bill", mappedBy="customer_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Bill", mappedBy="customer")
      */
     private $bills;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\FlatRate", mappedBy="customer", orphanRemoval=true)
+     */
+    private $flatRates;
+
     public function __construct()
     {
-        $this->flatRates = new ArrayCollection();
         $this->bills = new ArrayCollection();
+        $this->flatRates = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -149,50 +154,26 @@ class Customer
         return $this;
     }
 
+    public function getStreetNumber(): ?string
+    {
+        return $this->street_number;
+    }
+
+    public function setStreetNumber(?string $street_number): self
+    {
+        $this->street_number = $street_number;
+
+        return $this;
+    }
+
     public function getStreetName(): ?string
     {
         return $this->street_name;
     }
 
-    public function setStreetName(string $street_name): self
+    public function setStreetName(?string $street_name): self
     {
         $this->street_name = $street_name;
-
-        return $this;
-    }
-
-    public function getBuilding(): ?string
-    {
-        return $this->building;
-    }
-
-    public function setBuilding(?string $building): self
-    {
-        $this->building = $building;
-
-        return $this;
-    }
-
-    public function getCountry(): ?string
-    {
-        return $this->country;
-    }
-
-    public function setCountry(?string $country): self
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    public function getPc(): ?string
-    {
-        return $this->pc;
-    }
-
-    public function setPc(?string $pc): self
-    {
-        $this->pc = $pc;
 
         return $this;
     }
@@ -209,33 +190,38 @@ class Customer
         return $this;
     }
 
-    /**
-     * @return Collection|FlatRate[]
-     */
-    public function getFlatRates(): Collection
+    public function getPc(): ?string
     {
-        return $this->flatRates;
+        return $this->pc;
     }
 
-    public function addFlatRate(FlatRate $flatRate): self
+    public function setPc(?string $pc): self
     {
-        if (!$this->flatRates->contains($flatRate)) {
-            $this->flatRates[] = $flatRate;
-            $flatRate->setCustomerId($this);
-        }
+        $this->pc = $pc;
 
         return $this;
     }
 
-    public function removeFlatRate(FlatRate $flatRate): self
+    public function getCountry(): ?string
     {
-        if ($this->flatRates->contains($flatRate)) {
-            $this->flatRates->removeElement($flatRate);
-            // set the owning side to null (unless already changed)
-            if ($flatRate->getCustomerId() === $this) {
-                $flatRate->setCustomerId(null);
-            }
-        }
+        return $this->country;
+    }
+
+    public function setCountry(?string $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function getBuilding(): ?string
+    {
+        return $this->building;
+    }
+
+    public function setBuilding(?string $building): self
+    {
+        $this->building = $building;
 
         return $this;
     }
@@ -252,7 +238,7 @@ class Customer
     {
         if (!$this->bills->contains($bill)) {
             $this->bills[] = $bill;
-            $bill->setCustomerId($this);
+            $bill->setCustomer($this);
         }
 
         return $this;
@@ -263,8 +249,39 @@ class Customer
         if ($this->bills->contains($bill)) {
             $this->bills->removeElement($bill);
             // set the owning side to null (unless already changed)
-            if ($bill->getCustomerId() === $this) {
-                $bill->setCustomerId(null);
+            if ($bill->getCustomer() === $this) {
+                $bill->setCustomer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|FlatRate[]
+     */
+    public function getFlatRates(): Collection
+    {
+        return $this->flatRates;
+    }
+
+    public function addFlatRate(FlatRate $flatRate): self
+    {
+        if (!$this->flatRates->contains($flatRate)) {
+            $this->flatRates[] = $flatRate;
+            $flatRate->setCustomer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFlatRate(FlatRate $flatRate): self
+    {
+        if ($this->flatRates->contains($flatRate)) {
+            $this->flatRates->removeElement($flatRate);
+            // set the owning side to null (unless already changed)
+            if ($flatRate->getCustomer() === $this) {
+                $flatRate->setCustomer(null);
             }
         }
 

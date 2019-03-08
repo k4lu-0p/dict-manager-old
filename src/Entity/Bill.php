@@ -17,7 +17,7 @@ class Bill
     private $id;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $tax;
 
@@ -25,33 +25,33 @@ class Bill
      * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="bills")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $customer_id;
+    private $customer;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTax(): ?float
+    public function getTax(): ?int
     {
         return $this->tax;
     }
 
-    public function setTax(?float $tax): self
+    public function setTax(int $tax): self
     {
         $this->tax = $tax;
 
         return $this;
     }
 
-    public function getCustomerId(): ?Customer
+    public function getCustomer(): ?Customer
     {
-        return $this->customer_id;
+        return $this->customer;
     }
 
-    public function setCustomerId(?Customer $customer_id): self
+    public function setCustomer(?Customer $customer): self
     {
-        $this->customer_id = $customer_id;
+        $this->customer = $customer;
 
         return $this;
     }

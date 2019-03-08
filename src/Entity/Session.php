@@ -27,14 +27,10 @@ class Session
     private $free;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $note;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\FlatRate", inversedBy="sessions")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $flatRate;
+    private $flat_rate;
 
     public function getId(): ?int
     {
@@ -65,26 +61,14 @@ class Session
         return $this;
     }
 
-    public function getNote(): ?string
+    public function getFlatRate(): ?FlatRate
     {
-        return $this->note;
+        return $this->flat_rate;
     }
 
-    public function setNote(?string $note): self
+    public function setFlatRate(?FlatRate $flat_rate): self
     {
-        $this->note = $note;
-
-        return $this;
-    }
-
-    public function getFlatRateId(): ?FlatRate
-    {
-        return $this->flatRate;
-    }
-
-    public function setFlatRateId(?FlatRate $flatRate): self
-    {
-        $this->flatRate = $flatRate;
+        $this->flat_rate = $flat_rate;
 
         return $this;
     }
