@@ -29,7 +29,6 @@ class CustomersController extends AbstractController
         dump($customer->findAll(), $customer->findOneById(1));
         die;
         return $this->render('customers/details.html.twig', [
-            'test' => $okay 
         ]);
     }
 }
