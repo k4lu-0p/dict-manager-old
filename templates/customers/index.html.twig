@@ -1,11 +1,5 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Hello CustomersController!{% endblock %}
-
-{% block main %}
-
-<h1>Customers</h1>
-<div class="container">
+<div class="container container-customers">
+    <h1>Customers</h1>
     {% for customer in customers %}
     <div class="card-customer row p-4 my-5">
         <p class="p-0 m-0">{{ customer.firstname }}</p>
@@ -18,5 +12,3 @@
     </div>
     {% endfor %}
 </div>
-
-{% endblock %}
