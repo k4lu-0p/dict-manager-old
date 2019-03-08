@@ -24,6 +24,15 @@ class CustomersController extends AbstractController
     }
 
     /**
+     * @Route("/add", name="addCustomer")
+     */
+    public function addCustomer(Customer $customer){
+        return $this->render('customers/add.html.twig', [
+            'customerId' => $customer->getId()
+            ]);
+    }
+
+    /**
      * @Route("/show/{id}", name="showCustomer")
      */
     public function showCustomer(Customer $customer){
