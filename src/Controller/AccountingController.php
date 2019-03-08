@@ -11,12 +11,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class AccountingController extends AbstractController
 {
     /**
-     * @Route("/show", name="accounting")
+     * @Route("/", name="accounting")
      */
     public function index()
     {
         return $this->render('accounting/show.html.twig', [
-            'data' => 'lucas',
+            'title' => 'My account handler\'s',
         ]);
     }
 }

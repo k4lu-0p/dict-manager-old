@@ -1,0 +1,15 @@
+<div class="container container-newsletter">
+
+    <h1>{{ title }}</h1>
+
+    {{ form_start(form) }}
+
+         {{ form_row(form.subject, {'label' : false ,'attr' : {'class': 'form-control mb-3', 'placeholder' : 'Subject', 'id' : 'input-newsletter-subject'}}) }}
+         {{ form_row(form.content, {'label' : false ,'attr' : {'class': 'form-control mb-3', 'placeholder' : 'Content', 'id' : 'input-newsletter-content'}}) }}
+         {{ form_row(form.picture, {'label' : false ,'attr' : {'class': 'form-control mb-3', 'placeholder' : 'Picture', 'id' : 'input-newsletter-picture'}}) }}
+        
+        <button type="submit" class="button-newsletter-send">Send to all</button>
+
+
+    {{ form_end(form) }}
+</div>

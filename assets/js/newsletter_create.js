@@ -1,16 +1,15 @@
 // Boutton comptabilité du menu.
-const buttonNavAccounting = document.querySelector('#nav-button-accounting');
+const buttonNavNewsletter = document.querySelector('#nav-button-newsletter');
 
 // Evénement : 
-if (buttonNavAccounting) {
-    buttonNavAccounting.addEventListener('click', showAccountingWithAjax);
+if (buttonNavNewsletter) {
+    buttonNavNewsletter.addEventListener('click', showFormNewsletterWithAjax);
 }
 
 // Fonction(s) déclenchées lors de(s) événement(s) : 
 // Affiche la page d'accueil de la gestion de comptabilité, en Ajax.
-
-function showAccountingWithAjax() {
-    fetch('/app/accounting/')
+function showFormNewsletterWithAjax() {
+    fetch('/app/newsletter/create')
     .then(res => {
         return res.text();
     })
