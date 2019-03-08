@@ -8,6 +8,7 @@ require('../../node_modules/fullcalendar/dist/fullcalendar');
 
 // Feuilles de style et script personnel
 require('../scss/main.scss');
-require('../js/login_verification');
+require('./login_verification');
+require('./accounting_show.js');
 
 
