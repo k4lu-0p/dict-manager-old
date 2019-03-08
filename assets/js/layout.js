@@ -10,5 +10,6 @@ require('../../node_modules/fullcalendar/dist/fullcalendar');
 require('../scss/main.scss');
 require('./login_verification');
 require('./accounting_show.js');
+require('./customers_show.js');
 
 

@@ -1,16 +1,15 @@
 // Boutton comptabilité du menu.
-const buttonNavAccounting = document.querySelector('#nav-button-accounting');
-
+const buttonNavCustomers = document.querySelector('#nav-button-customers');
 
 // Evénement : 
-if (buttonNavAccounting) {
-    buttonNavAccounting.addEventListener('click', showAccountingWithAjax);
+if (buttonNavCustomers) {
+    buttonNavCustomers.addEventListener('click', showAllCustomersWithAjax);
 }
 
 // Fonction(s) déclenchées lors de(s) événement(s) : 
 // Affiche la page d'accueil de la gestion de comptabilité, en Ajax.
-function showAccountingWithAjax() {
-    fetch('/app/accounting/show')
+function showAllCustomersWithAjax() {
+    fetch('/app/customers/show/all')
     .then(res => {
         return res.text();
     })
