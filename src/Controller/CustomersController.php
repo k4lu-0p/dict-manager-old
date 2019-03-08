@@ -27,7 +27,8 @@ class CustomersController extends AbstractController
     /**
      * @Route("/show/{id}", name="customerById")
      */
-    public function test(CustomerRepository $customer, Customer $pute){
+    public function test(CustomerRepository $customer, Customer $test){
+        dump($test);
         dump($customer->findAll(), $customer->findOneById(1));
         die;
         return $this->render('customers/details.html.twig', [
