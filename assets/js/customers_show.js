@@ -1,15 +1,18 @@
-// Boutton comptabilité du menu.
+// Bouton clients du menu.
 const buttonNavCustomers = document.querySelector('#nav-button-customers');
 
-// Evénement : 
+// Evénement :
 if (buttonNavCustomers) {
-    buttonNavCustomers.addEventListener('click', showAllCustomersWithAjax);
+    actionsCustomerWithAjax("all", "show");
 }
+window.addEventListener('click', (e) => {
+    if ((e.target.getAttribute("data-id") != null && e.target.getAttribute("data-id") != undefined && e.target.getAttribute("data-id") != "")&&(e.target.getAttribute("data-action") === "show" || e.target.getAttribute("data-action") === "edit" || e.target.getAttribute("data-action") === "delete")) {
+        actionCustomerWithAjax(e.target.getAttribute("data-id"), e.target.getAttribute("data-action"));
+    }
+});
 
-// Fonction(s) déclenchées lors de(s) événement(s) : 
-// Affiche la page d'accueil de la gestion de comptabilité, en Ajax.
-function showAllCustomersWithAjax() {
-    fetch('/app/customers/show/all')
+function actionsCustomerWithAjax(id, action) {
+    fetch(`/app/customers/${action}/${id}`)
     .then(res => {
         return res.text();
     })
@@ -26,5 +29,4 @@ function showAllCustomersWithAjax() {
             throw err;
         }
     })
-
 }

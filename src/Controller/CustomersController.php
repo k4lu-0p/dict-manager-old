@@ -24,10 +24,37 @@ class CustomersController extends AbstractController
     }
 
     /**
-     * @Route("/show/{id}", name="customerById")
+     * @Route("/add", name="addCustomer")
+     */
+    public function addCustomer(Customer $customer){
+        return $this->render('customers/add.html.twig', [
+            'customerId' => $customer->getId()
+            ]);
+    }
+
+    /**
+     * @Route("/show/{id}", name="showCustomer")
      */
     public function showCustomer(Customer $customer){
         return $this->render('customers/details.html.twig', [
+            'customerId' => $customer->getId()
+            ]);
+    }
+
+    /**
+     * @Route("/edit/{id}", name="editCustomer")
+     */
+    public function editCustomer(Customer $customer){
+        return $this->render('customers/edit.html.twig', [
+            'customerId' => $customer->getId()
+            ]);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="deleteCustomer")
+     */
+    public function deleteCustomer(Customer $customer){
+        return $this->render('customers/delete.html.twig', [
             'customerId' => $customer->getId()
             ]);
     }
