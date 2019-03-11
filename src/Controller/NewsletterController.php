@@ -8,18 +8,20 @@ use App\Form\NewsletterType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Newsletter;
+use Symfony\Flex\Response;
 
 /**
  * @Route("/app/newsletter")
  */
 class NewsletterController extends AbstractController
 {
+
     /**
-     * @Route("/create", name="newsletter")
+     * @Route("/new", name="newsletter")
      */
     public function index(Request $request, ObjectManager $manager)
     {
-        $newsletter = new Newsletter;
+        $newsletter = new Newsletter();
         $form = $this->createForm(NewsletterType::class, $newsletter);
         $form->handleRequest($request);
 

@@ -4,7 +4,6 @@ const buttonNavCustomers = document.querySelector('#nav-button-customers');
 // Evénement :
 
 window.addEventListener('click', (e) => {
-    console.log(e.target.id);
     if(e.target.id == "nav-button-customers"){
         buttonNavCustomers.addEventListener("click", actionsCustomerWithAjax("all", "show"));
     }

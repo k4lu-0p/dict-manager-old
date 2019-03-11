@@ -14,8 +14,7 @@ class NewsletterType extends AbstractType
         $builder
             ->add('subject')
             ->add('content')
-            ->add('picture')
-        ;
+            ->add('picture');
     }
 
     public function configureOptions(OptionsResolver $resolver)
