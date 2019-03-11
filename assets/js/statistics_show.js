@@ -1,7 +1,7 @@
 // Premier affichage
-showChartsWithAjax();
+window.addEventListener("onLoad", showChartsWithAjax());
 
-// Boutton comptabilité du menu.
+// Boutton statistique du menu.
 const buttonNavChart = document.querySelector('#nav-button-chart');
 
 // Evénement : 
@@ -10,7 +10,7 @@ if (buttonNavChart) {
 }
 
 // Fonction(s) déclenchées lors de(s) événement(s) : 
-// Affiche la page d'accueil de la gestion de comptabilité, en Ajax.
+// Affiche la page de statistiques, en Ajax.
 
 function showChartsWithAjax() {
 
@@ -24,7 +24,7 @@ function showChartsWithAjax() {
     let loader = document.querySelector('.lds-dual-ring');
     loader.style.display = "inline-block";
 
-    fetch('/')
+    fetch('/app/statistics')
         .then(res => {
             return res.text();
         })
