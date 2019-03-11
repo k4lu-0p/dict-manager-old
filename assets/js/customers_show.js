@@ -2,14 +2,17 @@
 const buttonNavCustomers = document.querySelector('#nav-button-customers');
 
 // Evénement :
-if (buttonNavCustomers) {
-    actionsCustomerWithAjax("all", "show");
-}
+    buttonNavCustomers.addEventListener("click", actionsCustomerWithAjax("all", "show"));
+
 window.addEventListener('click', (e) => {
-    if ((e.target.getAttribute("data-id") != null && e.target.getAttribute("data-id") != undefined && e.target.getAttribute("data-id") != "")&&(e.target.getAttribute("data-action") === "show" || e.target.getAttribute("data-action") === "edit" || e.target.getAttribute("data-action") === "delete")) {
-        actionCustomerWithAjax(e.target.getAttribute("data-id"), e.target.getAttribute("data-action"));
+    if(e.target.getAttribute("data-id") != null && e.target.getAttribute("data-id") != undefined && e.target.getAttribute("data-id") != ""){
+        if (e.target.getAttribute("data-action") === "show" || e.target.getAttribute("data-action") === "edit" || e.target.getAttribute("data-action") === "delete") {
+            actionCustomerWithAjax(e.target.getAttribute("data-id"), e.target.getAttribute("data-action"));
+        }
     }
 });
+
+// Fonction AJAX redirection
 
 function actionsCustomerWithAjax(id, action) {
     fetch(`/app/customers/${action}/${id}`)
