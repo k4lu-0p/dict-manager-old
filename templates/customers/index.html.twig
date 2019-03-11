@@ -1,5 +1,7 @@
 <div class="container container-customers">
     <h1>Customers</h1>
+<button id="button-add-customer" data-action="add" class="add">Add</button>
+
     {% for customer in customers %}
     <div class="card">
         <p class="p-0 m-0">{{ customer.firstname }}</p>
