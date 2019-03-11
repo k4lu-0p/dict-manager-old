@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Newsletter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use App\Entity\Customer;
 
 /**
  * @method Newsletter|null find($id, $lockMode = null, $lockVersion = null)
@@ -47,4 +48,6 @@ class NewsletterRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    
 }

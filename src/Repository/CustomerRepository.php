@@ -19,6 +19,16 @@ class CustomerRepository extends ServiceEntityRepository
         parent::__construct($registry, Customer::class);
     }
 
+    public function findAllEmail()
+    {
+        $qb = $this->createQueryBuilder('e');
+
+        return $qb->select(['email'])
+            ->from(Customer::class, 'email')
+            ->getQuery()
+            ->getArrayResult();
+    }
+
     // /**
     //  * @return Customer[] Returns an array of Customer objects
     //  */
