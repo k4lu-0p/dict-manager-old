@@ -6,6 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Customer;
 use App\Repository\CustomerRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
+use App\Form\CustomerType;
 
 /**
  * @Route("/app/customers")
@@ -26,8 +29,19 @@ class CustomersController extends AbstractController
     /**
      * @Route("/add", name="addCustomer")
      */
-    public function addCustomer(){
+    public function addCustomer(Request $request, ObjectManager $manager)
+    {
+        $customer = new Customer();
+
+        $form = $this->createForm(CustomerType::class, $customer);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($customer);
+            $manager->flush();
+        }
         return $this->render('customers/add.html.twig', [
+            'form' => $form->createView()
             ]);
     }
 
@@ -43,9 +57,20 @@ class CustomersController extends AbstractController
     /**
      * @Route("/edit/{id}", name="editCustomer")
      */
-    public function editCustomer(Customer $customer){
+    public function editCustomer(Request $request, ObjectManager $manager, Customer $customer){
+        
+        $form = $this->createForm(CustomerType::class, $customer);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($customer);
+            $manager->flush();
+        }
+
         return $this->render('customers/edit.html.twig', [
-            'customerId' => $customer->getId()
+            'customerFirstname' => $customer->getFirstname(),
+            'customerLastname' => $customer->getLastname(),
+            'form' => $form->createView()
             ]);
     }
 
