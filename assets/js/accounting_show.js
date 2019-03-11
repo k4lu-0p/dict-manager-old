@@ -10,6 +10,11 @@ if (buttonNavAccounting) {
 // Affiche la page d'accueil de la gestion de comptabilité, en Ajax.
 
 function showAccountingWithAjax() {
+
+    // Apparition du loader.
+    let loader = document.querySelector('.lds-dual-ring');
+    loader.style.display = "inline-block";
+
     fetch('/app/accounting/')
     .then(res => {
         return res.text();
@@ -18,6 +23,9 @@ function showAccountingWithAjax() {
 
         // Container de rendu.
         let app = document.querySelector('#app');
+
+        // Dès reception, disparition du loader.
+        loader.style.display = "none";
 
         // Injecte le contenu receptionné dans le container.
         app.innerHTML = res;
