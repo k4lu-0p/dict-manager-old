@@ -9,19 +9,19 @@ if (buttonNavNewsletter) {
     buttonNavNewsletter.addEventListener('click', showFormNewsletterWithAjax);
 }
 
-// Désactive le comportement de base d'une validation de formulaire par navigateur.
-window.addEventListener('submit', (e) => {
-    e.preventDefault();
-});
-
 // Ecoute le click sur le boutton d'envois du formulaire.
 window.addEventListener('click', (e) => {
-    if (e.target.getAttribute("id") == "send-button-newsletter") {
+    if (e.target.id == "send-button-newsletter") {
+
+        // Désactive le comportement par défaut du bouton d'envois de formulaire.
+        e.preventDefault();
+
+        // Envois le formulaire en Ajax.
         sendFormNewsletterWithAjax();
     }
 })
 
-// Fonction(s) déclenchées lors du click sur le boutton Newsletter du menu de navigation : 
+// Fonction(s) déclenchées lors du click sur le bouton Newsletter du menu de navigation : 
 // Affiche la page d'accueil de l'envois d'une newsletter.
 function showFormNewsletterWithAjax() {
 
@@ -58,6 +58,9 @@ function showFormNewsletterWithAjax() {
         })
 }
 
+// Fonction(s) déclenchées lors du click sur le bouton d'envois du formulaire de la newsletter : 
+// Envois les informations saisis à Symfony afin d'envoyer un ou plusieurs mails avec comme contenu,
+// les champs précédement remplis.
 function sendFormNewsletterWithAjax() {
 
     // Formulaire à envoyer en POST.
