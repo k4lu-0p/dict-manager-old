@@ -10,18 +10,22 @@ if (buttonNavNewsletter) {
 // Affiche la page d'accueil de la gestion de comptabilité, en Ajax.
 function showFormNewsletterWithAjax() {
 
+    // Container de rendu.
+    let app = document.querySelector('#app');
+
+    // Effacement du contenu existant.
+    app.innerHTML = "";
+
     // Apparition du loader.
     let loader = document.querySelector('.lds-dual-ring');
     loader.style.display = "inline-block";
+
 
     fetch('/app/newsletter/create')
     .then(res => {
         return res.text();
     })
     .then(res => {
-
-        // Container de rendu.
-        let app = document.querySelector('#app');
 
         // Dès reception, disparition du loader.
         loader.style.display = "none";

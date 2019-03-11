@@ -11,6 +11,12 @@ if (buttonNavAccounting) {
 
 function showAccountingWithAjax() {
 
+    // Container de rendu.
+    let app = document.querySelector('#app');
+
+    // Effacement du contenu existant.
+    app.innerHTML = "";
+
     // Apparition du loader.
     let loader = document.querySelector('.lds-dual-ring');
     loader.style.display = "inline-block";
@@ -20,9 +26,6 @@ function showAccountingWithAjax() {
         return res.text();
     })
     .then(res => {
-
-        // Container de rendu.
-        let app = document.querySelector('#app');
 
         // Dès reception, disparition du loader.
         loader.style.display = "none";

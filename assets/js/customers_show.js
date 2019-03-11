@@ -18,6 +18,12 @@ window.addEventListener('click', (e) => {
 // Fonction AJAX redirection
 function actionsCustomerWithAjax(id, action) {
 
+    // Container de rendu.
+    let app = document.querySelector('#app');
+
+    // Effacement du contenu existant.
+    app.innerHTML = "";
+
     // Apparition du loader.
     let loader = document.querySelector('.lds-dual-ring');
     loader.style.display = "inline-block";
@@ -27,9 +33,6 @@ function actionsCustomerWithAjax(id, action) {
         return res.text();
     })
     .then(res => {
-
-        // Container de rendu.
-        let app = document.querySelector('#app');
 
         // Dès reception, disparition du loader.
         loader.style.display = "none";
