@@ -12,8 +12,15 @@ class HomeController extends AbstractController
      */
     public function home()
     {
-        return $this->redirectToRoute('statistics');
+        return $this->redirectToRoute('app');
+    }
+
+    /**
+     * @Route("/app", name="app")
+     */
+    public function app()
+    {
+        return $this->render( 'statistics/show.html.twig', [
+        ]);
     }
 }
-
-

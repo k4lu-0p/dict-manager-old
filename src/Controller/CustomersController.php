@@ -55,7 +55,8 @@ class CustomersController extends AbstractController
      */
     public function deleteCustomer(Customer $customer){
         return $this->render('customers/delete.html.twig', [
-            'customerId' => $customer->getId()
+            'customerFirstname' => $customer->getFirstname(),
+            'customerLastname' => $customer->getLastname()
             ]);
     }
 }

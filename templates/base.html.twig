@@ -1,60 +1,64 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v0.0.3/css/unicons.css">
-        {{ encore_entry_link_tags("app")}}
-    </head>
-    <body>
-    
-        {% block main %}{% endblock %}
 
-        {# Container principal des reception AJAX #}
-        <div id="app"></div>
-        
-        {# Loader #}
-        <div class="lds-dual-ring"></div>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="shortcut icon" href="#"> {# link empechant l'erreur console favicon #}
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v0.0.3/css/unicons.css">
+    {{ encore_entry_link_tags("app")}}
+</head>
 
-        <nav class="navbar">
+<body>
 
-            <ul class="d-flex justify-content-around align-items-center">
-                
-                <li class="d-flex justify-content-around align-items-center">
-                    <button id="nav-button-back">
-                        <i class='uil uil-arrow-left'></i>
-                    </button>
-                </li>
+    {% block main %}{% endblock %}
 
-                <li class="d-flex justify-content-around align-items-center">
-                    <button id="nav-button-chart">
-                        <i class='uil uil-chart-pie-alt'></i>
-                    </button>
-                </li>
+    {# Container principal des reception AJAX #}
+    <div id="app"></div>
 
-                <li class="d-flex justify-content-around align-items-center">
-                    <button id="nav-button-accounting">
-                        <i class='uil uil-usd-circle'></i>
-                    </button>
-                </li>
+    {# Loader #}
+    <div class="lds-dual-ring"></div>
 
-                <li class="d-flex justify-content-around align-items-center">
-                    <button id="nav-button-customers">
-                        <i class='uil uil-user-square'></i>
-                    </button>
-                </li>
+    <nav class="navbar">
 
-                <li class="d-flex justify-content-around align-items-center">
-                    <button id="nav-button-newsletter">
-                        <i class='uil uil-envelope-share'></i>
-                    </button>
-                </li>
+        <ul class="d-flex justify-content-around align-items-center">
 
-            </ul>   
-        
-        </nav>
-        {% block javascripts %}{% endblock %}
-        {{ encore_entry_script_tags("app")}}
-    </body>
+            <li class="d-flex justify-content-around align-items-center">
+                <button id="nav-button-back">
+                    <i class='uil uil-arrow-left'></i>
+                </button>
+            </li>
+
+            <li class="d-flex justify-content-around align-items-center">
+                <button id="nav-button-chart">
+                    <i class='uil uil-chart-pie-alt'></i>
+                </button>
+            </li>
+
+            <li class="d-flex justify-content-around align-items-center">
+                <button id="nav-button-accounting">
+                    <i class='uil uil-usd-circle'></i>
+                </button>
+            </li>
+
+            <li class="d-flex justify-content-around align-items-center">
+                <button id="nav-button-customers">
+                    <i class='uil uil-user-square'></i>
+                </button>
+            </li>
+
+            <li class="d-flex justify-content-around align-items-center">
+                <button id="nav-button-newsletter">
+                    <i class='uil uil-envelope-share'></i>
+                </button>
+            </li>
+
+        </ul>
+
+    </nav>
+    {% block javascripts %}{% endblock %}
+    {{ encore_entry_script_tags("app")}}
+</body>
+
 </html>
