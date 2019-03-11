@@ -2,11 +2,11 @@
 const buttonNavCustomers = document.querySelector('#nav-button-customers');
 
 // Evénement :
-buttonNavCustomers.addEventListener("click", actionsCustomerWithAjax("all", "show"));
 
 window.addEventListener('click', (e) => {
+    console.log(e.target.id);
     if(e.target.id == "nav-button-customers"){
-        console.log("COUCOU");
+        buttonNavCustomers.addEventListener("click", actionsCustomerWithAjax("all", "show"));
     }
     if(e.target.getAttribute("data-id") != null && e.target.getAttribute("data-id") != undefined && e.target.getAttribute("data-id") != ""){
         if (e.target.getAttribute("data-action") === "show" || e.target.getAttribute("data-action") === "edit" || e.target.getAttribute("data-action") === "delete") {
