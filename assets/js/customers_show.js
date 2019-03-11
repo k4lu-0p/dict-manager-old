@@ -3,7 +3,7 @@ const buttonNavCustomers = document.querySelector('#nav-button-customers');
 
 // Evénement :
 if (buttonNavCustomers) {
-    actionsCustomerWithAjax("all", "show");
+    // actionsCustomerWithAjax("all", "show");
 }
 window.addEventListener('click', (e) => {
     if ((e.target.getAttribute("data-id") != null && e.target.getAttribute("data-id") != undefined && e.target.getAttribute("data-id") != "")&&(e.target.getAttribute("data-action") === "show" || e.target.getAttribute("data-action") === "edit" || e.target.getAttribute("data-action") === "delete")) {
@@ -12,6 +12,11 @@ window.addEventListener('click', (e) => {
 });
 
 function actionsCustomerWithAjax(id, action) {
+
+    // Apparition du loader.
+    let loader = document.querySelector('.lds-dual-ring');
+    loader.style.display = "inline-block";
+
     fetch(`/app/customers/${action}/${id}`)
     .then(res => {
         return res.text();
@@ -20,6 +25,9 @@ function actionsCustomerWithAjax(id, action) {
 
         // Container de rendu.
         let app = document.querySelector('#app');
+
+        // Dès reception, disparition du loader.
+        loader.style.display = "none";
 
         // Injecte le contenu receptionné dans le container.
         app.innerHTML = res;
