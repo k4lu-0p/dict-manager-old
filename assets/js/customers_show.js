@@ -10,8 +10,8 @@ window.addEventListener('click', (e) => {
             actionsCustomerWithAjax("all", "show");
         }
     }
-    // show/edit/delete    Affichage, modification et suppression client
-    if (e.target.getAttribute("data-action") === "show" || e.target.getAttribute("data-action") === "edit" || e.target.getAttribute("data-action") === "delete" || e.target.getAttribute("data-action") === "add") {
+    // show/edit    Affichage, modification client
+    if (e.target.getAttribute("data-action") === "show" || e.target.getAttribute("data-action") === "edit" || e.target.getAttribute("data-action") === "add") {
         if (e.target.getAttribute("data-id") != null && e.target.getAttribute("data-id") != undefined && e.target.getAttribute("data-id") != "") {
             actionsCustomerWithAjax(e.target.getAttribute("data-id"), e.target.getAttribute("data-action"));
         } else {
@@ -19,6 +19,21 @@ window.addEventListener('click', (e) => {
             actionsCustomerWithAjax(null, e.target.getAttribute("data-action"));
         }
     }
+
+    // delete    Suppression d'un client
+    if (e.target.classList.contains('button-delete-customer')) {
+        e.preventDefault();
+            if (e.target.getAttribute("data-id") != null || e.target.getAttribute("data-id") != undefined) {
+                showLightboxConfirmDeleteCustomerWithAjax(e.target.getAttribute("data-id"));
+                document.querySelector('#confirm-delete-customer-yes').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    deleteCustomerWithAjax(e.target.getAttribute("data-id"))
+                })
+            }
+    }
+
+
+
 });
 
 // Fonction AJAX redirection
@@ -39,6 +54,44 @@ function actionsCustomerWithAjax(id, action) {
         $url = `/app/customers/${action}/${id}`;
     }
     fetch($url)
+        .then(res => {
+            return res.text();
+        })
+        .then(res => {
+
+            // Dès reception, disparition du loader.
+            loader.style.display = "none";
+
+            // Injecte le contenu receptionné dans le container.
+            app.innerHTML = res;
+        })
+        .catch(err => {
+            if (err) {
+                throw err;
+            }
+        })
+}
+
+// Montre la lightbox de confirmation de suppression de client
+function showLightboxConfirmDeleteCustomerWithAjax(id) {
+    console.log(id);
+    document.querySelector('#confirm-delete-customer-yes').setAttribute("data-id", id);
+}
+
+// Suppression d'un client
+function deleteCustomerWithAjax(id) {
+
+    // Container de rendu.
+    let app = document.querySelector('#app');
+
+    // Effacement du contenu existant.
+    app.innerHTML = "";
+
+    // Apparition du loader.
+    let loader = document.querySelector('.container-fluid-loader');
+    loader.style.display = "flex";
+
+    fetch('/app/statistics')
         .then(res => {
             return res.text();
         })

@@ -66,18 +66,24 @@ class CustomersController extends AbstractController
             $manager->persist($customer);
             $manager->flush();
         }
-
+        
         return $this->render('customers/edit.html.twig', [
-            'customerFirstname' => $customer->getFirstname(),
-            'customerLastname' => $customer->getLastname(),
+            'customer_firstname' => $customer->getFirstname(),
+            'customer_lastname' => $customer->getLastname(),
+            'customer_id' => $customer->getId(),
             'form' => $form->createView()
             ]);
+
     }
 
     /**
      * @Route("/delete/{id}", name="deleteCustomer")
      */
-    public function deleteCustomer(Customer $customer){
+    public function deleteCustomer(Customer $customer, ObjectManager $manager){
+        
+        $manager->remove($customer);
+        $manager->flush();
+
         return $this->render('customers/delete.html.twig', [
             'customerFirstname' => $customer->getFirstname(),
             'customerLastname' => $customer->getLastname()
