@@ -20,7 +20,7 @@ class HomeController extends AbstractController
      */
     public function app()
     {
-        return $this->render( 'base.html.twig', [
+        return $this->render('base.html.twig', [
         ]);
     }
 }

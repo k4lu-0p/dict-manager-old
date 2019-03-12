@@ -2,11 +2,12 @@
     <h1>edit customer</h1>
     <div class="card">
 
-        <h2>{{ customerId }}</h2>
+        <h2>{{ customerFirstname }} {{ customerLastname }}</h2>
 
-        <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam voluptas, magnam commodi mollitia corrupti ratione consequuntur voluptatum fuga saepe quidem, explicabo adipisci reiciendis quaerat iste non sint quibusdam modi asperiores?
-        </p>
+        {{ form_start(form) }}
 
+        {{ form_rest(form) }}
+
+        {{ form_end(form) }}
     </div>
 </div>
