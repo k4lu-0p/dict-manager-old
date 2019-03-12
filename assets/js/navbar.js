@@ -11,7 +11,14 @@ window.addEventListener("DOMContentLoad", activeButton(buttonByDefaultActivated)
 navbar.addEventListener('click', (e) => {
     if (e.target.classList.contains('buttons-menu') || e.target.parentNode.classList.contains('buttons-menu')) {
 
-        activeButton(e.target);
+
+        if (e.target.nodeName === "BUTTON") {
+            // activeButton(e.target.firstChild);
+            console.log(e.target.firstChild);
+        } else {
+            activeButton(e.target);
+        }
+
     }
 })
 
@@ -21,7 +28,7 @@ function activeButton(buttonSelected) {
     // On éteint tout les boutons déjà allumés.
     buttonsMenu.forEach(button => {
         button.style.color = "#92A2BC";
-        console.log(button);
+
     });
 
     // Allume le boutton sélectionné.
