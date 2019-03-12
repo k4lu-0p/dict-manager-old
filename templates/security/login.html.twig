@@ -7,18 +7,26 @@
         {{ encore_entry_link_tags("app")}}
     </head>
     <body>
+        <div class="container-fluid-login container-fluid d-flex justify-content-center align-items-center">
+            
+            <form action="{{ path('login') }}" method="post" class="form-login d-flex flex-column justify-content-center align-items-center">
 
-        <form action="{{ path('login') }}" method="post" class="">
+                <img src="/build/images/logo.svg" alt="logo DICT" id="logo">
 
-            {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
+                {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
 
-            <input type="email" id="input-email" class="input-email" placeholder="Enter your email" value="{{ last_username }}" name="_username" required autofocus>
-            <input type="password" id="input-password" class="input-password" placeholder="Enter your password" name="_password" required>
-            <button class="button-connexion" type="submit">Sign in</button>
-
-        </form>
+                <div class="wrapper-login d-flex flex-column justify-content-around align-items-center">
+                    <input type="email" id="input-email" class="input-email px-5" placeholder="Your Email" value="{{ last_username }}" name="_username" required autofocus>
+                    <input type="password" id="input-password" class="input-password px-5" placeholder="Your Password" name="_password" required>
+                    <button class="btn btn-danger button-connexion" type="submit">Sign In</button>
+                </div>
+            
+            </form>
+        
+        
+        </div>
 
         {% block javascripts %}{% endblock %}
         {{ encore_entry_script_tags("app")}}

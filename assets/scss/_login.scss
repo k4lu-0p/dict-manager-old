@@ -1,21 +1,69 @@
 // Formulaire de connexion
-form {
+body {
 
-    .input-email {
-        transition: all 0.5s;
-    }
-    
-    .input-password {
-    
-    }
-    
-    .button-connexion {
-    
-    }
-    
-    // Class animation
-    .input-email-error {
-        border: red solid 1px;
+    min-height: 100vh;
+    background-color: $dark-color;
+
+    .container-fluid-login {
+
+        background-image: url('../../assets/static/bg-login-2.jpg');
+        background-position: top;
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100vh;
+
+
+
+        .form-login {
+            font-family: $main-font;
+
+            #logo {
+                height: 300px;
+            }
+
+            // background-color: $less-dark;
+            .wrapper-login {
+
+                min-height: 30vh;
+
+                .input-email,
+                .input-password {
+                    outline: none;
+                    color: $white-color;
+                    font-size: 45px;
+                    width: 80vw;
+                    height: 7vh;
+                    border-radius: 12px;
+                    background-color: transparent;
+                    border: solid $elem-color 7px;
+                    transition: all 0.5s;
+                }
+
+                .input-email::placeholder,
+                .input-password::placeholder {
+                    color: $less-light-color;
+                }
+
+                .input-email {}
+
+                .input-password {}
+
+                .button-connexion {
+                    background-color: $flash-color;
+                    min-height: 7vh;
+                    min-width: 60vw;
+                    font-size: 50px;
+                    padding-bottom: 12px !important;
+                    border-radius: 12px;
+                }
+            }
+
+            // Class animation
+            .input-email-error {
+                border: red solid 1px;
+            }
+
+        }
     }
 
-}    
+}
