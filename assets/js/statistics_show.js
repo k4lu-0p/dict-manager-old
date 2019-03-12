@@ -1,5 +1,7 @@
 // Premier affichage
-window.addEventListener("onLoad", showChartsWithAjax());
+if (document.querySelector('#app')) {
+    window.addEventListener("onLoad", showChartsWithAjax());
+}
 
 // Boutton statistique du menu.
 const buttonNavChart = document.querySelector('#nav-button-chart');

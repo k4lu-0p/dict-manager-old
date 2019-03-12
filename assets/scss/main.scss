@@ -2,17 +2,18 @@
 @import url('https://fonts.googleapis.com/css?family=Sawarabi+Gothic');
 
 // Colors : 
-$overlay-color   : #404956;
-$flash-color     : #E32168;
-$white-color     : #EAFFFE;
-$dark-color      : #373F4A;
-$elem-color      : #444E61;
-$light-color     : #B6C8E5;
-$less-light-color: #90A1BA;
-$less-dark       : #5E6B7C;
+$overlay-color : #404956;
+$flash-color : #e12768;
+$white-color : #EAFFFE;
+$dark-color : #353b49;
+$elem-color : #4b5465;
+$light-color : #B6C8E5;
+$less-light-color: #92a2bc;
+$less-dark : #3c4356;
 
 // Fonts : 
-$main-font : 'Sawarabi Gothic', sans-serif;
+$main-font : 'Sawarabi Gothic',
+sans-serif;
 
 // Partials :
 @import 'login';
