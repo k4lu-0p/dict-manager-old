@@ -11,7 +11,6 @@ window.addEventListener("DOMContentLoad", activeButton(buttonByDefaultActivated)
 navbar.addEventListener('click', (e) => {
     if (e.target.classList.contains('buttons-menu') || e.target.parentNode.classList.contains('buttons-menu')) {
 
-
         if (e.target.nodeName === "BUTTON") {
             // activeButton(e.target.firstChild);
             console.log(e.target.firstChild);
