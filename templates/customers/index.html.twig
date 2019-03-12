@@ -9,9 +9,15 @@
         <p class="p-0 m-0">{{ customer.phone }}</p>
         <p class="p-0 m-0">{{ customer.addressNumber }}</p>
         
-        <button id="button-show-customer" data-id="{{ customer.id }}" data-action="show" class="show-details">Details</button>
-        <button id="button-edit-customer" data-id="{{ customer.id }}" data-action="edit" class="edit">Edit</button>
-        <button id="button-delete-customer" data-id="{{ customer.id }}" data-action="delete" class="delete">Delete</button>
+        <button class="button-show-customer" data-id="{{ customer.id }}" data-action="show">Details</button>
+        <button class="button-edit-customer" data-id="{{ customer.id }}" data-action="edit">Edit</button>
+        <button class="button-delete-customer" data-id="{{ customer.id }}">Delete</button>
     </div>
     {% endfor %}
+    <div id="confirm-delete-customer">
+        <h3>Do you really want to delete this guy ?</h3>
+        <button id="confirm-delete-customer-no">No</button>
+        <button id="confirm-delete-customer-yes">Yes</button>
+
+    </div>
 </div>

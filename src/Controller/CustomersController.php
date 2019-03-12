@@ -79,7 +79,11 @@ class CustomersController extends AbstractController
     /**
      * @Route("/delete/{id}", name="deleteCustomer")
      */
-    public function deleteCustomer(Customer $customer){
+    public function deleteCustomer(Customer $customer, ObjectManager $manager){
+        
+        $manager->remove($customer);
+        $manager->flush();
+
         return $this->render('customers/delete.html.twig', [
             'customerFirstname' => $customer->getFirstname(),
             'customerLastname' => $customer->getLastname()
