@@ -62,16 +62,17 @@ class CustomersController extends AbstractController
         $form = $this->createForm(CustomerType::class, $customer);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $manager->persist($customer);
-            $manager->flush();
-        }
-
+        
         return $this->render('customers/edit.html.twig', [
             'customerFirstname' => $customer->getFirstname(),
             'customerLastname' => $customer->getLastname(),
             'form' => $form->createView()
             ]);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($customer);
+            $manager->flush();
+        }
     }
 
     /**
