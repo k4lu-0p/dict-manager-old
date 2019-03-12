@@ -5,7 +5,7 @@ window.addEventListener('click', (e) => {
         e.preventDefault();
 
         // Envoi le formulaire en Ajax
-        sendFormCustomerEditWithAjax();
+        sendFormCustomerEditWithAjax(e.target.getAttribute("data-id"));
 
     }
 });
@@ -13,22 +13,40 @@ window.addEventListener('click', (e) => {
 // Fonction(s) déclenchées lors du click sur le bouton d'envois du formulaire de la newsletter : 
 // Envois les informations saisis à Symfony afin d'envoyer un ou plusieurs mails avec comme contenu,
 // les champs précédement remplis.
-function sendFormCustomerEditWithAjax() {
+function sendFormCustomerEditWithAjax(id) {
 
     // Formulaire à envoyer en POST.
     let formData = new FormData();
 
     // Valeurs dans les champs.
-    let subject = document.querySelector('#newsletter_subject').value;
-    let content = document.querySelector('#newsletter_content').value;
-    let picture = document.querySelector('#newsletter_picture').value;
-    let token = document.querySelector('#newsletter__token').value;
+    let firstname = document.querySelector('#customer_firstname').value;
+    let lastname = document.querySelector('#customer_lastname').value;
+    let phone = document.querySelector('#customer_phone').value;
+    let email = document.querySelector('#customer_email').value;
+    let address_number = document.querySelector('#customer_address_number').value;
+    let street_number = document.querySelector('#customer_street_number').value;
+    let street_name = document.querySelector('#customer_street_name').value;
+    let city = document.querySelector('#customer_city').value;
+    let pc = document.querySelector('#customer_pc').value;
+    let country = document.querySelector('#customer_country').value;
+    let building = document.querySelector('#customer_building').value;
+    let picture = document.querySelector('#customer_picture').value;
+    let token = document.querySelector('#customer__token').value;
 
     // Ajout des valeurs dans l'objet formulaire.
-    formData.append('newsletter[subject]', subject);
-    formData.append('newsletter[content]', content);
-    formData.append('newsletter[picture]', picture);
-    formData.append('newsletter[_token]', token);
+    formData.append('customer[firstname]', firstname);
+    formData.append('customer[lastname]', lastname);
+    formData.append('customer[phone]', phone);
+    formData.append('customer[email]', email);
+    formData.append('customer[address_number]', address_number);
+    formData.append('customer[street_number]', street_number);
+    formData.append('customer[street_name]', street_name);
+    formData.append('customer[city]', city);
+    formData.append('customer[pc]', pc);
+    formData.append('customer[country]', country);
+    formData.append('customer[building]', building);
+    formData.append('customer[picture]', picture);
+    formData.append('customer[token]', token);
 
     // Effacement du contenu existant.
     app.innerHTML = "";
@@ -38,7 +56,7 @@ function sendFormCustomerEditWithAjax() {
     loader.style.display = "inline-block";
 
     // Requête AJAX :
-    fetch('/app/newsletter/new', {
+    fetch(`/app/customers/edit/${id}`, {
             method: "POST",
             body: formData
         })

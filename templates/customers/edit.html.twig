@@ -2,7 +2,7 @@
     <h1>edit customer</h1>
     <div class="card">
 
-        <h2>{{ customerFirstname }} {{ customerLastname }}</h2>
+        <h2>{{ customer_firstname }} {{ customer_lastname }}</h2>
 
         {{ form_start(form) }}
 
@@ -42,7 +42,7 @@
             {{ form_label(form.picture, "Picture")}}
             {{ form_widget(form.picture)}}
 
-            <button id="edit-customer" type="submit" class="button-edit-customer">Edit</button>
+            <button id="edit-customer" type="submit" data-id="{{ customer_id }}" class="button-edit-customer">Edit</button>
 
         {{ form_end(form) }}
     </div>
