@@ -1,6 +1,6 @@
 .container-fluid-loader {
   display: none;
-  height: 100vh;
+  height: 80vh;
   width: 100vw;
 
 
@@ -17,7 +17,7 @@
     height: 246px;
     margin: 1px;
     border-radius: 50%;
-    border: 15px solid $flash-color;
+    border: 17px solid $flash-color;
     border-color: $flash-color transparent $flash-color transparent;
     animation: lds-dual-ring 1.2s linear infinite;
   }

@@ -13,3 +13,4 @@ require('./accounting_show.js');
 require('./customers_show.js');
 require('./newsletter_create.js');
 require('./statistics_show.js');
+require('./navbar.js');
