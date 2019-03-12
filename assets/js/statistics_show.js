@@ -23,8 +23,8 @@ function showChartsWithAjax() {
     app.innerHTML = "";
 
     // Apparition du loader.
-    let loader = document.querySelector('.lds-dual-ring');
-    loader.style.display = "inline-block";
+    let loader = document.querySelector('.container-fluid-loader');
+    loader.style.display = "flex";
 
     fetch('/app/statistics')
         .then(res => {
