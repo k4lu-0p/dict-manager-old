@@ -5,15 +5,18 @@ window.addEventListener('click', (e) => {
         e.preventDefault();
 
         // Envoi le formulaire en Ajax
-        sendFormCustomerEditWithAjax(e.target.getAttribute("data-id"));
-
+        if (e.target.id == "edit-customer") {
+            sendFormCustomerEditWithAjax("edit/".e.target.getAttribute("data-id"));
+        } else if (e.target.id == "add-customer") {
+            sendFormCustomerEditWithAjax("add");            
+        }
     }
 });
 
 // Fonction(s) déclenchées lors du click sur le bouton d'envois du formulaire de la newsletter : 
 // Envois les informations saisis à Symfony afin d'envoyer un ou plusieurs mails avec comme contenu,
 // les champs précédement remplis.
-function sendFormCustomerEditWithAjax(id) {
+function sendFormCustomerEditWithAjax(url) {
 
     // Formulaire à envoyer en POST.
     let formData = new FormData();
@@ -46,7 +49,7 @@ function sendFormCustomerEditWithAjax(id) {
     formData.append('customer[country]', country);
     formData.append('customer[building]', building);
     formData.append('customer[picture]', picture);
-    formData.append('customer[token]', token);
+    formData.append('customer[_token]', token);
 
     // Effacement du contenu existant.
     app.innerHTML = "";
@@ -56,7 +59,7 @@ function sendFormCustomerEditWithAjax(id) {
     loader.style.display = "inline-block";
 
     // Requête AJAX :
-    fetch(`/app/customers/edit/${id}`, {
+    fetch(`/app/customers/${url}`, {
             method: "POST",
             body: formData
         })
