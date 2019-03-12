@@ -31,9 +31,6 @@ window.addEventListener('click', (e) => {
                 })
             }
     }
-
-
-
 });
 
 // Fonction AJAX redirection
