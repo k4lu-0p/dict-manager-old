@@ -24,7 +24,7 @@ window.addEventListener('click', (e) => {
     if (e.target.classList.contains('button-delete-customer')) {
         e.preventDefault();
             if (e.target.getAttribute("data-id") != null || e.target.getAttribute("data-id") != undefined) {
-                showLightboxConfirmDeleteCustomerWithAjax(e.target.getAttribute("data-id"));
+                showLightboxConfirmDeleteCustomerWithAjax(e.target.getAttribute("data-id"), e.target.getAttribute("data-fullname"));
                 document.querySelector('#confirm-delete-customer-yes').addEventListener('click', (e) => {
                     e.preventDefault();
                     deleteCustomerWithAjax(e.target.getAttribute("data-id"))
@@ -70,9 +70,9 @@ function actionsCustomerWithAjax(id, action) {
 }
 
 // Montre la lightbox de confirmation de suppression de client
-function showLightboxConfirmDeleteCustomerWithAjax(id) {
-    console.log(id);
+function showLightboxConfirmDeleteCustomerWithAjax(id, fullname) {
     document.querySelector('#confirm-delete-customer-yes').setAttribute("data-id", id);
+    document.querySelector('#confirm-delete-customer-fullname').textContent = fullname;
 }
 
 // Suppression d'un client

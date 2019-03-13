@@ -1,6 +1,11 @@
 <div class="container container-customers">
     <h1>Customers</h1>
 <button id="button-add-customer" data-action="add" class="add">Add</button>
+<div id="confirm-delete-customer">
+    <h3>Do you really want to delete <span id="confirm-delete-customer-fullname"></span> ?</h3>
+    <button id="confirm-delete-customer-no">No</button>
+    <button id="confirm-delete-customer-yes">Yes</button>
+</div>
 
     {% for customer in customers %}
     <div class="card">
@@ -11,13 +16,7 @@
         
         <button class="button-show-customer" data-id="{{ customer.id }}" data-action="show">Details</button>
         <button class="button-edit-customer" data-id="{{ customer.id }}" data-action="edit">Edit</button>
-        <button class="button-delete-customer" data-id="{{ customer.id }}">Delete</button>
+        <button class="button-delete-customer" data-fullname="{{ customer.firstname }} {{ customer.lastname }}"data-id="{{ customer.id }}">Delete</button>
     </div>
     {% endfor %}
-    <div id="confirm-delete-customer">
-        <h3>Do you really want to delete this guy ?</h3>
-        <button id="confirm-delete-customer-no">No</button>
-        <button id="confirm-delete-customer-yes">Yes</button>
-
-    </div>
 </div>
