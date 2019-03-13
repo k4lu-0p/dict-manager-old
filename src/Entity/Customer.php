@@ -73,10 +73,10 @@ class Customer
      */
     private $building;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Bill", mappedBy="customer")
-     */
-    private $bills;
+    // /**
+    //  * @ORM\OneToMany(targetEntity="App\Entity\Bill", mappedBy="customer")
+    //  */
+    // private $bills;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\FlatRate", mappedBy="customer", orphanRemoval=true)
@@ -88,9 +88,14 @@ class Customer
      */
     private $picture = "/build/images/user.png";
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $newsletter;
+
     public function __construct()
     {
-        $this->bills = new ArrayCollection();
+        // $this->bills = new ArrayCollection();
         $this->flatRates = new ArrayCollection();
     }
 
@@ -231,36 +236,36 @@ class Customer
         return $this;
     }
 
-    /**
-     * @return Collection|Bill[]
-     */
-    public function getBills(): Collection
-    {
-        return $this->bills;
-    }
+    // /**
+    //  * @return Collection|Bill[]
+    //  */
+    // public function getBills(): Collection
+    // {
+    //     return $this->bills;
+    // }
 
-    public function addBill(Bill $bill): self
-    {
-        if (!$this->bills->contains($bill)) {
-            $this->bills[] = $bill;
-            $bill->setCustomer($this);
-        }
+    // public function addBill(Bill $bill): self
+    // {
+    //     if (!$this->bills->contains($bill)) {
+    //         $this->bills[] = $bill;
+    //         $bill->setCustomer($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeBill(Bill $bill): self
-    {
-        if ($this->bills->contains($bill)) {
-            $this->bills->removeElement($bill);
-            // set the owning side to null (unless already changed)
-            if ($bill->getCustomer() === $this) {
-                $bill->setCustomer(null);
-            }
-        }
+    // public function removeBill(Bill $bill): self
+    // {
+    //     if ($this->bills->contains($bill)) {
+    //         $this->bills->removeElement($bill);
+    //         // set the owning side to null (unless already changed)
+    //         if ($bill->getCustomer() === $this) {
+    //             $bill->setCustomer(null);
+    //         }
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @return Collection|FlatRate[]
@@ -301,6 +306,18 @@ class Customer
     public function setPicture(string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getNewsletter(): ?bool
+    {
+        return $this->newsletter;
+    }
+
+    public function setNewsletter(bool $newsletter): self
+    {
+        $this->newsletter = $newsletter;
 
         return $this;
     }

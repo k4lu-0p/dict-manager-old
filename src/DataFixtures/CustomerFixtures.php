@@ -66,7 +66,8 @@ class CustomerFixtures extends Fixture
                      ->setEmail($faker->email)
                      ->setAddressNumber($faker->numerify('##### #####'))
                      ->addFlatRate($flatRate)
-                     ->addBill($bill);
+                     ->setNewsletter(true);
+                    //  ->addBill($bill);
             $manager->persist($customer);
             
         }

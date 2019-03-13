@@ -36,13 +36,24 @@ class CustomersController extends AbstractController
         $form = $this->createForm(CustomerType::class, $customer);
         $form->handleRequest($request);
 
+        if ($form->isSubmitted()){
+
+            // Dump ne donnant rien, la condition n'est donc pas remplit =============================================================================
+
+             dump($form);
+             die;
+                };
+
         if ($form->isSubmitted() && $form->isValid()) {
+            dump($form);
+            die;
+
             $manager->persist($customer);
             $manager->flush();
-        }
-        return $this->render('customers/add.html.twig', [
-            'form' => $form->createView()
-            ]);
+        };
+            return $this->render('customers/add.html.twig', [
+                'form' => $form->createView()
+                ]);
     }
 
     /**
@@ -65,15 +76,14 @@ class CustomersController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($customer);
             $manager->flush();
-        }
-        
-        return $this->render('customers/edit.html.twig', [
-            'customer_firstname' => $customer->getFirstname(),
-            'customer_lastname' => $customer->getLastname(),
-            'customer_id' => $customer->getId(),
-            'form' => $form->createView()
-            ]);
-
+        } else {
+            return $this->render('customers/edit.html.twig', [
+                'customer_firstname' => $customer->getFirstname(),
+                'customer_lastname' => $customer->getLastname(),
+                'customer_id' => $customer->getId(),
+                'form' => $form->createView()
+                ]);
+            }
     }
 
     /**
@@ -84,9 +94,6 @@ class CustomersController extends AbstractController
         $manager->remove($customer);
         $manager->flush();
 
-        return $this->render('customers/delete.html.twig', [
-            'customerFirstname' => $customer->getFirstname(),
-            'customerLastname' => $customer->getLastname()
-            ]);
+        return $this->redirectToRoute('customers');
     }
 }
