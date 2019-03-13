@@ -1,3 +1,87 @@
-.container-newsletter {
+// Formulaire de newsletter
+body {
 
+    min-height: 100vh;
+    background-color: $dark-color;
+
+    .container-fluid-newsletter {
+
+        height: 90vh;
+        padding-bottom: 75px;
+
+        .form-newsletter {
+            font-family: $main-font;
+
+            .wrapper-fields-newsletter {
+
+                min-height: 30vh;
+
+                .input-subject,
+                .input-picture {
+                    outline: none;
+                    color: $white-color;
+                    font-size: 45px;
+                    width: 80vw;
+                    height: 7vh;
+                    border-radius: 12px;
+                    background-color: transparent;
+                    border: solid $elem-color 7px;
+                    transition: all 0.5s;
+                }
+
+                .input-subject::placeholder,
+                .input-picture::placeholder,
+                .input-content::placeholder {
+                    color: $less-light-color;
+                }
+
+                .input-subject {}
+
+                .input-picture {}
+
+                .input-content {
+                    outline: none;
+                    color: $white-color;
+                    font-size: 45px;
+                    width: 80vw;
+                    height: 27vh;
+                    border-radius: 12px;
+                    background-color: transparent;
+                    border: solid $elem-color 7px;
+                    transition: all 0.5s;
+                }
+
+                .button-newsletter-send {
+                    color: $white-color;
+                    background-color: $flash-color;
+                    min-height: 7vh;
+                    font-size: 50px;
+                    padding-bottom: 12px !important;
+                    border-radius: 12px;
+                }
+            }
+        }
+
+        .wrapper-title-newsletter {
+
+            color: $white-color;
+            font-family: $main-font;
+
+            i {
+                font-size: 12rem;
+                padding: 25px;
+            }
+
+            h2 {
+                font-size: 4rem;
+            }
+
+            p {
+                color: $less-light-color;
+                font-size: 45px;
+                padding-bottom: 30px;
+            }
+
+        }
+    }
 }

@@ -1,15 +1,25 @@
-<div class="container container-newsletter">
+<div class="container-fluid-newsletter container-fluid d-flex flex-column justify-content-around align-items-center">
+    
+    <div class="wrapper-title-newsletter d-flex flex-column justify-content-center align-items-center">
 
-    <h1>{{ title }}</h1>
+        <i class='uil uil-envelopes'></i>
+        <h2 class="title-newsletter">Newsletter</h2>
+        <p>Send it to all your customers.</p>
+    
+    </div>
 
-    {{ form_start(form) }}
-
-         {{ form_row(form.subject, {'required' : false, 'label' : false ,'attr' : {'class': 'form-control mb-3', 'placeholder' : 'Subject'}}) }}
-         {{ form_row(form.content, {'required' : false, 'label' : false ,'attr' : {'class': 'form-control mb-3', 'placeholder' : 'Content'}}) }}
-         {{ form_row(form.picture, {'required' : false, 'label' : false ,'attr' : {'class': 'form-control mb-3', 'placeholder' : 'Picture'}}) }}
-         {{ form_row(form._token)}}
-        <button id="send-button-newsletter" type="submit" class="button-newsletter-send">Send to all</button>
-
-
+    {{ form_start(form, { 'attr' : { 'class' : 'form-newsletter d-flex flex-column justify-content-center align-items-center' }}) }}
+   
+        <div class="wrapper-fields-newsletter d-flex flex-column justify-content-around align-items-center">
+            {{ form_row(form.subject, {'required' : true, 'label' : false ,'attr' : {'class': 'input-subject px-5 my-3', 'placeholder' : 'Subject'}}) }}
+            {{ form_row(form.content, {'required' : true, 'label' : false ,'attr' : {'class': 'input-content px-5 py-4 my-3', 'placeholder' : 'Content'}}) }}
+            {{ form_row(form.picture, {'required' : false, 'label' : false ,'attr' : {'class': 'input-picture px-5 my-3', 'placeholder' : 'Picture (optional)'}}) }}
+            {{ form_row(form._token)}}
+            <button id="send-button-newsletter" type="submit" class="btn btn-block button-newsletter-send my-4">Send to all</button>      
+        </div>
+    
     {{ form_end(form) }}
+
+
 </div>
+
