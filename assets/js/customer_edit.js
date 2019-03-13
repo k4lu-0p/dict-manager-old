@@ -34,6 +34,7 @@ function sendFormCustomerEditWithAjax(url) {
     let country = document.querySelector('#customer_country').value;
     let building = document.querySelector('#customer_building').value;
     let picture = document.querySelector('#customer_picture').value;
+    let newsletter = document.querySelector('#customer_newsletter').checked;
     let token = document.querySelector('#customer__token').value;
 
     // Ajout des valeurs dans l'objet formulaire.
@@ -49,6 +50,7 @@ function sendFormCustomerEditWithAjax(url) {
     formData.append('customer[country]', country);
     formData.append('customer[building]', building);
     formData.append('customer[picture]', picture);
+    formData.append('customer[newsletter]', newsletter);
     formData.append('customer[_token]', token);
 
     // Effacement du contenu existant.
@@ -69,7 +71,6 @@ function sendFormCustomerEditWithAjax(url) {
 
         })
         .then(res => {
-
             // Dès reception, disparition du loader.
             loader.style.display = "none";
 

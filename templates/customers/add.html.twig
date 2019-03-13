@@ -4,43 +4,46 @@
 
         {{ form_start(form) }}
 
-            {{ form_label(form.firstname, "Firstname")}}
-            {{ form_widget(form.firstname)}}
+        {{ form_label(form.firstname, "Firstname")}}
+        {{ form_widget(form.firstname)}}
 
-            {{ form_label(form.lastname, "Lastname")}}
-            {{ form_widget(form.lastname)}}
+        {{ form_label(form.lastname, "Lastname")}}
+        {{ form_widget(form.lastname)}}
 
-            {{ form_label(form.phone, "Phone")}}
-            {{ form_widget(form.phone)}}
+        {{ form_label(form.phone, "Phone")}}
+        {{ form_widget(form.phone)}}
 
-            {{ form_label(form.email, "Email")}}
-            {{ form_widget(form.email)}}
+        {{ form_label(form.email, "Email")}}
+        {{ form_widget(form.email)}}
 
-            {{ form_label(form.address_number, "Makani number")}}
-            {{ form_widget(form.address_number)}}
+        {{ form_label(form.address_number, "Makani number")}}
+        {{ form_widget(form.address_number)}}
 
-            {{ form_label(form.street_number, "Street number")}}
-            {{ form_widget(form.street_number)}}
+        {{ form_label(form.street_number, "Street number")}}
+        {{ form_widget(form.street_number)}}
 
-            {{ form_label(form.street_name, "Street name")}}
-            {{ form_widget(form.street_name)}}
+        {{ form_label(form.street_name, "Street name")}}
+        {{ form_widget(form.street_name)}}
 
-            {{ form_label(form.city, "City")}}
-            {{ form_widget(form.city)}}
+        {{ form_label(form.city, "City")}}
+        {{ form_widget(form.city)}}
 
-            {{ form_label(form.pc, "PC")}}
-            {{ form_widget(form.pc)}}
+        {{ form_label(form.pc, "PC")}}
+        {{ form_widget(form.pc)}}
 
-            {{ form_label(form.country, "Country")}}
-            {{ form_widget(form.country)}}
+        {{ form_label(form.country, "Country")}}
+        {{ form_widget(form.country)}}
 
-            {{ form_label(form.building, "Building")}}
-            {{ form_widget(form.building)}}
+        {{ form_label(form.building, "Building")}}
+        {{ form_widget(form.building)}}
 
-            {{ form_label(form.picture, "Picture")}}
-            {{ form_widget(form.picture)}}
+        {{ form_label(form.picture, "Picture")}}
+        {{ form_widget(form.picture)}}
 
-            <button id="add-customer" type="submit" class="button-add-customer">Add</button>
+        <label for="newsletter">Newsletter</label>
+        <input type="checkbox" name="newsletter" id="customer_newsletter">
+
+        <button id="add-customer" type="submit" class="button-add-customer">Add</button>
 
         {{ form_end(form) }}
 

@@ -50,6 +50,7 @@ function actionsCustomerWithAjax(id, action) {
     } else {
         $url = `/app/customers/${action}/${id}`;
     }
+    
     fetch($url)
         .then(res => {
             return res.text();

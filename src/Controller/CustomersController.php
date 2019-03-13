@@ -40,9 +40,9 @@ class CustomersController extends AbstractController
             $manager->persist($customer);
             $manager->flush();
         }
-        return $this->render('customers/add.html.twig', [
-            'form' => $form->createView()
-            ]);
+            return $this->render('customers/add.html.twig', [
+                'form' => $form->createView()
+                ]);
     }
 
     /**
@@ -65,27 +65,24 @@ class CustomersController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($customer);
             $manager->flush();
-        }
-        
-        return $this->render('customers/edit.html.twig', [
-            'customer_firstname' => $customer->getFirstname(),
-            'customer_lastname' => $customer->getLastname(),
-            'customer_id' => $customer->getId(),
-            'form' => $form->createView()
-            ]);
-
+        } else {
+            return $this->render('customers/edit.html.twig', [
+                'customer_firstname' => $customer->getFirstname(),
+                'customer_lastname' => $customer->getLastname(),
+                'customer_id' => $customer->getId(),
+                'form' => $form->createView()
+                ]);
+            }
     }
 
     /**
      * @Route("/delete/{id}", name="deleteCustomer")
      */
-    public function deleteCustomer(Customer $customer, ObjectManager $manager, CustomerRepository $repo){
+    public function deleteCustomer(Customer $customer, ObjectManager $manager){
         
         $manager->remove($customer);
         $manager->flush();
 
-        return $this->render('customers/index.html.twig', [
-            'customers' => $repo->findAll(),
-        ]);
+        return $this->redirectToRoute('customers');
     }
 }
