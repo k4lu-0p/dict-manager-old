@@ -1,19 +1,19 @@
-<div class="container-fluid-newsletter container-fluid d-flex flex-column justify-content-around align-items-center">
+<div class="container-fluid-newsletter container-fluid d-flex flex-column justify-content-between align-items-center">
     
     <div class="wrapper-title-newsletter d-flex flex-column justify-content-center align-items-center">
 
         <i class='uil uil-envelopes'></i>
         <h2 class="title-newsletter">Newsletter</h2>
-        <p>Send it to all your customers.</p>
+        <p class="m-0">Send it to all your customers.</p>
     
     </div>
 
     {{ form_start(form, { 'attr' : { 'class' : 'form-newsletter d-flex flex-column justify-content-center align-items-center' }}) }}
    
         <div class="wrapper-fields-newsletter d-flex flex-column justify-content-around align-items-center">
-            {{ form_row(form.subject, {'required' : true, 'label' : false ,'attr' : {'class': 'input-subject px-2', 'placeholder' : 'Subject'}}) }}
-            {{ form_row(form.content, {'required' : true, 'label' : false ,'attr' : {'class': 'input-content px-2 py-2 my-2', 'placeholder' : 'Content'}}) }}
-            {{ form_row(form.picture, {'required' : false, 'label' : false ,'attr' : {'class': 'input-picture px-2', 'placeholder' : 'Picture (optional)'}}) }}
+            {{ form_row(form.subject, {'required' : true, 'label' : false ,'attr' : {'class': 'input-subject px-3', 'placeholder' : 'Subject'}}) }}
+            {{ form_row(form.content, {'required' : true, 'label' : false ,'attr' : {'class': 'input-content px-3 py-2 my-2', 'placeholder' : 'Content'}}) }}
+            {{ form_row(form.picture, {'required' : false, 'label' : false ,'attr' : {'class': 'input-picture px-3', 'placeholder' : 'Picture (optional)'}}) }}
             {{ form_row(form._token)}}
             <button id="send-button-newsletter" type="submit" class="btn btn-block button-newsletter-send ">Send to all</button>      
         </div>
