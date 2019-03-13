@@ -1,14 +1,16 @@
 <div class="container container-customers">
     <h1>Customers</h1>
+
 <button id="button-add-customer" data-action="add" class="add">Add</button>
-<div id="confirm-delete-customer">
-    <h3>Do you really want to delete <span id="confirm-delete-customer-fullname"></span> ?</h3>
+
+<div id="confirm-delete-customer" class="card my-3">
+    <h3>Do you really want to delete <strong><span id="confirm-delete-customer-fullname"></span></strong> ?</h3>
     <button id="confirm-delete-customer-no">No</button>
     <button id="confirm-delete-customer-yes">Yes</button>
 </div>
 
     {% for customer in customers %}
-    <div class="card">
+    <div class="card card-customers my-1">
         <p class="p-0 m-0">{{ customer.firstname }}</p>
         <p class="p-0 m-0">{{ customer.lastname }}</p>
         <p class="p-0 m-0">{{ customer.phone }}</p>
@@ -19,4 +21,5 @@
         <button class="button-delete-customer" data-fullname="{{ customer.firstname }} {{ customer.lastname }}"data-id="{{ customer.id }}">Delete</button>
     </div>
     {% endfor %}
+
 </div>
