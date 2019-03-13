@@ -40,6 +40,8 @@
         {{ form_label(form.picture, "Picture")}}
         {{ form_widget(form.picture)}}
 
+        {# Newsletter inexistant dans le form, mais indispensable car nullable=false #}
+
         <label for="newsletter">Newsletter</label>
         <input type="checkbox" name="newsletter" id="customer_newsletter">
 

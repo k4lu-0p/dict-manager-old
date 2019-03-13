@@ -34,7 +34,10 @@ function sendFormCustomerEditWithAjax(url) {
     let country = document.querySelector('#customer_country').value;
     let building = document.querySelector('#customer_building').value;
     let picture = document.querySelector('#customer_picture').value;
+
+    // element.checked pour le booléen
     let newsletter = document.querySelector('#customer_newsletter').checked;
+    
     let token = document.querySelector('#customer__token').value;
 
     // Ajout des valeurs dans l'objet formulaire.
