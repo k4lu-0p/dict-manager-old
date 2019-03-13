@@ -2,16 +2,12 @@
 .container-fluid-newsletter {
 
     height: 90vh;
-    // padding-bottom: 75px;
 
     .form-newsletter {
         font-family: $main-font;
         height: 60%;
 
         .wrapper-fields-newsletter {
-
-            // min-height: 58vh;
-            // margin-top: 10px;
 
             .input-subject,
             .input-picture {
@@ -31,7 +27,11 @@
                 color: $less-light-color;
             }
 
-            .input-subject {}
+            .input-subject:focus,
+            .input-picture:focus,
+            .input-content:focus {
+                border-color: $flash-color;
+            }
 
             .input-picture {
                 margin-top: -5px;
@@ -46,6 +46,7 @@
                 border: solid $elem-color 2px;
                 transition: all 0.5s;
                 border-radius: 0.7vh;
+
             }
 
             .button-newsletter-send {
@@ -55,19 +56,24 @@
                 min-height: 50px;
                 border-radius: 0.7vh;
                 margin: 10px;
+                transition: transform 0.2s ease-out;
+            }
+
+            .button-newsletter-send:active {
+                filter: grayscale(40%);
+                transform: scale(0.95);
             }
         }
     }
 
     .wrapper-title-newsletter {
-        // margin-top: 40px;
+
         height: 40%;
         color: $white-color;
         font-family: $main-font;
 
         i {
             font-size: 10vh;
-
         }
 
         h2 {
@@ -76,8 +82,6 @@
 
         p {
             color: $less-light-color;
-            // font-size: 45px;
-            // padding-bottom: 30px;
         }
 
     }

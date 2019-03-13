@@ -14,7 +14,6 @@
             height: 15vh;
         }
 
-        // background-color: $less-dark;
         .wrapper-login {
 
             min-height: 30vh;
@@ -28,7 +27,7 @@
                 border-radius: 5px;
                 background-color: transparent;
                 border: solid $elem-color 2px;
-                transition: all 0.5s;
+                transition: all 0.5s, border-color 0.6s;
             }
 
             .input-email::placeholder,
@@ -36,22 +35,30 @@
                 color: $less-light-color;
             }
 
-            .input-email {}
+            .input-email:focus,
+            .input-password:focus {
+                border-color: $flash-color;
+            }
 
-            .input-password {}
 
             .button-connexion {
                 color: $white-color;
                 background-color: $flash-color;
                 width: 65vw;
                 min-height: 60px;
-                // min-height: 7vh;
-                // min-width: 60vw;
-                // font-size: 50px;
-                // padding-bottom: 12px !important;
-                // border-radius: 12px;
                 margin-top: 20px;
+                transition: transform 0.2s ease-out;
             }
+
+            .button-connexion:focus {
+                
+            }
+
+            .button-connexion:active {
+                filter: grayscale(40%);
+                transform: scale(0.95);
+            }
+
         }
 
         // Class animation
