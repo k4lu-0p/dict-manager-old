@@ -79,14 +79,13 @@ class CustomersController extends AbstractController
     /**
      * @Route("/delete/{id}", name="deleteCustomer")
      */
-    public function deleteCustomer(Customer $customer, ObjectManager $manager){
+    public function deleteCustomer(Customer $customer, ObjectManager $manager, CustomerRepository $repo){
         
         $manager->remove($customer);
         $manager->flush();
 
-        return $this->render('customers/delete.html.twig', [
-            'customerFirstname' => $customer->getFirstname(),
-            'customerLastname' => $customer->getLastname()
-            ]);
+        return $this->render('customers/index.html.twig', [
+            'customers' => $repo->findAll(),
+        ]);
     }
 }

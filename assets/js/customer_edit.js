@@ -6,7 +6,7 @@ window.addEventListener('click', (e) => {
 
         // Envoi le formulaire en Ajax
         if (e.target.id == "edit-customer") {
-            sendFormCustomerEditWithAjax("edit/".e.target.getAttribute("data-id"));
+            sendFormCustomerEditWithAjax("edit/" + e.target.getAttribute("data-id"));
         } else if (e.target.id == "add-customer") {
             sendFormCustomerEditWithAjax("add");            
         }

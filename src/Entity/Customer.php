@@ -88,6 +88,11 @@ class Customer
      */
     private $picture = "/build/images/user.png";
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $newsletter;
+
     public function __construct()
     {
         $this->bills = new ArrayCollection();
@@ -301,6 +306,18 @@ class Customer
     public function setPicture(string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getNewsletter(): ?bool
+    {
+        return $this->newsletter;
+    }
+
+    public function setNewsletter(bool $newsletter): self
+    {
+        $this->newsletter = $newsletter;
 
         return $this;
     }

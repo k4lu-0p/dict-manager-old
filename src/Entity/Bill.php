@@ -23,7 +23,7 @@ class Bill
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="bills")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $customer;
 

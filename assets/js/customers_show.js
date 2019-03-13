@@ -77,7 +77,7 @@ function showLightboxConfirmDeleteCustomerWithAjax(id, fullname) {
 
 // Suppression d'un client
 function deleteCustomerWithAjax(id) {
-
+console.log(id);
     // Container de rendu.
     let app = document.querySelector('#app');
 
@@ -88,7 +88,7 @@ function deleteCustomerWithAjax(id) {
     let loader = document.querySelector('.container-fluid-loader');
     loader.style.display = "flex";
 
-    fetch('/app/statistics')
+    fetch(`/app/customers/delete/${id}`)
         .then(res => {
             return res.text();
         })
