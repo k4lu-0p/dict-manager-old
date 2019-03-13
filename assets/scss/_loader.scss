@@ -1,23 +1,27 @@
 .container-fluid-loader {
   display: none;
-  height: 80vh;
-  width: 100vw;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  top: 40vh;
 
 
   .lds-dual-ring {
-
-    width: 64px;
-    height: 64px;
+    z-index: 999999;
+    width: 164px;
+    height: 164px;
   }
 
   .lds-dual-ring:after {
     content: " ";
     display: block;
-    width: 246px;
-    height: 246px;
+    width: 80px;
+    height: 80px;
     margin: 1px;
     border-radius: 50%;
-    border: 17px solid $flash-color;
+    border: 7px solid $flash-color;
     border-color: $flash-color transparent $flash-color transparent;
     animation: lds-dual-ring 1.2s linear infinite;
   }
