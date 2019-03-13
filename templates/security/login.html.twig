@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome to DICT Manager!{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="manifest" href="{{ asset('manifest.json') }}">
         {% block stylesheets %}{% endblock %}
         {{ encore_entry_link_tags("app")}}
@@ -19,8 +20,8 @@
                 {% endif %}
 
                 <div class="wrapper-login d-flex flex-column justify-content-around align-items-center">
-                    <input type="email" id="input-email" class="input-email px-5" placeholder="Your Email" value="{{ last_username }}" name="_username" required autofocus>
-                    <input type="password" id="input-password" class="input-password px-5" placeholder="Your Password" name="_password" required>
+                    <input type="email" id="input-email" class="input-email px-2" placeholder="Your Email" value="{{ last_username }}" name="_username" required autofocus>
+                    <input type="password" id="input-password" class="input-password px-2 my-3" placeholder="Your Password" name="_password" required>
                     <button class="btn button-connexion" type="submit">Sign In</button>
                 </div>
             

@@ -11,11 +11,11 @@
     {{ form_start(form, { 'attr' : { 'class' : 'form-newsletter d-flex flex-column justify-content-center align-items-center' }}) }}
    
         <div class="wrapper-fields-newsletter d-flex flex-column justify-content-around align-items-center">
-            {{ form_row(form.subject, {'required' : true, 'label' : false ,'attr' : {'class': 'input-subject px-5 my-3', 'placeholder' : 'Subject'}}) }}
-            {{ form_row(form.content, {'required' : true, 'label' : false ,'attr' : {'class': 'input-content px-5 py-4 my-3', 'placeholder' : 'Content'}}) }}
-            {{ form_row(form.picture, {'required' : false, 'label' : false ,'attr' : {'class': 'input-picture px-5 my-3', 'placeholder' : 'Picture (optional)'}}) }}
+            {{ form_row(form.subject, {'required' : true, 'label' : false ,'attr' : {'class': 'input-subject px-2', 'placeholder' : 'Subject'}}) }}
+            {{ form_row(form.content, {'required' : true, 'label' : false ,'attr' : {'class': 'input-content px-2 py-2 my-2', 'placeholder' : 'Content'}}) }}
+            {{ form_row(form.picture, {'required' : false, 'label' : false ,'attr' : {'class': 'input-picture px-2', 'placeholder' : 'Picture (optional)'}}) }}
             {{ form_row(form._token)}}
-            <button id="send-button-newsletter" type="submit" class="btn btn-block button-newsletter-send my-4">Send to all</button>      
+            <button id="send-button-newsletter" type="submit" class="btn btn-block button-newsletter-send ">Send to all</button>      
         </div>
     
     {{ form_end(form) }}

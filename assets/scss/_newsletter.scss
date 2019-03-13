@@ -1,87 +1,82 @@
 // Formulaire de newsletter
-body {
+.container-fluid-newsletter {
 
-    min-height: 100vh;
-    background-color: $dark-color;
+    // height: 90vh;
+    // padding-bottom: 75px;
 
-    .container-fluid-newsletter {
+    .form-newsletter {
+        font-family: $main-font;
 
-        height: 90vh;
-        padding-bottom: 75px;
+        .wrapper-fields-newsletter {
 
-        .form-newsletter {
-            font-family: $main-font;
+            min-height: 58vh;
+            margin-top: 10px;
 
-            .wrapper-fields-newsletter {
-
-                min-height: 30vh;
-
-                .input-subject,
-                .input-picture {
-                    outline: none;
-                    color: $white-color;
-                    font-size: 45px;
-                    width: 80vw;
-                    height: 7vh;
-                    border-radius: 12px;
-                    background-color: transparent;
-                    border: solid $elem-color 7px;
-                    transition: all 0.5s;
-                }
-
-                .input-subject::placeholder,
-                .input-picture::placeholder,
-                .input-content::placeholder {
-                    color: $less-light-color;
-                }
-
-                .input-subject {}
-
-                .input-picture {}
-
-                .input-content {
-                    outline: none;
-                    color: $white-color;
-                    font-size: 45px;
-                    width: 80vw;
-                    height: 27vh;
-                    border-radius: 12px;
-                    background-color: transparent;
-                    border: solid $elem-color 7px;
-                    transition: all 0.5s;
-                }
-
-                .button-newsletter-send {
-                    color: $white-color;
-                    background-color: $flash-color;
-                    min-height: 7vh;
-                    font-size: 50px;
-                    padding-bottom: 12px !important;
-                    border-radius: 12px;
-                }
-            }
-        }
-
-        .wrapper-title-newsletter {
-
-            color: $white-color;
-            font-family: $main-font;
-
-            i {
-                font-size: 12rem;
-                padding: 25px;
+            .input-subject,
+            .input-picture {
+                outline: none;
+                color: $white-color;
+                min-height: 60px;
+                width: 85vw;
+                border-radius: 5px;
+                background-color: transparent;
+                border: solid $elem-color 2px;
+                transition: all 0.5s;
             }
 
-            h2 {
-                font-size: 4rem;
-            }
-
-            p {
+            .input-subject::placeholder,
+            .input-picture::placeholder,
+            .input-content::placeholder {
                 color: $less-light-color;
-                font-size: 45px;
-                padding-bottom: 30px;
             }
 
+            .input-subject {}
+
+            .input-picture {
+                margin-top: -5px;
+            }
+
+            .input-content {
+                outline: none;
+                color: $white-color;
+                width: 85vw;
+                height: 150px;
+                background-color: transparent;
+                border: solid $elem-color 2px;
+                transition: all 0.5s;
+                border-radius: 0.7vh;
+            }
+
+            .button-newsletter-send {
+                color: $white-color;
+                background-color: $flash-color;
+                border-radius: 2px;
+                height: 7vh;
+                border-radius: 0.7vh;
+                margin: 10px;
+            }
         }
+    }
+
+    .wrapper-title-newsletter {
+
+        color: $white-color;
+        font-family: $main-font;
+
+        i {
+            font-size: 10vh;
+
+        }
+
+        h2 {
+            font-size: 3vh;
+        }
+
+        p {
+            color: $less-light-color;
+            // font-size: 45px;
+            // padding-bottom: 30px;
+        }
+
     }
 }
