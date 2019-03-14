@@ -22,26 +22,20 @@ class StatisticsController extends AbstractController
     {
         // return $this->render('statistics/show.html.twig', [
         // ]);
-        $nbCustomers = 0;
-        $nbFlatRates = 0;
-        $nbSessions = 0;
+        $nbCustomers = count($customers->findAll());
+        $nbFlatRates = count($flatRates->findAll()); 
+        $nbSessions = count($sessions->findAll());
 
-        foreach ($customers->findAll() as $key) {
-            $nbCustomers++;
-        }
-        foreach ($flatRates->findAll() as $key) {
-            $nbFlatRates++;
-        }
-        foreach ($sessions->findAll() as $key) {
-            $nbSessions++;
-        }
-
-        $data = [];
         $render = $this->render('statistics/show.html.twig');
-        array_push($data,$render);
-        array_push($data, $nbCustomers);
-        array_push($data, $nbFlatRates);
-        array_push($data, $nbSessions);
+        $data = [
+            'render' => $render->getContent(),
+            'nbCustomers' => $nbCustomers,
+            'nbFlatRates' => $nbFlatRates,
+            'nbSessions' => $nbSessions
+        ];
+
+        //dump($data['render']);
+
         return new JsonResponse($data, 200);
     }
 }

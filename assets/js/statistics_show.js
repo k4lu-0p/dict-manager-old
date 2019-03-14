@@ -28,7 +28,7 @@ function showChartsWithAjax() {
 
     fetch('/app/statistics/')
         .then(res => {
-            return res.text();
+            return res.json();
         })
         .then(res => {
 
@@ -36,7 +36,19 @@ function showChartsWithAjax() {
             loader.style.display = "none";
 
             // Injecte le contenu receptionné dans le container.
-            app.innerHTML = res;
+            app.innerHTML = res.render;
+
+            var myLineChart = new Chart(document.querySelector('#test'), {
+                type: 'line',
+                data:  [{
+                        x: 10,
+                        y: 20
+                    }, {
+                        x: 15,
+                        y: 10
+                    }]
+            });
+
         })
         .catch(err => {
             if (err) {
