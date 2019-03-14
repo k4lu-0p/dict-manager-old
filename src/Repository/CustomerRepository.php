@@ -19,14 +19,32 @@ class CustomerRepository extends ServiceEntityRepository
         parent::__construct($registry, Customer::class);
     }
 
-    public function findAllEmail()
+    // /**
+    //  * @return Customer[] Returns an array of Customer objects
+    //  */
+    /*
+    public function findByExampleField($value)
     {
-        $qb = $this->createQueryBuilder('e');
-
-        return $qb->select('c.email')
-            ->from(Customer::class, 'c')
-            ->distinct()
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.exampleField = :val')
+            ->setParameter('val', $value)
+            ->orderBy('c.id', 'ASC')
+            ->setMaxResults(10)
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
     }
+    */
+
+    /*
+    public function findOneBySomeField($value): ?Customer
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.exampleField = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+    */
 }

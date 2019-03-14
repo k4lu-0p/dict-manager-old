@@ -43,7 +43,7 @@ class Admin implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $society_number;
+    private $societyNumber;
 
     
     /**
@@ -110,12 +110,12 @@ class Admin implements UserInterface
 
     public function getSocietyNumber(): ?string
     {
-        return $this->society_number;
+        return $this->societyNumber;
     }
 
-    public function setSocietyNumber(string $society_number): self
+    public function setSocietyNumber(string $societyNumber): self
     {
-        $this->society_number = $society_number;
+        $this->societyNumber = $societyNumber;
 
         return $this;
     }

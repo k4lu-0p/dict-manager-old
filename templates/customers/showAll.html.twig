@@ -1,13 +1,14 @@
 <div class="container container-customers">
+
     <h1>Customers</h1>
 
-<button id="button-add-customer" data-action="add" class="add">Add</button>
-
-<div id="confirm-delete-customer" class="card my-3">
+    <button id="button-add-customer" data-action="add" class="add">Add</button>
+    
+{# <div id="confirm-delete-customer" class="card my-3">
     <h3>Do you really want to delete <strong><span id="confirm-delete-customer-fullname"></span></strong> ?</h3>
     <button id="confirm-delete-customer-no">No</button>
     <button id="confirm-delete-customer-yes">Yes</button>
-</div>
+</div> #}
 
     {% for customer in customers %}
     <div class="card card-customers my-1">
@@ -15,10 +16,13 @@
         <p class="p-0 m-0">{{ customer.lastname }}</p>
         <p class="p-0 m-0">{{ customer.phone }}</p>
         <p class="p-0 m-0">{{ customer.addressNumber }}</p>
-        
-        <button class="button-show-customer" data-id="{{ customer.id }}" data-action="show">Details</button>
-        <button class="button-edit-customer" data-id="{{ customer.id }}" data-action="edit">Edit</button>
-        <button class="button-delete-customer" data-fullname="{{ customer.firstname }} {{ customer.lastname }}"data-id="{{ customer.id }}">Delete</button>
+
+        // Champ caché contenant l'ID du client        
+        <input id="customer-{{ customer.id }}" type="hidden" value="{{ customer.id }}">
+
+        <button class="button-show-customer" data-action="show">Details</button>
+        <button class="button-edit-customer" data-action="edit">Edit</button>
+        <button class="button-delete-customer" data-action="delete">Delete</button>
     </div>
     {% endfor %}
 

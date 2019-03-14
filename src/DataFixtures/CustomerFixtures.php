@@ -14,25 +14,25 @@ class CustomerFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        
+
         $faker = \Faker\Factory::create('fr_FR');
 
         for ($i = 0; $i < 10; $i++) {
 
-// ===== Forfaits ============================================================
-            
+            // ===== Forfaits ============================================================
+
             $flatRate = new FlatRate();
-            
-            $nombreSession = 10 ; // $faker->numberBetween($min = 5,$max = 20);
-            $freeSession = $nombreSession/10;
 
-                $flatRate->setDateStart($faker->dateTime($max = 'now', $timezone = null))
-                        ->setSessionNumber($nombreSession)
-                        ->setPrice(($nombreSession-$freeSession)*250);
+            $nombreSession = 10; // $faker->numberBetween($min = 5,$max = 20);
+            $freeSession = $nombreSession / 10;
 
-// ===== Sessions ============================================================
-                            
-            for ($j=0; $j < 10; $j++) { 
+            $flatRate->setDateStart($faker->dateTime($max = 'now', $timezone = null))
+                ->setSessionNumber($nombreSession)
+                ->setPrice(($nombreSession - $freeSession) * 250);
+
+            // ===== Sessions ============================================================
+
+            for ($j = 0; $j < 10; $j++) {
 
                 $session = new Session();
 
@@ -49,36 +49,36 @@ class CustomerFixtures extends Fixture
             }
             $manager->persist($flatRate);
 
-// ===== Factures ============================================================
+            // ===== Factures ============================================================
 
             $bill = new Bill();
 
             $bill->setTax(10);
-            
+
             $manager->persist($bill);
 
-// ===== Clients ============================================================
+            // ===== Clients ============================================================
 
             $customer = new Customer();
             $customer->setFirstname($faker->firstName)
-                     ->setLastname($faker->lastName)
-                     ->setPhone($faker->phoneNumber)
-                     ->setEmail($faker->email)
-                     ->setAddressNumber($faker->numerify('##### #####'))
-                     ->addFlatRate($flatRate)
-                     ->setNewsletter(true);
-                    //  ->addBill($bill);
+                ->setLastname($faker->lastName)
+                ->setPhone($faker->phoneNumber)
+                ->setEmail($faker->email)
+                ->setAddressNumber($faker->numerify('##### #####'))
+                ->addFlatRate($flatRate)
+                ->setNewsletter(true)
+                ->setCreatedAt(new \DateTime('now +1 hour'))
+                ->addBill($bill);
             $manager->persist($customer);
-            
         }
-        
-// ===== NewsLetter ============================================================
+
+        // ===== NewsLetter ============================================================
 
         $newsLetter = new Newsletter();
 
         $newsLetter->setSubject($faker->sentence($nb = 3, $variableNbWordds = true))
-                   ->setContent($faker->paragraph($nbSentences = 4, $variableNbSentences = true))
-                   ->setPicture($faker->imageUrl($width = 640, $height = 240));
+            ->setContent($faker->paragraph($nbSentences = 4, $variableNbSentences = true))
+            ->setPicture($faker->imageUrl($width = 640, $height = 240));
 
         $manager->persist($newsLetter);
 

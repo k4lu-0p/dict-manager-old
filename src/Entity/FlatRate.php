@@ -19,6 +19,16 @@ class FlatRate
     private $id;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $session_number;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $price;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $date_start;
@@ -29,25 +39,14 @@ class FlatRate
     private $date_end;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="flatRate")
      */
-    private $session_number;
-
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $price;
+    private $sessions;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="flatRates")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $customer;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="flat_rate", orphanRemoval=true)
-     */
-    private $sessions;
 
     public function __construct()
     {
@@ -57,6 +56,30 @@ class FlatRate
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getSessionNumber(): ?int
+    {
+        return $this->session_number;
+    }
+
+    public function setSessionNumber(int $session_number): self
+    {
+        $this->session_number = $session_number;
+
+        return $this;
+    }
+
+    public function getPrice(): ?int
+    {
+        return $this->price;
+    }
+
+    public function setPrice(int $price): self
+    {
+        $this->price = $price;
+
+        return $this;
     }
 
     public function getDateStart(): ?\DateTimeInterface
@@ -76,45 +99,9 @@ class FlatRate
         return $this->date_end;
     }
 
-    public function setDateEnd(\DateTimeInterface $date_end): self
+    public function setDateEnd(?\DateTimeInterface $date_end): self
     {
         $this->date_end = $date_end;
-
-        return $this;
-    }
-
-    public function getSessionNumber(): ?int
-    {
-        return $this->session_number;
-    }
-
-    public function setSessionNumber(int $session_number): self
-    {
-        $this->session_number = $session_number;
-
-        return $this;
-    }
-
-    public function getPrice(): ?float
-    {
-        return $this->price;
-    }
-
-    public function setPrice(float $price): self
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    public function getCustomer(): ?Customer
-    {
-        return $this->customer;
-    }
-
-    public function setCustomer(?Customer $customer): self
-    {
-        $this->customer = $customer;
 
         return $this;
     }
@@ -146,6 +133,18 @@ class FlatRate
                 $session->setFlatRate(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCustomer(): ?Customer
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(?Customer $customer): self
+    {
+        $this->customer = $customer;
 
         return $this;
     }
