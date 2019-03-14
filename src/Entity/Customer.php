@@ -19,92 +19,97 @@ class Customer
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=45)
+     * @ORM\Column(type="string", length=100)
      */
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=100)
      */
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=25)
+     * @ORM\Column(type="string", length=20)
      */
     private $phone;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=100)
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=20, nullable=true)
      */
-    private $address_number;
+    private $addressNumber;
 
     /**
      * @ORM\Column(type="string", length=20, nullable=true)
      */
-    private $street_number;
+    private $streetNumber;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=150, nullable=true)
      */
-    private $street_name;
+    private $streetName;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $city;
 
     /**
-     * @ORM\Column(type="string", length=25, nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $pc;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $country;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $building;
 
-    // /**
-    //  * @ORM\OneToMany(targetEntity="App\Entity\Bill", mappedBy="customer")
-    //  */
-    // private $bills;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Bill", mappedBy="customer")
+     */
+    private $bills;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\FlatRate", mappedBy="customer", orphanRemoval=true)
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\FlatRate", mappedBy="customer")
      */
     private $flatRates;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $picture = "/build/images/user.png";
 
     /**
      * @ORM\Column(type="boolean")
      */
     private $newsletter;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true, options={"default":"/build/images/user.png"})
+     */
+    private $picture;
+
     public function __construct()
     {
-        // $this->bills = new ArrayCollection();
+        $this->bills = new ArrayCollection();
         $this->flatRates = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ? int
     {
         return $this->id;
     }
 
-    public function getFirstname(): ?string
+    public function getFirstname(): ? string
     {
         return $this->firstname;
     }
@@ -116,7 +121,7 @@ class Customer
         return $this;
     }
 
-    public function getLastname(): ?string
+    public function getLastname(): ? string
     {
         return $this->lastname;
     }
@@ -128,7 +133,7 @@ class Customer
         return $this;
     }
 
-    public function getPhone(): ?string
+    public function getPhone(): ? string
     {
         return $this->phone;
     }
@@ -140,7 +145,7 @@ class Customer
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): ? string
     {
         return $this->email;
     }
@@ -152,120 +157,132 @@ class Customer
         return $this;
     }
 
-    public function getAddressNumber(): ?string
+    public function getAddressNumber(): ? string
     {
-        return $this->address_number;
+        return $this->addressNumber;
     }
 
-    public function setAddressNumber(?string $address_number): self
+    public function setAddressNumber(? string $addressNumber): self
     {
-        $this->address_number = $address_number;
+        $this->addressNumber = $addressNumber;
 
         return $this;
     }
 
-    public function getStreetNumber(): ?string
+    public function getStreetNumber(): ? string
     {
-        return $this->street_number;
+        return $this->streetNumber;
     }
 
-    public function setStreetNumber(?string $street_number): self
+    public function setStreetNumber(? string $streetNumber): self
     {
-        $this->street_number = $street_number;
+        $this->streetNumber = $streetNumber;
 
         return $this;
     }
 
-    public function getStreetName(): ?string
+    public function getStreetName(): ? string
     {
-        return $this->street_name;
+        return $this->streetName;
     }
 
-    public function setStreetName(?string $street_name): self
+    public function setStreetName(? string $streetName): self
     {
-        $this->street_name = $street_name;
+        $this->streetName = $streetName;
 
         return $this;
     }
 
-    public function getCity(): ?string
+    public function getCity(): ? string
     {
         return $this->city;
     }
 
-    public function setCity(?string $city): self
+    public function setCity(? string $city): self
     {
         $this->city = $city;
 
         return $this;
     }
 
-    public function getPc(): ?string
+    public function getPc(): ? string
     {
         return $this->pc;
     }
 
-    public function setPc(?string $pc): self
+    public function setPc(? string $pc): self
     {
         $this->pc = $pc;
 
         return $this;
     }
 
-    public function getCountry(): ?string
+    public function getCountry(): ? string
     {
         return $this->country;
     }
 
-    public function setCountry(?string $country): self
+    public function setCountry(? string $country): self
     {
         $this->country = $country;
 
         return $this;
     }
 
-    public function getBuilding(): ?string
+    public function getBuilding(): ? string
     {
         return $this->building;
     }
 
-    public function setBuilding(?string $building): self
+    public function setBuilding(? string $building): self
     {
         $this->building = $building;
 
         return $this;
     }
 
-    // /**
-    //  * @return Collection|Bill[]
-    //  */
-    // public function getBills(): Collection
-    // {
-    //     return $this->bills;
-    // }
+    /**
+     * @return Collection|Bill[]
+     */
+    public function getBills(): Collection
+    {
+        return $this->bills;
+    }
 
-    // public function addBill(Bill $bill): self
-    // {
-    //     if (!$this->bills->contains($bill)) {
-    //         $this->bills[] = $bill;
-    //         $bill->setCustomer($this);
-    //     }
+    public function addBill(Bill $bill): self
+    {
+        if (!$this->bills->contains($bill)) {
+            $this->bills[] = $bill;
+            $bill->setCustomer($this);
+        }
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
-    // public function removeBill(Bill $bill): self
-    // {
-    //     if ($this->bills->contains($bill)) {
-    //         $this->bills->removeElement($bill);
-    //         // set the owning side to null (unless already changed)
-    //         if ($bill->getCustomer() === $this) {
-    //             $bill->setCustomer(null);
-    //         }
-    //     }
+    public function removeBill(Bill $bill): self
+    {
+        if ($this->bills->contains($bill)) {
+            $this->bills->removeElement($bill);
+            // set the owning side to null (unless already changed)
+            if ($bill->getCustomer() === $this) {
+                $bill->setCustomer(null);
+            }
+        }
 
-    //     return $this;
-    // }
+        return $this;
+    }
+
+    public function getCreatedAt(): ? \DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
 
     /**
      * @return Collection|FlatRate[]
@@ -298,19 +315,7 @@ class Customer
         return $this;
     }
 
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
-
-    public function setPicture(string $picture): self
-    {
-        $this->picture = $picture;
-
-        return $this;
-    }
-
-    public function getNewsletter(): ?bool
+    public function getNewsletter(): ? bool
     {
         return $this->newsletter;
     }
@@ -318,6 +323,18 @@ class Customer
     public function setNewsletter(bool $newsletter): self
     {
         $this->newsletter = $newsletter;
+
+        return $this;
+    }
+
+    public function getPicture(): ? string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(? string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }

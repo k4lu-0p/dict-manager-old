@@ -16,7 +16,6 @@ class StatisticsController extends AbstractController
      */
     public function showStatistics()
     {
-        return $this->render('statistics/show.html.twig', [
-        ]);
+        return $this->render('statistics/show.html.twig', []);
     }
 }
