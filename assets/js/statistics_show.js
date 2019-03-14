@@ -26,7 +26,7 @@ function showChartsWithAjax() {
     let loader = document.querySelector('.container-fluid-loader');
     loader.style.display = "flex";
 
-    fetch('/app/statistics')
+    fetch('/app/statistics/')
         .then(res => {
             return res.text();
         })

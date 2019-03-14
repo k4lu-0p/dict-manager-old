@@ -45,7 +45,7 @@ function actionsCustomerWithAjax(id, action) {
     // Apparition du loader.
     let loader = document.querySelector('.container-fluid-loader');
     loader.style.display = "flex";
-    if (id == null && id == undefined) {
+    if (id == null || id == undefined) {
         $url = `/app/customers/${action}`;
     } else {
         $url = `/app/customers/${action}/${id}`;
