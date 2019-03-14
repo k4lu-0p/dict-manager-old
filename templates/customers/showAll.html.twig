@@ -17,12 +17,12 @@
         <p class="p-0 m-0">{{ customer.phone }}</p>
         <p class="p-0 m-0">{{ customer.addressNumber }}</p>
 
-        // Champ caché contenant l'ID du client        
-        <input id="customer-{{ customer.id }}" type="hidden" value="{{ customer.id }}">
+        {# // Champ caché contenant l'ID du client        
+        <input id="customer-{{ customer.id }}" type="hidden" value="{{ customer.id }}"> #}
 
-        <button class="button-show-customer" data-action="show">Details</button>
-        <button class="button-edit-customer" data-action="edit">Edit</button>
-        <button class="button-delete-customer" data-action="delete">Delete</button>
+        <button class="button-show-customer" data-id="{{ customer.id }}" data-action="show">Details</button>
+        <button class="button-edit-customer" data-id="{{ customer.id }}" data-action="edit">Edit</button>
+        <button class="button-delete-customer" data-id="{{ customer.id }}" data-action="delete">Delete</button>
     </div>
     {% endfor %}
 

@@ -16,7 +16,7 @@ use App\Form\CustomerType;
 class CustomersController extends AbstractController
 {
     /**
-     * @Route("/show/all", name="customers")
+     * @Route("/show/all", name="showAllcustomers")
      */
     public function showCustomers(CustomerRepository $repo)
     {
@@ -27,17 +27,26 @@ class CustomersController extends AbstractController
     }
 
     /**
-     * @Route("/show/{id}", name="showCustomer")
+     * @Route("/show/{id}", name="showOneCustomer")
      */
     public function showCustomer(Customer $customer, CustomerRepository $repo)
     {
 
-        // dump($customer);
-        // die();
-
         return $this->render('customers/showOne.html.twig', [
             'customer' => $customer
         ]);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="deleteOneCustomer")
+     */
+    public function deleteCustomer(Customer $customer, ObjectManager $manager)
+    {
+
+        $manager->remove($customer);
+        $manager->flush();
+
+        return $this->redirectToRoute('showAllCustomers');
     }
 
     // /**
@@ -94,15 +103,5 @@ class CustomersController extends AbstractController
     //     }
     // }
 
-    // /**
-    //  * @Route("/delete/{id}", name="deleteCustomer")
-    //  */
-    // public function deleteCustomer(Customer $customer, ObjectManager $manager)
-    // {
-
-    //     $manager->remove($customer);
-    //     $manager->flush();
-
-    //     return $this->redirectToRoute('customers');
-    // }
+    
 }

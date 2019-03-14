@@ -1,6 +1,9 @@
 // Bouton clients du menu.
 const buttonNavCustomers = document.querySelector('#nav-button-customers');
 const navbar = document.querySelector('.navbar');
+const buttonsDetail = document.querySelectorAll('.button-show-customer');
+let buttonPrevious;
+
 
 // Evénement :
 // Lorsque je clique sur l'icone Client du menu :
@@ -8,11 +11,89 @@ navbar.addEventListener('click', (e) => {
     if (e.target != null && e.target != undefined) {
         // Affichage de tous les clients
         if (e.target.id == "nav-button-customers" || e.target.parentElement.id == "nav-button-customers") {
-            // actionsCustomerWithAjax("all", "show");
             showAllCustomersWithAjax();
         }
     }
 });
+
+// Action sur les customers.
+window.addEventListener('click', (e) => {
+
+    let id = e.target.getAttribute('data-id') ? e.target.getAttribute('data-id') : undefined;
+
+    switch (e.target.getAttribute('data-action')) {
+        case 'show':
+            showOneCustomer(id);
+            break;
+        case 'previous':
+            showAllCustomersWithAjax();
+            break;
+        case 'delete':
+            deleteOneCustomer(id);
+            break;
+        default:
+            break;
+    }
+
+})
+
+
+function showOneCustomer(id) {
+
+    // Container de rendu.
+    let app = document.querySelector('#app');
+
+    // Effacement du contenu existant.
+    app.innerHTML = "";
+
+    // Apparition du loader.
+    let loader = document.querySelector('.container-fluid-loader');
+    loader.style.display = "flex";
+
+    fetch(`/app/customers/show/${id}`, {
+            method: 'GET'
+        })
+        .then(res => {
+            return res.text();
+        })
+        .then(res => {
+
+            // Dès reception, disparition du loader.
+            loader.style.display = "none";
+
+            // Injecte le contenu receptionné dans le container.
+            app.innerHTML = res;
+        })
+}
+
+function deleteOneCustomer(id) {
+
+    // Container de rendu.
+    let app = document.querySelector('#app');
+
+    // Effacement du contenu existant.
+    app.innerHTML = "";
+
+    // Apparition du loader.
+    let loader = document.querySelector('.container-fluid-loader');
+    loader.style.display = "flex";
+
+    fetch(`/app/customers/delete/${id}`, {
+            method: 'DELETE'
+        })
+        .then(res => {
+            return res.text();
+        })
+        .then(res => {
+
+            // Dès reception, disparition du loader.
+            loader.style.display = "none";
+
+            // Injecte le contenu receptionné dans le container.
+            app.innerHTML = res;
+        })
+}
+
 
 // window.addEventListener('click', (e) => {
 
