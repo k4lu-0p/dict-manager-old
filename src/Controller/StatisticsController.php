@@ -5,9 +5,9 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Repository\CustomerRepository;
 use App\Repository\FlatRateRepository;
 use App\Repository\SessionRepository;
+use App\Repository\CustomerRepository;
 
 /**
  * @Route("/app/statistics")
