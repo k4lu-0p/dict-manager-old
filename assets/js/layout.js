@@ -6,6 +6,7 @@ require('../../node_modules/bootstrap/dist/js/bootstrap.js');
 require('../../node_modules/bootstrap/dist/css/bootstrap.min.css');
 require('../../node_modules/moment/moment');
 require('../../node_modules/fullcalendar/dist/fullcalendar');
+require('../../node_modules/chart.js/src/chart');
 
 // Feuilles de style et script personnel
 require('../scss/main.scss');
