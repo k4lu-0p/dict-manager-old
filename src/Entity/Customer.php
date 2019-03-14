@@ -74,7 +74,7 @@ class Customer
     private $building;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Bill", mappedBy="customer")
+     * @ORM\OneToMany(targetEntity="App\Entity\Bill", mappedBy="customer", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $bills;
 
@@ -84,7 +84,7 @@ class Customer
     private $createdAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\FlatRate", mappedBy="customer")
+     * @ORM\OneToMany(targetEntity="App\Entity\FlatRate", mappedBy="customer", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $flatRates;
 

@@ -18,7 +18,7 @@ class CustomersController extends AbstractController
     /**
      * @Route("/show/all", name="showAllcustomers")
      */
-    public function showCustomers(CustomerRepository $repo)
+    public function showAllCustomers(CustomerRepository $repo)
     {
         $customers = $repo->findAll();
         return $this->render('customers/showAll.html.twig', [
@@ -29,9 +29,8 @@ class CustomersController extends AbstractController
     /**
      * @Route("/show/{id}", name="showOneCustomer")
      */
-    public function showCustomer(Customer $customer, CustomerRepository $repo)
+    public function showOneCustomer(Customer $customer, CustomerRepository $repo)
     {
-
         return $this->render('customers/showOne.html.twig', [
             'customer' => $customer
         ]);
@@ -40,13 +39,13 @@ class CustomersController extends AbstractController
     /**
      * @Route("/delete/{id}", name="deleteOneCustomer")
      */
-    public function deleteCustomer(Customer $customer, ObjectManager $manager)
+    public function deleteOneCustomer($id, ObjectManager $manager)
     {
-
-        $manager->remove($customer);
+        $repo = $this->getDoctrine()->getRepository(Customer::class);
+        $manager->remove($repo->find($id));
         $manager->flush();
 
-        return $this->redirectToRoute('showAllCustomers');
+        return $this->redirectToRoute('showAllcustomers');
     }
 
     // /**
@@ -102,6 +101,4 @@ class CustomersController extends AbstractController
     //         ]);
     //     }
     // }
-
-    
 }

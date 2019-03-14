@@ -27,16 +27,16 @@ class Session
     private $free;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\FlatRate", inversedBy="sessions")
+     * @ORM\ManyToOne(targetEntity="App\Entity\FlatRate", inversedBy="sessions",  cascade={"persist", "remove"})
      */
     private $flatRate;
 
-    public function getId(): ?int
+    public function getId(): ? int
     {
         return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate(): ? \DateTimeInterface
     {
         return $this->date;
     }
@@ -48,7 +48,7 @@ class Session
         return $this;
     }
 
-    public function getFree(): ?bool
+    public function getFree(): ? bool
     {
         return $this->free;
     }
@@ -60,12 +60,12 @@ class Session
         return $this;
     }
 
-    public function getFlatRate(): ?FlatRate
+    public function getFlatRate(): ? FlatRate
     {
         return $this->flatRate;
     }
 
-    public function setFlatRate(?FlatRate $flatRate): self
+    public function setFlatRate(? FlatRate $flatRate): self
     {
         $this->flatRate = $flatRate;
 

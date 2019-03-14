@@ -39,12 +39,12 @@ class FlatRate
     private $date_end;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="flatRate")
+     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="flatRate", cascade={"persist", "remove"})
      */
     private $sessions;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="flatRates")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="flatRates",  cascade={"persist", "remove"})
      */
     private $customer;
 
@@ -53,12 +53,12 @@ class FlatRate
         $this->sessions = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ? int
     {
         return $this->id;
     }
 
-    public function getSessionNumber(): ?int
+    public function getSessionNumber(): ? int
     {
         return $this->session_number;
     }
@@ -70,7 +70,7 @@ class FlatRate
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getPrice(): ? int
     {
         return $this->price;
     }
@@ -82,7 +82,7 @@ class FlatRate
         return $this;
     }
 
-    public function getDateStart(): ?\DateTimeInterface
+    public function getDateStart(): ? \DateTimeInterface
     {
         return $this->date_start;
     }
@@ -94,12 +94,12 @@ class FlatRate
         return $this;
     }
 
-    public function getDateEnd(): ?\DateTimeInterface
+    public function getDateEnd(): ? \DateTimeInterface
     {
         return $this->date_end;
     }
 
-    public function setDateEnd(?\DateTimeInterface $date_end): self
+    public function setDateEnd(? \DateTimeInterface $date_end): self
     {
         $this->date_end = $date_end;
 
@@ -137,12 +137,12 @@ class FlatRate
         return $this;
     }
 
-    public function getCustomer(): ?Customer
+    public function getCustomer(): ? Customer
     {
         return $this->customer;
     }
 
-    public function setCustomer(?Customer $customer): self
+    public function setCustomer(? Customer $customer): self
     {
         $this->customer = $customer;
 
