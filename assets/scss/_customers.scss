@@ -1,9 +1,14 @@
 .container-customers {
     .card-customer {
         border: black solid 1px;
+
         p,
         button {
             font-size: 2.7rem;
         }
+    }
+
+    .container-warning {
+        display: none;
     }
 }

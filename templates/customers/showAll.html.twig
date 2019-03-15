@@ -4,21 +4,22 @@
 
     <button id="button-add-customer" data-action="add" class="add">Add</button>
     
-{# <div id="confirm-delete-customer" class="card my-3">
-    <h3>Do you really want to delete <strong><span id="confirm-delete-customer-fullname"></span></strong> ?</h3>
-    <button id="confirm-delete-customer-no">No</button>
-    <button id="confirm-delete-customer-yes">Yes</button>
-</div> #}
+    <div class="container-warning my-3">
+        <h3>Do you really want to delete <strong><span id="confirm-delete-customer-fullname"></span></strong> ?</h3>
+        <button id="confirm-delete-customer-no" data-action="no">No</button>
+        <button id="confirm-delete-customer-yes" data-action="yes">Yes</button>
+    </div>
 
     {% for customer in customers %}
-    <div class="card card-customers my-1">
-        <p class="p-0 m-0">{{ customer.firstname }}</p>
-        <p class="p-0 m-0">{{ customer.lastname }}</p>
-        <p class="p-0 m-0">{{ customer.phone }}</p>
-        <p class="p-0 m-0">{{ customer.addressNumber }}</p>
+    <div class="card-customers my-1">
+        <p class="customer-firstname p-0 m-0">{{ customer.firstname }}</p>
+        <p class="customer-lastname p-0 m-0">{{ customer.lastname }}</p>
+        <p class="customer-phone p-0 m-0">{{ customer.phone }}</p>
+        <p class="customer-address-number p-0 m-0">{{ customer.addressNumber }}</p>
 
-        {# // Champ caché contenant l'ID du client        
-        <input id="customer-{{ customer.id }}" type="hidden" value="{{ customer.id }}"> #}
+        // Champs caché       
+        <input id="customer-firstname-{{ customer.id }}" type="hidden" value="{{ customer.firstname }}">
+        <input id="customer-lastname-{{ customer.id }}" type="hidden" value="{{ customer.lastname }}">
 
         <button class="button-show-customer" data-id="{{ customer.id }}" data-action="show">Details</button>
         <button class="button-edit-customer" data-id="{{ customer.id }}" data-action="edit">Edit</button>
