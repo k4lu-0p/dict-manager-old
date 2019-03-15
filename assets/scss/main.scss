@@ -19,6 +19,7 @@ sans-serif;
 @import 'login';
 @import 'statistics';
 @import 'customers';
+@import 'customers-add';
 @import 'navbar';
 @import 'accounting';
 @import 'newsletter';
@@ -35,4 +36,3 @@ body,
 body {
     background-color: $dark-color;
 }
-

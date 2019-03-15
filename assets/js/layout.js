@@ -1,4 +1,3 @@
-
 // Framework et Librairies
 require('../../node_modules/jquery/dist/jquery.slim.js');
 require('../../node_modules/popper.js/dist/popper.min.js');
@@ -12,8 +11,7 @@ require('../../node_modules/chart.js/src/chart');
 require('../scss/main.scss');
 require('./login_verification');
 require('./accounting_show.js');
-require('./customers_show.js');
-require('./customer_edit.js');
+require('./customer.js');
 require('./newsletter_create.js');
 require('./statistics_show.js');
 require('./navbar.js');
