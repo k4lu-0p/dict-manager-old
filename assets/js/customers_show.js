@@ -5,7 +5,6 @@ let buttonPrevious;
 let buttonConfirmDelete;
 let containerConfirm;
 
-
 // Evénement :
 // Lorsque je clique sur l'icone Client du menu :
 navbar.addEventListener('click', (e) => {
@@ -37,12 +36,18 @@ window.addEventListener('click', (e) => {
             break;
         case 'no':
             deleteCancelCustomer();
+        case 'add':
+            addOneCustomer();
         default:
             break;
     }
 
 })
 
+// Button Add Customer :
+function addOneCustomer() {
+    console.log('coucou');
+}
 
 // Button Supprimé :
 function deleteOneCustomer(id) {
@@ -61,7 +66,6 @@ function deleteOneCustomer(id) {
     containerConfirm.style.display = "flex";
 
 }
-
 
 // Button Yes Confirm to Delete :
 function deleteConfirmCustomer(id) {
@@ -91,14 +95,11 @@ function deleteConfirmCustomer(id) {
         })
 }
 
-
 // Button No Confirm to Delete :
 function deleteCancelCustomer() {
     containerConfirm = document.querySelector(".container-warning");
     containerConfirm.style.display = "none";
 }
-
-
 
 // Button Détail :
 function showOneCustomer(id) {
@@ -128,8 +129,6 @@ function showOneCustomer(id) {
             app.innerHTML = res;
         })
 }
-
-
 
 // window.addEventListener('click', (e) => {
 
