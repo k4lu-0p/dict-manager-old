@@ -2,7 +2,7 @@
 
     <h1>Customers</h1>
 
-    <button id="button-add-customer" data-action="add" class="add">Add</button>
+    <button id="button-add-customer" data-action="new" class="new">New</button>
     
     <div class="container-warning my-3">
         <h3>Do you really want to delete <strong><span id="confirm-delete-customer-fullname"></span></strong> ?</h3>
@@ -17,7 +17,7 @@
         <p class="customer-phone p-0 m-0">{{ customer.phone }}</p>
         <p class="customer-address-number p-0 m-0">{{ customer.addressNumber }}</p>
 
-        // Champs caché       
+        {# // Champs caché   #}
         <input id="customer-firstname-{{ customer.id }}" type="hidden" value="{{ customer.firstname }}">
         <input id="customer-lastname-{{ customer.id }}" type="hidden" value="{{ customer.lastname }}">
 
