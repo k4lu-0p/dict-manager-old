@@ -36,6 +36,7 @@ window.addEventListener('click', (e) => {
             break;
         case 'no':
             deleteCancelCustomer();
+            break;
         case 'add':
             addOneCustomer();
         default:

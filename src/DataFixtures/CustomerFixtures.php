@@ -26,7 +26,7 @@ class CustomerFixtures extends Fixture
             $nombreSession = 10; // $faker->numberBetween($min = 5,$max = 20);
             $freeSession = $nombreSession / 10;
 
-            $flatRate->setDateStart($faker->dateTime($max = 'now', $timezone = null))
+            $flatRate->setDateStart($faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null))
                 ->setSessionNumber($nombreSession)
                 ->setPrice(($nombreSession - $freeSession) * 250);
 
@@ -36,7 +36,7 @@ class CustomerFixtures extends Fixture
 
                 $session = new Session();
 
-                $session->setDate($faker->dateTime($max = 'now', $timezone = null));
+                $session->setDate($faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null));
                 if ($j == 0) {
                     $session->setFree(true);
                 } else {
