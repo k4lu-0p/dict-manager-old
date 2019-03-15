@@ -74,7 +74,7 @@ class Customer
     private $building;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Bill", mappedBy="customer", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Bill", mappedBy="customer", cascade={"persist", "remove"}, orphanRemoval=false)
      */
     private $bills;
 

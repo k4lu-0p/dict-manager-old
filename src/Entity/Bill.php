@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BillRepository")
+ * orphanRemoval=false 
  */
 class Bill
 {
@@ -13,6 +14,7 @@ class Bill
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * 
      */
     private $id;
 
@@ -26,12 +28,12 @@ class Bill
      */
     private $customer;
 
-    public function getId(): ?int
+    public function getId(): ? int
     {
         return $this->id;
     }
 
-    public function getTax(): ?int
+    public function getTax(): ? int
     {
         return $this->tax;
     }
@@ -43,12 +45,12 @@ class Bill
         return $this;
     }
 
-    public function getCustomer(): ?Customer
+    public function getCustomer(): ? Customer
     {
         return $this->customer;
     }
 
-    public function setCustomer(?Customer $customer): self
+    public function setCustomer(? Customer $customer): self
     {
         $this->customer = $customer;
 

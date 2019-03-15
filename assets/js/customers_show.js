@@ -1,8 +1,9 @@
 // Bouton clients du menu.
 const buttonNavCustomers = document.querySelector('#nav-button-customers');
 const navbar = document.querySelector('.navbar');
-const buttonsDetail = document.querySelectorAll('.button-show-customer');
 let buttonPrevious;
+let buttonConfirmDelete;
+let containerConfirm;
 
 
 // Evénement :
@@ -31,6 +32,11 @@ window.addEventListener('click', (e) => {
         case 'delete':
             deleteOneCustomer(id);
             break;
+        case 'yes':
+            deleteConfirmCustomer(id);
+            break;
+        case 'no':
+            deleteCancelCustomer();
         default:
             break;
     }
@@ -38,6 +44,63 @@ window.addEventListener('click', (e) => {
 })
 
 
+// Button Supprimé :
+function deleteOneCustomer(id) {
+
+    let inputHiddenFirstname = document.querySelector(`#customer-firstname-${id}`);
+    let inputHiddenLastname = document.querySelector(`#customer-lastname-${id}`);
+    let spanFirstnameLastname = document.querySelector("#confirm-delete-customer-fullname");
+
+    spanFirstnameLastname.innerHTML = `${inputHiddenFirstname.value} ${inputHiddenLastname.value}`;
+
+    containerConfirm = document.querySelector(".container-warning");
+    buttonConfirmDelete = document.querySelector("#confirm-delete-customer-yes");
+
+    buttonConfirmDelete.setAttribute('data-id', id);
+
+    containerConfirm.style.display = "flex";
+
+}
+
+
+// Button Yes Confirm to Delete :
+function deleteConfirmCustomer(id) {
+    // Container de rendu.
+    let app = document.querySelector('#app');
+
+    // Effacement du contenu existant.
+    app.innerHTML = "";
+
+    // Apparition du loader.
+    let loader = document.querySelector('.container-fluid-loader');
+    loader.style.display = "flex";
+
+    fetch(`/app/customers/delete/${id}`, {
+            method: 'DELETE'
+        })
+        .then(res => {
+            return res.text();
+        })
+        .then(res => {
+
+            // Dès reception, disparition du loader.
+            loader.style.display = "none";
+
+            // Injecte le contenu receptionné dans le container.
+            app.innerHTML = res;
+        })
+}
+
+
+// Button No Confirm to Delete :
+function deleteCancelCustomer() {
+    containerConfirm = document.querySelector(".container-warning");
+    containerConfirm.style.display = "none";
+}
+
+
+
+// Button Détail :
 function showOneCustomer(id) {
 
     // Container de rendu.
@@ -66,33 +129,6 @@ function showOneCustomer(id) {
         })
 }
 
-function deleteOneCustomer(id) {
-
-    // Container de rendu.
-    let app = document.querySelector('#app');
-
-    // Effacement du contenu existant.
-    app.innerHTML = "";
-
-    // Apparition du loader.
-    let loader = document.querySelector('.container-fluid-loader');
-    loader.style.display = "flex";
-
-    fetch(`/app/customers/delete/${id}`, {
-            method: 'DELETE'
-        })
-        .then(res => {
-            return res.text();
-        })
-        .then(res => {
-
-            // Dès reception, disparition du loader.
-            loader.style.display = "none";
-
-            // Injecte le contenu receptionné dans le container.
-            app.innerHTML = res;
-        })
-}
 
 
 // window.addEventListener('click', (e) => {
@@ -120,7 +156,8 @@ function deleteOneCustomer(id) {
 //     }
 // });
 
-// Fonction AJAX redirection
+
+// Boutton Précédent sur un client + Button navbar 
 function showAllCustomersWithAjax() {
 
     // Container de rendu.
