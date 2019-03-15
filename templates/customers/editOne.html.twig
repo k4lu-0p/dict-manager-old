@@ -1,17 +1,16 @@
-
-<div class="container-fluid-customer-add container-fluid d-flex flex-column justify-content-between align-items-center">
+<div class="container-fluid-customer-edit container-fluid d-flex flex-column justify-content-between align-items-center">
     
     <button class="button-previous" data-action="previous">Previous</button>
 
-    <div class="wrapper-title-customer-add d-flex flex-column justify-content-center align-items-center">
+    <div class="wrapper-title-customer-edit d-flex flex-column justify-content-center align-items-center">
 
-        <h2 class="title-customer">Add a new Customers</h2>
+        <h2 class="title-customer-edit">{{ customer_firstname }} {{ customer_lastname }}</h2>
     
     </div>
 
-    {{ form_start(form, { 'attr' : { 'class' : 'form-customer-add d-flex flex-column justify-content-end align-items-center' }}) }}
+    {{ form_start(form, { 'attr' : { 'class' : 'form-customer-edit d-flex flex-column justify-content-end align-items-center' }}) }}
    
-        <div class="wrapper-fields-customer-add d-flex flex-column justify-content-around align-items-center">
+        <div class="wrapper-fields-customer-edit d-flex flex-column justify-content-around align-items-center">
             {{ form_row(form.firstname, {'required' : true, 'label' : false ,'attr' : {'class': 'input-firstname px-3', 'placeholder' : 'Firstname'}}) }}
             {{ form_row(form.lastname, {'required' : true, 'label' : false ,'attr' : {'class': 'input-lastname px-3 py-2 my-2', 'placeholder' : 'Lastname'}}) }}
             {{ form_row(form.phone, {'required' : true, 'label' : false ,'attr' : {'class': 'input-phone px-3', 'placeholder' : 'Phone'}}) }}
@@ -26,7 +25,7 @@
             {{ form_row(form.picture, {'required' : false, 'label' : false ,'attr' : {'class': 'input-picture px-3', 'placeholder' : 'Picture (optional)'}}) }}
             {{ form_row(form.newsletter, {'required' : true, 'label' : false ,'attr' : {'class': 'input-newsletter px-3'}}) }}
             {{ form_row(form._token)}}
-            <button id="add-button-customer" type="submit" class="btn btn-block button-customer-add" data-action="add">Save</button>      
+            <button id="update-button-customer" type="submit" class="btn btn-block button-customer-edit" data-id="{{ customer_id }}" data-action="update">Save</button>      
         </div>
     
     {{ form_end(form) }}

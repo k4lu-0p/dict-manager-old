@@ -59,7 +59,7 @@ class CustomersController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $customer->setCreatedAt( new \DateTime('now +1 hour'));
+            $customer->setCreatedAt(new \DateTime('now +1 hour'));
             $manager->persist($customer);
             $manager->flush();
         };
@@ -70,25 +70,24 @@ class CustomersController extends AbstractController
 
 
 
-    // /**
-    //  * @Route("/edit/{id}", name="editCustomer")
-    //  */
-    // public function editCustomer(Request $request, ObjectManager $manager, Customer $customer)
-    // {
+    /**
+     * @Route("/edit/{id}", name="editCustomer")
+     */
+    public function editCustomer(Customer $customer, Request $request, ObjectManager $manager)
+    {
+        $form = $this->createForm(CustomerType::class, $customer);
+        $form->handleRequest($request);
 
-    //     $form = $this->createForm(CustomerType::class, $customer);
-    //     $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($customer);
+            $manager->flush();
+        }
 
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $manager->persist($customer);
-    //         $manager->flush();
-    //     } else {
-    //         return $this->render('customers/edit.html.twig', [
-    //             'customer_firstname' => $customer->getFirstname(),
-    //             'customer_lastname' => $customer->getLastname(),
-    //             'customer_id' => $customer->getId(),
-    //             'form' => $form->createView()
-    //         ]);
-    //     }
-    // }
+        return $this->render('customers/editOne.html.twig', [
+            'form' => $form->createView(),
+            'customer_id' => $customer->getId(),
+            'customer_firstname' => $customer->getFirstname(),
+            'customer_lastname' => $customer->getLastname()
+        ]);
+    }
 }
