@@ -16,15 +16,15 @@ class CustomerType extends AbstractType
             ->add('lastname')
             ->add('phone')
             ->add('email')
-            ->add('address_number')
-            ->add('street_number')
-            ->add('street_name')
+            ->add('addressNumber')
+            ->add('streetNumber')
+            ->add('streetName')
             ->add('city')
             ->add('pc')
             ->add('country')
             ->add('building')
             ->add('picture')
-        ;
+            ->add('newsletter');
     }
 
     public function configureOptions(OptionsResolver $resolver)

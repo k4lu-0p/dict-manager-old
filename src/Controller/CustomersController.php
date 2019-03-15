@@ -48,35 +48,25 @@ class CustomersController extends AbstractController
         return $this->redirectToRoute('showAllcustomers');
     }
 
-    // /**
-    //  * @Route("/add", name="addCustomer")
-    //  */
-    // public function addCustomer(Request $request, ObjectManager $manager)
-    // {
-    //     $customer = new Customer();
+    /**
+     * @Route("/add", name="addCustomer")
+     */
+    public function addCustomer(Request $request, ObjectManager $manager)
+    {
+        $customer = new Customer();
 
-    //     $form = $this->createForm(CustomerType::class, $customer);
-    //     $form->handleRequest($request);
+        $form = $this->createForm(CustomerType::class, $customer);
+        $form->handleRequest($request);
 
-    //     if ($form->isSubmitted()) {
-
-    //         // Dump ne donnant rien, la condition n'est donc pas remplit =============================================================================
-
-    //         dump($form);
-    //         die;
-    //     };
-
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         dump($form);
-    //         die;
-
-    //         $manager->persist($customer);
-    //         $manager->flush();
-    //     };
-    //     return $this->render('customers/add.html.twig', [
-    //         'form' => $form->createView()
-    //     ]);
-    // }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $customer->setCreatedAt( new \DateTime('now +1 hour'));
+            $manager->persist($customer);
+            $manager->flush();
+        };
+        return $this->render('customers/addOne.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
 
 
 
