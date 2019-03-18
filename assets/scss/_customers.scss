@@ -1,14 +1,123 @@
 .container-customers {
-    .card-customer {
-        border: black solid 1px;
 
-        p,
-        button {
-            font-size: 2.7rem;
-        }
+    h1 {
+        color: $white-color;
+        text-align: center;
+        font-family: $main-font;
+        font-size: 18px;
     }
 
-    .container-warning {
-        display: none;
+    .card-customers {
+
+        border-radius: 3px;
+        background-color: #424C61;
+        color: $less-light-color;
+        font-family: $main-font;
+
+        .customer-picture {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            transform: translate(-10px, -20px);
+        }
+
+        .customer-name {
+            color: $white-color;
+            font-size: 16px !important;
+        }
+
+
+        .customer-phone {}
+
+        .customer-address-number {}
+
+        .customer-name,
+        .customer-address-number,
+        .customer-phone {
+            font-size: 14px;
+        }
+
+        .button-show-customer {
+            color: $white-color;
+        }
+
+        .button-edit-customer {
+            color: $white-color;
+
+        }
+
+        .button-delete-customer {
+            color: $flash-color;
+        }
+
+        .button-delete-customer,
+        .button-edit-customer,
+        .button-show-customer {
+            border: none;
+            background-color: transparent;
+        }
+    }
+}
+
+
+// Message de confirmation
+.container-warning {
+
+    opacity: 0;
+    transition: all 0.3s;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    visibility: hidden;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    font-family: $main-font;
+    color: $white-color;
+    // backdrop-filter: blur(20px);
+    // -webkit-backdrop-filter: blur(20px);
+
+    .wrapper-warning {
+        border-radius: 5px;
+        background-color: $dark-color;
+        height: 150px;
+        width: 85%;
+        -webkit-box-shadow: 0px 1px 8px -1px rgba(38, 44, 58, 0.781);
+        -moz-box-shadow: 0px 1px 8px -1px rgba(38, 44, 58, 0.781);
+        box-shadow: 0px 1px 8px -1px rgba(38, 44, 58, 0.781);
+        // border: solid red 1px;
+
+        h4 {
+            color: $less-light-color;
+            text-align: center;
+            font-size: 18px;
+
+            #confirm-delete-customer-fullname {
+                color: $white-color;
+            }
+        }
+
+        #confirm-delete-customer-no,
+        #confirm-delete-customer-yes {
+            width: 40%;
+        }
+
+        #confirm-delete-customer-no {
+            background-color: transparent;
+            border-color: #55617B;
+        }
+
+        #confirm-delete-customer-yes {
+            background-color: $flash-color;
+            border-color: $flash-color;
+        }
+
+
     }
 }

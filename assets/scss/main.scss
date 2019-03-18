@@ -6,7 +6,7 @@ $overlay-color : #404956;
 $flash-color : #e12768;
 $white-color : #EAFFFE;
 $dark-color : #353b49;
-$elem-color : #4b5465;
+$elem-color : #424C61;
 $light-color : #B6C8E5;
 $less-light-color: #92a2bc;
 $less-dark : #3c4356;
@@ -25,6 +25,7 @@ sans-serif;
 @import 'newsletter';
 @import 'loader';
 @import 'checkbox';
+@import 'navtop';
 
 html,
 body,
