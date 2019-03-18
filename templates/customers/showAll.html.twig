@@ -1,13 +1,17 @@
 <div class="container container-customers">
 
-    <h1>Customers</h1>
+    <h1 class="text-center p-3">Customers</h1>
 
     <button id="button-add-customer" data-action="new" class="new">New</button>
     
-    <div class="container-warning my-3">
-        <h3>Do you really want to delete <strong><span id="confirm-delete-customer-fullname"></span></strong> ?</h3>
-        <button id="confirm-delete-customer-no" data-action="no">No</button>
-        <button id="confirm-delete-customer-yes" data-action="yes">Yes</button>
+    <div class="container-warning">
+        <div class="wrapper-warning d-flex flex-column justify-content-around align-items-center p-3">        
+            <h4>Do you really want to delete <strong><span id="confirm-delete-customer-fullname"></span></strong> ?</h4>
+            <div class="wrapper-button-confirm d-flex justify-content-around align-items-center w-100">
+                <button id="confirm-delete-customer-no" class="btn btn-info" data-action="no">Cancel</button>
+                <button id="confirm-delete-customer-yes" class="btn btn-danger" data-action="yes">Confirm</button>            
+            </div>
+        </div>
     </div>
 
     {% for customer in customers %}

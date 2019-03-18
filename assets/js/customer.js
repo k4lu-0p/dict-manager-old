@@ -289,7 +289,9 @@ function deleteOneCustomer(id) {
 
     buttonConfirmDelete.setAttribute('data-id', id);
 
-    containerConfirm.style.display = "flex";
+    containerConfirm.style.visibility = "visible";
+    containerConfirm.style.opacity = 1.0;
+    console.log(containerConfirm.style.opacity);
 
 }
 
@@ -324,7 +326,8 @@ function deleteConfirmCustomer(id) {
 // Button No Confirm to Delete :
 function deleteCancelCustomer() {
     containerConfirm = document.querySelector(".container-warning");
-    containerConfirm.style.display = "none";
+    containerConfirm.style.visibility = "hidden";
+    containerConfirm.style.opacity = 0;
 }
 
 // Button Détail :
