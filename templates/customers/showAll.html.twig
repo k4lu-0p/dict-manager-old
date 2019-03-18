@@ -31,9 +31,9 @@
             <p class="customer-address-number p-0 m-0">{{ customer.addressNumber }}</p>        
         </div>
         <div class="col-2 d-flex flex-column justify-content-center align-items-center p-0 m-0">
-            <button class="button-delete-customer" data-id="{{ customer.id }}" data-action="delete"><i class='uil uil-times-square' data-action="delete"></i></button>        
-            <button class="button-edit-customer" data-id="{{ customer.id }}" data-action="edit"><i class='uil uil-edit' data-action="edit"></i></button>
-            <button class="button-show-customer" data-id="{{ customer.id }}" data-action="show"><i class='uil uil-info-circle' data-action="show"></i></button>
+            <button class="button-delete-customer" data-id="{{ customer.id }}" data-action="delete"><i class='uil uil-times-square' data-action="delete" data-id="{{ customer.id }}"></i></button>        
+            <button class="button-edit-customer" data-id="{{ customer.id }}" data-action="edit"><i class='uil uil-edit' data-action="edit" data-id="{{ customer.id }}"></i></button>
+            <button class="button-show-customer" data-id="{{ customer.id }}" data-action="show"><i class='uil uil-info-circle' data-action="show" data-id="{{ customer.id }}"></i></button>
         </div>
 
         {# // Champs caché   #}
