@@ -32,29 +32,32 @@ function showChartsWithAjax() {
         })
         .then(res => {
 
-            // Récupère le numéro de semaine
-            console.log(res.sessions[0]);
-
             // Tri par forfait des sessions 
             // Tableau de forfait
             let flatRateSessions = [];
             for (let i = 0; i < res.sessions.length; i++) {
-                // Première session
-                if (i == 0) {
-                    let flatRateSessions = res.sessions[0];
+                if ((res.sessions[i - 1] != null && res.sessions[i - 1] != undefined)) {
+                    if (res.sessions[i][1] == res.sessions[i - 1][1]) {
+                        // Si la session appartient au même forfait que la session précédente
+                        console.log(i + " -> 1Forfait " + res.sessions[i - 1][1] + " : " + new Date(res.sessions[i]));
+                    } else {
+                        // Si la session fait partie d'un autre forfait
+                        console.log('Nouveau Forfait');
+                        console.log(i + " -> 2Forfait " + res.sessions[i][1] + " : " + new Date(res.sessions[i]));
+                    }
+                } else {
+                    // Première itération
+                    console.log(i + " -> 0Forfait " + res.sessions[i][1] + " : " + new Date(res.sessions[i]));
                 }
-                // Tri par forfait
-                if (res.sessions[i][1] == res.sessions[i - 1][1]) {
-                    flatRateSessions += res.sessions[i];
-                }
-
+                    
             }
+
             // BIENTOT   Tri par semaine des sessions
 
             let result = getWeekNumber(new Date(res.dateTest["date"]));
             let monday = getMonday(new Date(res.dateTest["date"]));
-            console.log(new Date(res.dateTest["date"]).getDay());
-            console.log(monday);
+            console.log("Numéro jour de la semaine : " + new Date(res.dateTest["date"]).getDay());
+            console.log("Lundi de la semaine : " + monday);
             console.log('week : ' + result[1] + ' of ' + result[0]);
 
             // Dès reception, disparition du loader.

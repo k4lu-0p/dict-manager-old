@@ -35,6 +35,12 @@ class StatisticsController extends AbstractController
             array_push($allSessions, $session);
             $session = [];
         }
+        function fonctionComparaison($a, $b)
+        {
+            return $a[1] > $b[1];
+        }
+        // usort($allSessions, 'fonctionComparaison');
+
         $dateTest = $sessions->findOneById(2)->getDate();
 
         $render = $this->render('statistics/show.html.twig');
