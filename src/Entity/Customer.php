@@ -94,9 +94,9 @@ class Customer
     private $newsletter;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true, options={"default":"/build/images/user.png"})
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $picture;
+    private $picture = "/build/images/user.png";
 
     public function __construct()
     {

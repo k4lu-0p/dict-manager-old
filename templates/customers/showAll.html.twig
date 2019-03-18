@@ -1,8 +1,14 @@
+<nav id="nav-top-customer" class="d-flex justify-content-between align-items-center">
+
+        <button id="button-search-customer" data-action="search" class="search"><i class='uil uil-search'></i></button>
+
+        <h4 class="text-center p-3">Customers</h4>
+
+        <button id="button-add-customer" data-action="new" class="new"><i class='uil uil-plus' data-action="new"></i></button>
+    
+    </nav>
 <div class="container container-customers">
 
-    <h1 class="text-center p-3">Customers</h1>
-
-    <button id="button-add-customer" data-action="new" class="new">New</button>
     
     <div class="container-warning">
         <div class="wrapper-warning d-flex flex-column justify-content-around align-items-center p-3">        
@@ -15,19 +21,25 @@
     </div>
 
     {% for customer in customers %}
-    <div class="card-customers my-1">
-        <p class="customer-firstname p-0 m-0">{{ customer.firstname }}</p>
-        <p class="customer-lastname p-0 m-0">{{ customer.lastname }}</p>
-        <p class="customer-phone p-0 m-0">{{ customer.phone }}</p>
-        <p class="customer-address-number p-0 m-0">{{ customer.addressNumber }}</p>
+    <div class="card-customers my-4 mx-2 py-2 row">
+        <div class="col-2 p-0">
+            <div class="customer-picture" style="background-image: url({{ customer.picture }});"></div>
+        </div>
+        <div class="col-8 d-flex flex-column justify-content-center align-items-center">
+            <p class="customer-name p-0 m-0">{{ customer.firstname }} {{ customer.lastname }}</p>
+            <p class="customer-phone p-0 m-0">{{ customer.phone }}</p>
+            <p class="customer-address-number p-0 m-0">{{ customer.addressNumber }}</p>        
+        </div>
+        <div class="col-2 d-flex flex-column justify-content-center align-items-center p-0 m-0">
+            <button class="button-delete-customer" data-id="{{ customer.id }}" data-action="delete"><i class='uil uil-times-square' data-action="delete"></i></button>        
+            <button class="button-edit-customer" data-id="{{ customer.id }}" data-action="edit"><i class='uil uil-edit' data-action="edit"></i></button>
+            <button class="button-show-customer" data-id="{{ customer.id }}" data-action="show"><i class='uil uil-info-circle' data-action="show"></i></button>
+        </div>
 
         {# // Champs caché   #}
         <input id="customer-firstname-{{ customer.id }}" type="hidden" value="{{ customer.firstname }}">
         <input id="customer-lastname-{{ customer.id }}" type="hidden" value="{{ customer.lastname }}">
 
-        <button class="button-show-customer" data-id="{{ customer.id }}" data-action="show">Details</button>
-        <button class="button-edit-customer" data-id="{{ customer.id }}" data-action="edit">Edit</button>
-        <button class="button-delete-customer" data-id="{{ customer.id }}" data-action="delete">Delete</button>
     </div>
     {% endfor %}
 
