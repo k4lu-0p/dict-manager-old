@@ -19,6 +19,18 @@ class SessionRepository extends ServiceEntityRepository
         parent::__construct($registry, Session::class);
     }
 
+    public function findByFlatRateAsc(): array
+    {
+        $qb = $this->createQueryBuilder('s');
+
+        return $qb->select(['s', 'f'])
+            ->innerJoin('s.flatRate', 'f')
+            ->orderBy('f.id', 'ASC')
+            ->distinct()
+            ->getQuery()
+            ->getArrayResult();
+    }
+
     // /**
     //  * @return Session[] Returns an array of Session objects
     //  */

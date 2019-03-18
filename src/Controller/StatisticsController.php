@@ -20,8 +20,7 @@ class StatisticsController extends AbstractController
      */
     public function showStatistics(CustomerRepository $customers, FlatRateRepository $flatRates, SessionRepository $sessions)
     {
-        // return $this->render('statistics/show.html.twig', [
-        // ]);
+       
         $nbCustomers = count($customers->findAll());
         $nbFlatRates = count($flatRates->findAll());
         $nbSessions = count($sessions->findAll());
@@ -29,17 +28,13 @@ class StatisticsController extends AbstractController
         $allFlatRates = $flatRates->findAll();
         $allSessions = [];
         $session = [];
-        foreach ($sessions->findAll() as $key) {
-            array_push($session, $key->getdate());
-            array_push($session, $key->getFlatRate()->getId());
+        foreach ( $sessions->findByFlatRateAsc() as $key) {
+            $test = $key;
+            array_push($session, $key["date"]);
+            array_push($session, $key["flatRate"]["id"]);
             array_push($allSessions, $session);
             $session = [];
         }
-        function fonctionComparaison($a, $b)
-        {
-            return $a[1] > $b[1];
-        }
-        // usort($allSessions, 'fonctionComparaison');
 
         $dateTest = $sessions->findOneById(2)->getDate();
 
@@ -52,10 +47,9 @@ class StatisticsController extends AbstractController
             'customers' => $allCustomers,
             'flatRates' => $allFlatRates,
             'sessions' => $allSessions,
-            "dateTest" => $dateTest
+            "dateTest" => $dateTest,
+            "test" => $test
         ];
-
-        //dump($data['render']);
 
         return new JsonResponse($data, 200);
     }

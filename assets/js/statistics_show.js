@@ -26,11 +26,15 @@ function showChartsWithAjax() {
     let loader = document.querySelector('.container-fluid-loader');
     loader.style.display = "flex";
 
-    fetch('/app/statistics/')
+    fetch('/app/statistics/', {
+            method: 'GET'
+        })
         .then(res => {
             return res.json();
         })
         .then(res => {
+            console.log(res.test);
+            console.log(res.sessions[0]);
 
             // Tri par forfait des sessions 
             // Tableau de forfait
@@ -39,20 +43,28 @@ function showChartsWithAjax() {
                 if ((res.sessions[i - 1] != null && res.sessions[i - 1] != undefined)) {
                     if (res.sessions[i][1] == res.sessions[i - 1][1]) {
                         // Si la session appartient au même forfait que la session précédente
-                        console.log(i + " -> 1Forfait " + res.sessions[i - 1][1] + " : " + new Date(res.sessions[i]));
+                        flatRateSessions[res.sessions[i - 1][1]] += new Date(res.sessions[i][0]["date"]);
                     } else {
                         // Si la session fait partie d'un autre forfait
                         console.log('Nouveau Forfait');
-                        console.log(i + " -> 2Forfait " + res.sessions[i][1] + " : " + new Date(res.sessions[i]));
+                        flatRateSessions[res.sessions[i][1]] += new Date(res.sessions[i][0]["date"]);
                     }
                 } else {
                     // Première itération
-                    console.log(i + " -> 0Forfait " + res.sessions[i][1] + " : " + new Date(res.sessions[i]));
+                    flatRateSessions[res.sessions[i][1]] += new Date(res.sessions[i][0]["date"]);
                 }
-                    
             }
 
             // BIENTOT   Tri par semaine des sessions
+
+            week = [];
+            weeks = [];
+            for (let j = 0; j < res.sessions.length; j++) {
+                let weekNumber = getWeekNumber(new Date(res.sessions[j][0]["date"]))[1];
+                weeks[weekNumber] += res.sessions[j][0]["date"];
+                console.log(res.sessions[j][0]["date"])
+            }
+            console.log(weeks)
 
             let result = getWeekNumber(new Date(res.dateTest["date"]));
             let monday = getMonday(new Date(res.dateTest["date"]));
