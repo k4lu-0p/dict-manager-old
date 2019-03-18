@@ -20,18 +20,21 @@ Encore
         jQuery: 'jquery',
         'window.jQuery': 'jquery',
     })
-    
+
     .addEntry('app', './assets/js/layout.js')
 
-    .addPlugin(new CopyWebpackPlugin([
-        { from: './assets/static', to: 'images' }
-    ]))
+    .addPlugin(new CopyWebpackPlugin([{
+        from: './assets/static',
+        to: 'images'
+    }]))
 
     .enableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()
     .enableBuildNotifications()
     .enableSourceMaps(!Encore.isProduction())
     .enableVersioning(Encore.isProduction())
+
+
 
 ;
 
