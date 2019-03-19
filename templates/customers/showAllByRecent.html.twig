@@ -8,8 +8,8 @@
             <p data-id="{{ customer.id }}" data-action="show" class="text-center">{{ customer.lastname }}</p>        
         </div>
         {# // Champs caché   #}
-        <input id="customer-firstname-{{ customer.id }}" type="hidden" value="{{ customer.firstname }}">
         <input id="customer-lastname-{{ customer.id }}" type="hidden" value="{{ customer.lastname }}">
+        <input id="customer-firstname-{{ customer.id }}" type="hidden" value="{{ customer.firstname }}">
 
     </div>
     {% endfor %}

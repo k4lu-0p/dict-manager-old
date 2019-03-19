@@ -42,7 +42,7 @@ class CustomersController extends AbstractController
      */
     public function showAllCustomersByRecent(CustomerRepository $repo)
     {
-        $customers = $repo-> findAllBySubscribeDate();
+        $customers = $repo->findAllBySubscribeDate();
         return $this->render('customers/showAllByRecent.html.twig', [
             'customers' => $customers,
         ]);
@@ -84,10 +84,13 @@ class CustomersController extends AbstractController
             $customer->setCreatedAt(new \DateTime('now +1 hour'));
             $manager->persist($customer);
             $manager->flush();
+
+            return $this->redirectToRoute('showAllcustomers');
+        } else {
+            return $this->render('customers/addOne.html.twig', [
+                'form' => $form->createView()
+            ]);
         };
-        return $this->render('customers/addOne.html.twig', [
-            'form' => $form->createView()
-        ]);
     }
 
     /**

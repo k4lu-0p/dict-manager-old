@@ -375,6 +375,11 @@ function addOneCustomer(e) {
             // Dès reception, disparition du loader.
             loader.style.display = "none";
 
+            // Injecte le contenu receptionné dans le container.
+            app.innerHTML = res;
+
+            onFilterAlphabetics = true;
+
         })
         .catch(err => {
             if (err) {
