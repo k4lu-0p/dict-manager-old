@@ -34,36 +34,12 @@ function showChartsWithAjax() {
         })
         .then(res => {
 
-                // Tri par forfait des sessions 
-                // Tableau de forfait
-                let flatRateSessions = [];
-
-                for (let t = 0; t < res.sessions.length; t++) {
-                    if (!flatRateSessions.includes(res.sessions[t][1])) {
-                        flatRateSessions.push([res.sessions[t][1]]);
-                    }
-                }
-                console.log(flatRateSessions)
-                for (let i = 0; i < res.sessions.length; i++) {
-                    if ((res.sessions[i - 1] != null && res.sessions[i - 1] != undefined)) {
-                        if (res.sessions[i][1] == res.sessions[i - 1][1]) {
-                            // Si la session appartient au même forfait que la session précédente
-                            flatRateSessions[res.sessions[i-1][1]].push(new Date(res.sessions[i][0]["date"]));
-
-                        } else{
-                            // Si la session fait partie d'un autre forfait
-                            flatRateSessions[res.sessions[i][1]].push(new Date(res.sessions[i][0]["date"]));
-                    }
-                } else {
-                    // Première itération
-                    flatRateSessions[res.sessions[i][1]].push(new Date(res.sessions[i][0]["date"]));
-                }
-            }
-            console.log(flatRateSessions);
+            console.log(res.sessions)
 
             // BIENTOT   Tri par semaine des sessions
 
-            week = []; weeks = [];
+            week = [];
+            weeks = [];
             for (let j = 0; j < res.sessions.length; j++) {
                 let weekNumber = getWeekNumber(new Date(res.sessions[j][0]["date"]))[1];
                 weeks[weekNumber] += res.sessions[j][0]["date"];
@@ -71,7 +47,10 @@ function showChartsWithAjax() {
             console.log(weeks)
 
             let result = getWeekNumber(new Date(res.dateTest["date"]));
-            let monday = getMonday(new Date(res.dateTest["date"])); console.log("Numéro jour de la semaine : " + new Date(res.dateTest["date"]).getDay()); console.log("Lundi de la semaine : " + monday); console.log('week : ' + result[1] + ' of ' + result[0]);
+            let monday = getMonday(new Date(res.dateTest["date"]));
+            console.log("Numéro jour de la semaine : " + new Date(res.dateTest["date"]).getDay());
+            console.log("Lundi de la semaine : " + monday);
+            console.log('week : ' + result[1] + ' of ' + result[0]);
 
             // Dès reception, disparition du loader.
             loader.style.display = "none";
@@ -103,13 +82,15 @@ function showChartsWithAjax() {
             });
 
             // cases inférieures nombre clients
-            document.querySelector('#nbCustomers').textContent = "Number of customer : " + res.nbCustomers; document.querySelector('#nbFlatRates').textContent = "Number of flat rate : " + res.nbFlatRates; document.querySelector('#nbSessions').textContent = "Number of session : " + res.nbSessions;
+            document.querySelector('#nbCustomers').textContent = "Number of customer : " + res.nbCustomers;
+            document.querySelector('#nbFlatRates').textContent = "Number of flat rate : " + res.nbFlatRates;
+            document.querySelector('#nbSessions').textContent = "Number of session : " + res.nbSessions;
         })
-.catch(err => {
-    if (err) {
-        throw err;
-    }
-})
+        .catch(err => {
+            if (err) {
+                throw err;
+            }
+        })
 }
 
 function getWeekNumber(d) {
