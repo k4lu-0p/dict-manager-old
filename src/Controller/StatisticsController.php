@@ -36,8 +36,6 @@ class StatisticsController extends AbstractController
             $session = [];
         }
 
-        $dateTest = $sessions->findOneById(2)->getDate();
-
         $render = $this->render('statistics/show.html.twig');
         $data = [
             'render' => $render->getContent(),
@@ -47,8 +45,8 @@ class StatisticsController extends AbstractController
             'customers' => $allCustomers,
             'flatRates' => $allFlatRates,
             'sessions' => $allSessions,
-            "dateTest" => $dateTest,
-            "test" => $test
+            "dateTest" => $sessions->findOneById(2)->getDate(),
+            "sessionTest" => $test
         ];
 
         return new JsonResponse($data, 200);
