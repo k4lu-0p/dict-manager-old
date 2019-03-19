@@ -104,13 +104,15 @@ class CustomersController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($customer);
             $manager->flush();
-        }
 
-        return $this->render('customers/editOne.html.twig', [
-            'form' => $form->createView(),
-            'customer_id' => $customer->getId(),
-            'customer_firstname' => $customer->getFirstname(),
-            'customer_lastname' => $customer->getLastname()
-        ]);
+            return $this->redirectToRoute('showAllcustomers');
+        } else {
+            return $this->render('customers/editOne.html.twig', [
+                'form' => $form->createView(),
+                'customer_id' => $customer->getId(),
+                'customer_firstname' => $customer->getFirstname(),
+                'customer_lastname' => $customer->getLastname()
+            ]);
+        }
     }
 }
