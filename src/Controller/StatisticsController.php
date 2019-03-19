@@ -35,6 +35,11 @@ class StatisticsController extends AbstractController
             array_push($allSessions, $session);
             $session = [];
         }
+        $flatRateSessions = [];
+        foreach ($allFlatRates as $flatRate) {
+            $currentFlatRateSessions = $flatRate->getSessions();
+            array_push($flatRateSessions, $currentFlatRateSessions);
+        }
 
         $render = $this->render('statistics/show.html.twig');
         $data = [
@@ -44,7 +49,7 @@ class StatisticsController extends AbstractController
             'nbSessions' => $nbSessions,
             'customers' => $allCustomers,
             'flatRates' => $allFlatRates,
-            'sessions' => $allSessions,
+            'sessions' => $flatRateSessions,
             "dateTest" => $sessions->findOneById(2)->getDate(),
             "sessionTest" => $test
         ];
