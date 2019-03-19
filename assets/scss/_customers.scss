@@ -1,4 +1,43 @@
+.container-filter {
+    margin: 0 auto;
+    width: 80vw;
+    height: 60px;
+    border-bottom: solid #3D4452 1px;
+    color: $less-light-color;
+    font-family: $main-font;
+
+    .filter-recent,
+    .filter-az {
+        display: inline-block;
+        width: 50%;
+        height: 100%;
+        text-align: center;
+        line-height: 80px;
+        font-size: 15px;
+        transition: all 0.3s;
+    }
+
+    .filter-recent {}
+
+    .filter-az {}
+
+    // Animation JS
+    .filter-is-focus {
+        border-bottom: solid $flash-color 2px;
+        color: $flash-color !important;
+
+    }
+}
+
 .container-customers {
+
+    width: 85vw;
+    justify-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 15px 15px;
+    grid-auto-flow: row;
+    margin: 0 auto;
 
     h1 {
         color: $white-color;
@@ -7,12 +46,14 @@
         font-size: 18px;
     }
 
+
     .card-customers {
 
         border-radius: 3px;
-        background-color: #424C61;
         color: $less-light-color;
         font-family: $main-font;
+        height: 105px;
+
 
         .customer-picture {
             height: 50px;
@@ -21,7 +62,14 @@
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;
-            transform: translate(-10px, -20px);
+
+            // transform: translate(-10px, -30px);
+
+        }
+
+        div>p {
+            font-size: 13px;
+            margin: 0;
         }
 
         .customer-name {
@@ -65,7 +113,7 @@
 
 // Message de confirmation
 .container-warning {
-
+    z-index: 9999999;
     opacity: 0;
     transition: all 0.3s;
     height: 100vh;

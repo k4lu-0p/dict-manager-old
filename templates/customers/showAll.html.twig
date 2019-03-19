@@ -1,41 +1,32 @@
 <nav id="nav-top-customer" class="d-flex justify-content-between align-items-center">
 
         <button id="button-search-customer" data-action="search" class="search"><i class='uil uil-search'></i></button>
-
-        <h4 class="text-center p-3">Customers</h4>
+            
+        <div class="d-flex justify-content-center align-items-center">
+            <span id="count-customer" class="px-1">99</span>
+            <h4 class="text-center p-3">Customers</h4>
+        </div>
 
         <button id="button-add-customer" data-action="new" class="new"><i class='uil uil-plus' data-action="new"></i></button>
     
-    </nav>
-<div class="container container-customers">
+</nav>
 
-    
-    <div class="container-warning">
-        <div class="wrapper-warning d-flex flex-column justify-content-around align-items-center p-3">        
-            <h4>Do you really want to delete <strong><span id="confirm-delete-customer-fullname"></span></strong> ?</h4>
-            <div class="wrapper-button-confirm d-flex justify-content-around align-items-center w-100">
-                <button id="confirm-delete-customer-no" class="btn btn-info" data-action="no">Cancel</button>
-                <button id="confirm-delete-customer-yes" class="btn btn-danger" data-action="yes">Confirm</button>            
-            </div>
-        </div>
-    </div>
+<div class="container-filter d-flex justify-content-center align-items-center mb-4">
+    <a class="filter-az filter-is-focus" data-action="alphabetics">Alphabetics</a>
+    <a class="filter-recent" data-action="recent">Recent</a>
+</div>
+
+<div class="container-customers ">
 
     {% for customer in customers %}
-    <div class="card-customers my-4 mx-2 py-2 row">
-        <div class="col-2 p-0">
-            <div class="customer-picture" style="background-image: url({{ customer.picture }});"></div>
+    <div class="card-customers d-flex flex-column justify-content-around align-items-center">
+        
+        <div data-id="{{ customer.id }}" data-action="show" class="customer-picture" style="background-image: url({{ customer.picture }});">
         </div>
-        <div class="col-8 d-flex flex-column justify-content-center align-items-center">
-            <p class="customer-name p-0 m-0">{{ customer.firstname }} {{ customer.lastname }}</p>
-            <p class="customer-phone p-0 m-0">{{ customer.phone }}</p>
-            <p class="customer-address-number p-0 m-0">{{ customer.addressNumber }}</p>        
+        <div>
+            <p data-id="{{ customer.id }}" data-action="show" class="text-center">{{ customer.lastname }}</p>        
+            <p data-id="{{ customer.id }}" data-action="show" class="text-center">{{ customer.firstname }}</p>
         </div>
-        <div class="col-2 d-flex flex-column justify-content-center align-items-center p-0 m-0">
-            <button class="button-delete-customer" data-id="{{ customer.id }}" data-action="delete"><i class='uil uil-times-square' data-action="delete" data-id="{{ customer.id }}"></i></button>        
-            <button class="button-edit-customer" data-id="{{ customer.id }}" data-action="edit"><i class='uil uil-edit' data-action="edit" data-id="{{ customer.id }}"></i></button>
-            <button class="button-show-customer" data-id="{{ customer.id }}" data-action="show"><i class='uil uil-info-circle' data-action="show" data-id="{{ customer.id }}"></i></button>
-        </div>
-
         {# // Champs caché   #}
         <input id="customer-firstname-{{ customer.id }}" type="hidden" value="{{ customer.firstname }}">
         <input id="customer-lastname-{{ customer.id }}" type="hidden" value="{{ customer.lastname }}">

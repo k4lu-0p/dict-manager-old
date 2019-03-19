@@ -19,6 +19,28 @@ class CustomerRepository extends ServiceEntityRepository
         parent::__construct($registry, Customer::class);
     }
 
+    public function findAllByAlphabeticalLastName()
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        return $qb->select('c')
+            ->orderBy('c.lastname', 'ASC')
+            ->distinct()
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+    public function findAllBySubscribeDate()
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        return $qb->select('c')
+            ->orderBy('c.createdAt', 'DESC')
+            ->distinct()
+            ->getQuery()
+            ->getArrayResult();
+    }
+
     // /**
     //  * @return Customer[] Returns an array of Customer objects
     //  */

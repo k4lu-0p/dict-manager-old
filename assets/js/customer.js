@@ -5,6 +5,7 @@ let buttonPrevious;
 let buttonConfirmDelete;
 let containerConfirm;
 let buttonAddCustomer;
+let onFilterAlphabetics;
 
 // Evénement :
 // Lorsque je clique sur l'icone Client du menu :
@@ -12,7 +13,8 @@ navbar.addEventListener('click', (e) => {
     if (e.target != null && e.target != undefined) {
         // Affichage de tous les clients
         if (e.target.id == "nav-button-customers" || e.target.parentElement.id == "nav-button-customers") {
-            showAllCustomersWithAjax();
+
+            showCustomers();
         }
     }
 });
@@ -27,7 +29,7 @@ window.addEventListener('click', (e) => {
             showOneCustomer(id);
             break;
         case 'previous':
-            showAllCustomersWithAjax();
+            showCustomers();
             break;
         case 'delete':
             deleteOneCustomer(id);
@@ -50,11 +52,157 @@ window.addEventListener('click', (e) => {
         case 'update':
             updateOneCustomer(e, id);
             break;
+        case 'alphabetics':
+            showByAlphabeticCustomer(e);
+            break;
+        case 'recent':
+            showByRecentCustomer(e);
+            break;
         default:
             break;
     }
 
 })
+
+function showCustomers() {
+
+    onFilterAlphabetics = true;
+
+    // Container de rendu.
+    let app = document.querySelector('#app');
+
+    // Effacement du contenu existant.
+    app.innerHTML = "";
+
+    // Apparition du loader.
+    let loader = document.querySelector('.container-fluid-loader');
+    loader.style.display = "flex";
+
+    fetch("/app/customers/show/all")
+        .then(res => {
+            return res.text();
+        })
+        .then(res => {
+
+            // Dès reception, disparition du loader.
+            loader.style.display = "none";
+
+            // Injecte le contenu receptionné dans le container.
+            app.innerHTML = res;
+
+            // Compte le nombre de client
+            let countCustomers = document.querySelectorAll('.card-customers').length;
+            let countWrapper = document.querySelector('#count-customer');
+            countWrapper.textContent = countCustomers;
+
+
+        })
+        .catch(err => {
+            if (err) {
+                throw err;
+            }
+        })
+
+}
+
+// Boutton Précédent sur un client + Button navbar + Filtre alphabetics
+function showByAlphabeticCustomer(e) {
+
+    if (!onFilterAlphabetics) {
+
+        onFilterAlphabetics = true;
+
+        if (document.querySelector('.filter-az') && document.querySelector('.filter-recent')) {
+            document.querySelector('.filter-az').classList.add('filter-is-focus');
+            document.querySelector('.filter-recent').classList.remove('filter-is-focus');
+        }
+
+        // Container de rendu.
+        let containerCustomer = document.querySelector('.container-customers');
+
+        // Effacement du contenu existant.
+        containerCustomer.innerHTML = "";
+
+        // Apparition du loader.
+        let loader = document.querySelector('.container-fluid-loader');
+        loader.style.display = "flex";
+
+        fetch("/app/customers/show/alphabetics")
+            .then(res => {
+                return res.text();
+            })
+            .then(res => {
+
+                // Dès reception, disparition du loader.
+                loader.style.display = "none";
+
+                // Injecte le contenu receptionné dans le container.
+                containerCustomer.innerHTML = res;
+
+                // Compte le nombre de client
+                let countCustomers = document.querySelectorAll('.card-customers').length;
+                let countWrapper = document.querySelector('#count-customer');
+                countWrapper.textContent = countCustomers;
+
+            })
+            .catch(err => {
+                if (err) {
+                    throw err;
+                }
+            })
+    }
+
+
+}
+
+function showByRecentCustomer(e) {
+
+    if (onFilterAlphabetics) {
+
+        onFilterAlphabetics = false;
+
+        if (document.querySelector('.filter-az') && document.querySelector('.filter-recent')) {
+            document.querySelector('.filter-az').classList.remove('filter-is-focus');
+            document.querySelector('.filter-recent').classList.add('filter-is-focus');
+        }
+
+        // Container de rendu.
+        let containerCustomer = document.querySelector('.container-customers');
+
+        // Effacement du contenu existant.
+        containerCustomer.innerHTML = "";
+
+        // Apparition du loader.
+        let loader = document.querySelector('.container-fluid-loader');
+        loader.style.display = "flex";
+
+        fetch("/app/customers/show/recent")
+            .then(res => {
+                return res.text();
+            })
+            .then(res => {
+
+                // Dès reception, disparition du loader.
+                loader.style.display = "none";
+
+                // Injecte le contenu receptionné dans le container.
+                containerCustomer.innerHTML = res;
+
+                // Compte le nombre de client
+                let countCustomers = document.querySelectorAll('.card-customers').length;
+                let countWrapper = document.querySelector('#count-customer');
+                countWrapper.textContent = countCustomers;
+
+
+            })
+            .catch(err => {
+                if (err) {
+                    throw err;
+                }
+            })
+    }
+
+}
 
 
 function updateOneCustomer(e, id) {
@@ -278,11 +426,10 @@ function showFormNewCustomer() {
 // Button Supprimé :
 function deleteOneCustomer(id) {
 
-    let inputHiddenFirstname = document.querySelector(`#customer-firstname-${id}`);
-    let inputHiddenLastname = document.querySelector(`#customer-lastname-${id}`);
+
     let spanFirstnameLastname = document.querySelector("#confirm-delete-customer-fullname");
 
-    spanFirstnameLastname.innerHTML = `${inputHiddenFirstname.value} ${inputHiddenLastname.value}`;
+    // spanFirstnameLastname.innerHTML = `${inputHiddenFirstname.value} ${inputHiddenLastname.value}`;
 
     containerConfirm = document.querySelector(".container-warning");
     buttonConfirmDelete = document.querySelector("#confirm-delete-customer-yes");
@@ -356,37 +503,5 @@ function showOneCustomer(id) {
 
             // Injecte le contenu receptionné dans le container.
             app.innerHTML = res;
-        })
-}
-
-// Boutton Précédent sur un client + Button navbar 
-function showAllCustomersWithAjax() {
-
-    // Container de rendu.
-    let app = document.querySelector('#app');
-
-    // Effacement du contenu existant.
-    app.innerHTML = "";
-
-    // Apparition du loader.
-    let loader = document.querySelector('.container-fluid-loader');
-    loader.style.display = "flex";
-
-    fetch("/app/customers/show/all")
-        .then(res => {
-            return res.text();
-        })
-        .then(res => {
-
-            // Dès reception, disparition du loader.
-            loader.style.display = "none";
-
-            // Injecte le contenu receptionné dans le container.
-            app.innerHTML = res;
-        })
-        .catch(err => {
-            if (err) {
-                throw err;
-            }
         })
 }

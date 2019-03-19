@@ -20,8 +20,30 @@ class CustomersController extends AbstractController
      */
     public function showAllCustomers(CustomerRepository $repo)
     {
-        $customers = $repo->findAll();
+        $customers = $repo->findAllByAlphabeticalLastName();
         return $this->render('customers/showAll.html.twig', [
+            'customers' => $customers,
+        ]);
+    }
+
+    /**
+     * @Route("/show/alphabetics", name="showAllcustomersByAlphabetics")
+     */
+    public function showAllCustomersByAlphabetics(CustomerRepository $repo)
+    {
+        $customers = $repo->findAllByAlphabeticalLastName();
+        return $this->render('customers/showAllByAlphabetics.html.twig', [
+            'customers' => $customers,
+        ]);
+    }
+
+    /**
+     * @Route("/show/recent", name="showAllcustomersByRecent")
+     */
+    public function showAllCustomersByRecent(CustomerRepository $repo)
+    {
+        $customers = $repo-> findAllBySubscribeDate();
+        return $this->render('customers/showAllByRecent.html.twig', [
             'customers' => $customers,
         ]);
     }
@@ -67,8 +89,6 @@ class CustomersController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-
-
 
     /**
      * @Route("/edit/{id}", name="editCustomer")
