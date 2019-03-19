@@ -1,0 +1,40 @@
+// Google font :
+@import url('https://fonts.googleapis.com/css?family=Sawarabi+Gothic');
+
+// Colors : 
+$overlay-color : #404956;
+$flash-color : #e12768;
+$white-color : #EAFFFE;
+$dark-color : #343D49;
+$elem-color : #424C61;
+$light-color : #B6C8E5;
+$less-light-color: #92a2bc;
+$less-dark : #3c4356;
+
+// Fonts : 
+$main-font : 'Sawarabi Gothic',
+sans-serif;
+
+// Partials :
+@import 'login';
+@import 'statistics';
+@import 'customers';
+@import 'customers-form';
+@import 'navbar';
+@import 'accounting';
+@import 'newsletter';
+@import 'loader';
+@import 'checkbox';
+@import 'navtop-customer';
+
+html,
+body,
+#app {
+    min-height: 100vh;
+    height: 100vh;
+
+}
+
+body {
+    background-color: $dark-color;
+}

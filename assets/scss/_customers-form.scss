@@ -1,0 +1,120 @@
+.container-fluid-customer-add,
+.container-fluid-customer-edit {
+
+
+
+    .wrapper-title-customer-form {
+
+        height: 40%;
+        color: $white-color;
+        font-family: $main-font;
+
+        i {
+            font-size: 10vh;
+        }
+
+        h2 {
+            font-size: 3vh;
+        }
+
+        p {
+            color: $less-light-color;
+        }
+
+    }
+
+    .form-customer-add,
+    .form-customer-edit {
+
+        font-family: $main-font;
+
+        label {
+            color: $less-light-color;
+        }
+
+        .wrapper-fields-customer-add,
+        .wrapper-fields-customer-edit {
+
+            #customer_firstname,
+            #customer_lastname,
+            #customer_phone,
+            #customer_email,
+            #customer_addressNumber,
+            #customer_streetNumber,
+            #customer_streetName,
+            #customer_city,
+            #customer_pc,
+            #customer_country,
+            #customer_building,
+            #customer_picture {
+                outline: none;
+                color: $white-color;
+                min-height: 50px;
+                width: 85vw;
+                border-radius: 5px;
+                background-color: transparent;
+                border: solid $elem-color 2px;
+                transition: all 0.5s;
+            }
+
+            #customer_firstname::placeholder,
+            #customer_lastname::placeholder,
+            #customer_phone::placeholder,
+            #customer_email::placeholder,
+            #customer_addressNumber::placeholder,
+            #customer_streetNumber::placeholder,
+            #customer_streetName::placeholder,
+            #customer_city::placeholder,
+            #customer_pc::placeholder,
+            #customer_country::placeholder,
+            #customer_building::placeholder,
+            #customer_picture::placeholder {
+                color: $less-light-color;
+            }
+
+            #customer_firstname:focus,
+            #customer_lastname:focus,
+            #customer_phone:focus,
+            #customer_email:focus,
+            #customer_addressNumber:focus,
+            #customer_streetNumber:focus,
+            #customer_streetName:focus,
+            #customer_city:focus,
+            #customer_pc:focus,
+            #customer_country:focus,
+            #customer_building:focus,
+            #customer_picture:focus {
+                border-color: $flash-color;
+            }
+
+            #add-button-customer,
+            #update-button-customer {
+                color: $white-color;
+                background-color: $flash-color;
+                border-radius: 2px;
+                min-height: 50px;
+                border-radius: 0.7vh;
+                margin: 10px;
+                transition: transform 0.2s ease-out;
+            }
+
+            #add-button-customer:active,
+            #update-button-customer:active {
+                filter: grayscale(40%);
+                transform: scale(0.95);
+            }
+
+            .wrapper-input-newsletter {
+
+                .label-input-newsletter {
+                    line-height: 50px;
+                    color: $less-light-color;
+                }
+            }
+        }
+
+    }
+
+
+
+}

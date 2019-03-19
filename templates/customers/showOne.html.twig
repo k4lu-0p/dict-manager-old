@@ -1,0 +1,51 @@
+<div class="container container-customer">
+
+    <div class="container-warning">
+        <div class="wrapper-warning d-flex flex-column justify-content-around align-items-center p-3">
+            <h4>Do you really want to delete <strong><span id="confirm-delete-customer-fullname">{{ customer.firstname }} {{ customer.lastname }}</span></strong> ?</h4>
+            <div class="wrapper-button-confirm d-flex justify-content-around align-items-center w-100">
+                <button id="confirm-delete-customer-no" class="btn btn-info" data-action="no">Cancel</button>
+                <button id="confirm-delete-customer-yes" class="btn btn-danger" data-action="yes">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <h1>{{ customer.createdAt | date("m/d/Y") }}</h1>
+    <button class="button-previous" data-action="previous">Previous</button>
+
+    <div class="col-2 d-flex flex-column justify-content-start align-items-center p-0 m-0">
+        <button class="button-delete-customer" data-id="{{ customer.id }}" data-action="delete"><i class='uil uil-times-square'
+                data-action="delete" data-id="{{ customer.id }}"></i></button>
+        <button class="button-edit-customer" data-id="{{ customer.id }}" data-action="edit"><i class='uil uil-edit'
+                data-action="edit" data-id="{{ customer.id }}"></i></button>
+    </div>
+    <div class="card">
+
+        <h2>{{ customer.id }}</h2>
+        <h2>{{ customer.firstname }}</h2>
+        <h2>{{ customer.lastname }}</h2>
+        <h2>{{ customer.phone }}</h2>
+        <h2>{{ customer.email }}</h2>
+
+        <h2>{{ customer.addressNumber }}</h2>
+        <h2>{{ customer.streetNumber }}</h2>
+        <h2>{{ customer.streetName }}</h2>
+        <h2>{{ customer.city }}</h2>
+        <h2>{{ customer.pc }}</h2>
+        <h2>{{ customer.country }}</h2>
+        <h2>{{ customer.building }}</h2>
+
+        <h2>{{ customer.picture }}</h2>
+        <h2>{{ customer.newsletter }}</h2>
+
+
+        <div class="col-8 d-flex flex-column justify-content-center align-items-center">
+            <p class="customer-name p-0 m-0">{{ customer.firstname }} {{ customer.lastname }}</p>
+            <a class="customer-phone p-0 m-0" href="tel:{{ customer.phone }}">{{ customer.phone }}</a>
+            <a class="customer-address-number p-0 m-0" href="mailto:{{ customer.email }}">{{ customer.email }}</a>
+            <a href="https://wa.me/33760132568?text=Hi%20{{ customer.firstname }}%2C%20">WhatsApp</a>       
+        </div>
+
+
+    </div>
+</div>

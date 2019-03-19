@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="shortcut icon" href="#"> {# link empechant l'erreur console favicon #}
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v0.0.3/css/unicons.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {{ encore_entry_link_tags("app")}}
+</head>
+
+<body>
+
+    {% block main %}{% endblock %}
+
+    {# Container principal des reception AJAX #}
+    <div id="app"></div>
+
+    {# Loader #}
+    <div class="container-fluid-loader container-fluid justify-content-center align-items-center">
+        <div class="lds-dual-ring w-100 d-flex justify-content-center"></div>
+        
+    </div>
+
+    <nav class="navbar px-0 py-2">
+
+        <ul class="d-flex justify-content-around align-items-center">
+
+            <li class="d-flex justify-content-around align-items-center">
+                <button class="buttons-menu" id="nav-button-back">
+                    <i class='uil uil-arrow-left'></i>
+                </button>
+            </li>
+
+            <li class="d-flex justify-content-around align-items-center">
+                <button class="buttons-menu" id="nav-button-chart">
+                    <i class='uil uil-chart-pie-alt'></i>
+                </button>
+            </li>
+
+            <li class="d-flex justify-content-around align-items-center">
+                <button class="buttons-menu" id="nav-button-accounting">
+                    <i class='uil uil-usd-circle'></i>
+                </button>
+            </li>
+
+            <li class="d-flex justify-content-around align-items-center">
+                <button class="buttons-menu" id="nav-button-customers">
+                    <i class='uil uil-user-square'></i>
+                </button>
+            </li>
+
+            <li class="d-flex justify-content-around align-items-center">
+                <button class="buttons-menu" id="nav-button-newsletter">
+                    <i class='uil uil-envelope-share'></i>
+                </button>
+            </li>
+
+        </ul>
+
+    </nav>
+    {% block javascripts %}{% endblock %}
+    {{ encore_entry_script_tags("app")}}
+</body>
+
+</html>

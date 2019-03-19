@@ -1,0 +1,15 @@
+  {% for customer in customers %}
+    <div class="card-customers d-flex flex-column justify-content-around align-items-center">
+        
+        <div data-id="{{ customer.id }}" data-action="show" class="customer-picture" style="background-image: url({{ customer.picture }});">
+        </div>
+        <div>
+            <p data-id="{{ customer.id }}" data-action="show" class="text-center">{{ customer.lastname }}</p>        
+            <p data-id="{{ customer.id }}" data-action="show" class="text-center">{{ customer.firstname }}</p>
+        </div>
+        {# // Champs caché   #}
+        <input id="customer-firstname-{{ customer.id }}" type="hidden" value="{{ customer.firstname }}">
+        <input id="customer-lastname-{{ customer.id }}" type="hidden" value="{{ customer.lastname }}">
+
+    </div>
+    {% endfor %}

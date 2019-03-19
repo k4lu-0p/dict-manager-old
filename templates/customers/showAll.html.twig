@@ -1,0 +1,37 @@
+<nav id="nav-top-customer" class="d-flex justify-content-between align-items-center">
+
+        <button id="button-search-customer" data-action="search" class="search"><i class='uil uil-search'></i></button>
+            
+        <div class="d-flex justify-content-center align-items-center">
+            <span id="count-customer" class="px-1">99</span>
+            <h4 class="text-center p-3">Customers</h4>
+        </div>
+
+        <button id="button-add-customer" data-action="new" class="new"><i class='uil uil-plus' data-action="new"></i></button>
+    
+</nav>
+
+<div class="container-filter d-flex justify-content-center align-items-center mb-4">
+    <a class="filter-az filter-is-focus" data-action="alphabetics">Alphabetics</a>
+    <a class="filter-recent" data-action="recent">Recent</a>
+</div>
+
+<div class="container-customers ">
+
+    {% for customer in customers %}
+    <div class="card-customers d-flex flex-column justify-content-around align-items-center">
+        
+        <div data-id="{{ customer.id }}" data-action="show" class="customer-picture" style="background-image: url({{ customer.picture }});">
+        </div>
+        <div>
+            <p data-id="{{ customer.id }}" data-action="show" class="text-center">{{ customer.lastname }}</p>        
+            <p data-id="{{ customer.id }}" data-action="show" class="text-center">{{ customer.firstname }}</p>
+        </div>
+        {# // Champs caché   #}
+        <input id="customer-firstname-{{ customer.id }}" type="hidden" value="{{ customer.firstname }}">
+        <input id="customer-lastname-{{ customer.id }}" type="hidden" value="{{ customer.lastname }}">
+
+    </div>
+    {% endfor %}
+
+</div>

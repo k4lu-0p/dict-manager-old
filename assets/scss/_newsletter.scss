@@ -1,0 +1,88 @@
+// Formulaire de newsletter
+.container-fluid-newsletter {
+
+    height: 90vh;
+
+    .form-newsletter {
+        font-family: $main-font;
+        height: 60%;
+
+        .wrapper-fields-newsletter {
+
+            .input-subject,
+            .input-picture {
+                outline: none;
+                color: $white-color;
+                min-height: 50px;
+                width: 85vw;
+                border-radius: 5px;
+                background-color: transparent;
+                border: solid $elem-color 2px;
+                transition: all 0.5s;
+            }
+
+            .input-subject::placeholder,
+            .input-picture::placeholder,
+            .input-content::placeholder {
+                color: $less-light-color;
+            }
+
+            .input-subject:focus,
+            .input-picture:focus,
+            .input-content:focus {
+                border-color: $flash-color;
+            }
+
+            .input-picture {
+                margin-top: -5px;
+            }
+
+            .input-content {
+                outline: none;
+                color: $white-color;
+                width: 85vw;
+                height: 130px;
+                background-color: transparent;
+                border: solid $elem-color 2px;
+                transition: all 0.5s;
+                border-radius: 0.7vh;
+
+            }
+
+            .button-newsletter-send {
+                color: $white-color;
+                background-color: $flash-color;
+                border-radius: 2px;
+                min-height: 50px;
+                border-radius: 0.7vh;
+                margin: 10px;
+                transition: transform 0.2s ease-out;
+            }
+
+            .button-newsletter-send:active {
+                filter: grayscale(40%);
+                transform: scale(0.95);
+            }
+        }
+    }
+
+    .wrapper-title-newsletter {
+
+        height: 40%;
+        color: $white-color;
+        font-family: $main-font;
+
+        i {
+            font-size: 10vh;
+        }
+
+        h2 {
+            font-size: 3vh;
+        }
+
+        p {
+            color: $less-light-color;
+        }
+
+    }
+}

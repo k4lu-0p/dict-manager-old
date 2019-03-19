@@ -1,0 +1,62 @@
+ #nav-top-customer {
+     z-index: 999999;
+     position: sticky;
+     top: 0;
+     left: 0;
+     // -webkit-box-shadow: 0px 1px 8px -1px rgba(38, 44, 58, 0.781);
+     // -moz-box-shadow: 0px 1px 8px -1px rgba(38, 44, 58, 0.781);
+     // box-shadow: 0px 1px 8px -1px rgba(38, 44, 58, 0.781);
+     width: 100vw;
+     height: 10vh;
+     background-color: #3E4755;
+     font-family: $main-font;
+
+     h4 {
+         font-size: 16px;
+         color: $white-color;
+         margin: 0;
+         padding: 0;
+         font-weight: 600;
+     }
+
+     #button-search-customer,
+     #button-add-customer {
+         background-color: transparent;
+         color: $white-color;
+         border: none;
+
+
+         i {
+             height: 100%;
+             width: 100%;
+             font-size: 3.5vh;
+
+         }
+     }
+
+
+
+     div>#count-customer {
+         background-color: $flash-color;
+         border-radius: 5px;
+         color: $white-color;
+         font-size: 10px;
+         font-weight: bold;
+         text-align: center;
+         height: 14px;
+         transform: translate(23px, -8px) scale(0.77);
+
+
+     }
+
+     #button-search-customer {
+         padding-left: 15px;
+         padding-right: 0;
+     }
+
+     #button-add-customer {
+         padding: 15px;
+     }
+
+
+ }
