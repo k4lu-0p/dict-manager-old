@@ -21,10 +21,10 @@
 
      #button-search-customer,
      #button-add-customer {
+         outline: 0;
          background-color: transparent;
          color: $white-color;
          border: none;
-
 
          i {
              height: 100%;
@@ -34,7 +34,10 @@
          }
      }
 
-
+     #button-search-customer {
+         transition: color 0.3s;
+         color: $less-light-color;
+     }
 
      div>#count-customer {
          background-color: $flash-color;
@@ -45,7 +48,6 @@
          text-align: center;
          height: 14px;
          transform: translate(23px, -8px) scale(0.77);
-
 
      }
 
@@ -58,5 +60,49 @@
          padding: 15px;
      }
 
+ }
 
+ .container-search-bar {
+     transition: all 0.3s;
+     visibility: hidden;
+     display: block;
+     position: fixed;
+     top: -10vh;
+     left: 50%;
+     width: 100vw;
+     transform: translateX(-50%);
+     background-color: #3E4755;
+
+     input {
+         outline: none;
+         color: $white-color;
+         min-height: 40px;
+         width: 75vw;
+         border-bottom-left-radius: 2px;
+         border-top-left-radius: 2px;
+         background-color: transparent;
+         border: solid $elem-color 2px;
+         transition: all 0.5s;
+
+     }
+
+     input:focus {
+
+         border-left: solid $flash-color 1px;
+         border-top: solid $flash-color 1px;
+         border-bottom: solid $flash-color 1px;
+     }
+
+     button {
+         border-bottom-right-radius: 2px;
+         border-top-right-radius: 2px;
+         min-height: 40px;
+         width: 40px;
+         background-color: $flash-color;
+         color: $white-color;
+         border: none;
+         font-size: 20px;
+         margin-left: -2px;
+
+     }
  }

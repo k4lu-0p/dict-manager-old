@@ -6,6 +6,7 @@ let buttonConfirmDelete;
 let containerConfirm;
 let buttonAddCustomer;
 let onFilterAlphabetics;
+let toggleDisplaySearchBar;
 
 // Evénement :
 // Lorsque je clique sur l'icone Client du menu :
@@ -58,15 +59,37 @@ window.addEventListener('click', (e) => {
         case 'recent':
             showByRecentCustomer(e);
             break;
+        case 'toggle':
+            displaySearchBar();
+            break;
         default:
             break;
     }
 
 })
 
+function displaySearchBar() {
+
+    let containerSearchBar = document.querySelector('.container-search-bar');
+    let buttonSearch = document.querySelector('#button-search-customer');
+
+    if (toggleDisplaySearchBar) {
+        toggleDisplaySearchBar = false;
+        buttonSearch.style.color = "#92a2bc";
+        containerSearchBar.style.visibility = "hidden";
+        containerSearchBar.style.top = "-10vh";
+    } else {
+        toggleDisplaySearchBar = true;
+        buttonSearch.style.color = "#EAFFFE";
+        containerSearchBar.style.visibility = "visible";
+        containerSearchBar.style.top = "10vh";
+    }
+}
+
 function showCustomers() {
 
     onFilterAlphabetics = true;
+    toggleDisplaySearchBar = false;
 
     // Container de rendu.
     let app = document.querySelector('#app');

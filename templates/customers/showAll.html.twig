@@ -1,6 +1,5 @@
 <nav id="nav-top-customer" class="d-flex justify-content-between align-items-center">
-
-        <button id="button-search-customer" data-action="search" class="search"><i class='uil uil-search'></i></button>
+        <button id="button-search-customer" data-action="toggle" class="search"><i data-action="toggle" class='uil uil-search'></i></button>
             
         <div class="d-flex justify-content-center align-items-center">
             <span id="count-customer" class="px-1">99</span>
@@ -8,15 +7,21 @@
         </div>
 
         <button id="button-add-customer" data-action="new" class="new"><i class='uil uil-plus' data-action="new"></i></button>
-    
 </nav>
+
+<div class="container-search-bar p-3">
+    <div class="d-flex justify-content-center align-items-center">
+        <input type="text" class="px-2">
+        <button><i class='uil uil-search'></i></button>
+    </div>
+</div>
 
 <div class="container-filter d-flex justify-content-center align-items-center mb-4">
     <a class="filter-az filter-is-focus" data-action="alphabetics">Alphabetics</a>
     <a class="filter-recent" data-action="recent">Recent</a>
 </div>
 
-<div class="container-customers ">
+<div class="container-customers">
 
     {% for customer in customers %}
     <div class="card-customers d-flex flex-column justify-content-around align-items-center">
