@@ -7,6 +7,7 @@ let containerConfirm;
 let buttonAddCustomer;
 let onFilterAlphabetics;
 let toggleDisplaySearchBar;
+let valueInputSearch;
 
 // Evénement :
 // Lorsque je clique sur l'icone Client du menu :
@@ -14,11 +15,18 @@ navbar.addEventListener('click', (e) => {
     if (e.target != null && e.target != undefined) {
         // Affichage de tous les clients
         if (e.target.id == "nav-button-customers" || e.target.parentElement.id == "nav-button-customers") {
-
             showCustomers();
         }
     }
 });
+
+// A chaque touche pressées :
+window.addEventListener('keypress', (e) => {
+    setTimeout(() => {
+        searchCustomer();
+    }, 200)
+
+})
 
 // Action sur les customers.
 window.addEventListener('click', (e) => {
@@ -62,12 +70,78 @@ window.addEventListener('click', (e) => {
         case 'toggle':
             displaySearchBar();
             break;
+            // case 'search':
+            //     searchCustomer();
+            //     break;
         default:
             break;
     }
 
 })
 
+function searchCustomer() {
+
+    // Valeur dans le champ
+    valueInputSearch = document.querySelector('#input-search').value;
+
+    if (valueInputSearch.length >= 3) {
+
+        // Formulaire à envoyer en POST.
+        let formData = new FormData();
+        formData.append('search', valueInputSearch);
+
+        // Container de rendu.
+        let containerCustomer = document.querySelector('.container-customers');
+
+        // Effacement du contenu existant.
+        containerCustomer.innerHTML = "";
+
+        // Apparition du loader.
+        let loader = document.querySelector('.container-fluid-loader');
+        loader.style.display = "flex";
+
+        fetch("/app/customers/search", {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => {
+                return res.text();
+            })
+            .then(res => {
+
+                // Dès reception, disparition du loader.
+                loader.style.display = "none";
+
+                // Injecte le contenu receptionné dans le container.
+                containerCustomer.style.display = "grid";
+                containerCustomer.innerHTML = res;
+
+                // Compte le nombre de client
+                let countCustomers = document.querySelectorAll('.card-customers').length;
+                let countWrapper = document.querySelector('#count-customer');
+                countWrapper.textContent = countCustomers;
+
+                if (countCustomers == 0) {
+                    containerCustomer.style.display = "block";
+                    containerCustomer.innerHTML = "<h1 class='no-result text-center'> No result found </h1>";
+                }
+
+
+
+
+            })
+            .catch(err => {
+                if (err) {
+                    throw err;
+                }
+            })
+
+    }
+
+
+}
+
+// Affiche/Referme la barre de recherche quand on clique sur la loupe.
 function displaySearchBar() {
 
     let containerSearchBar = document.querySelector('.container-search-bar');
@@ -86,6 +160,7 @@ function displaySearchBar() {
     }
 }
 
+// Montre tout les clients.
 function showCustomers() {
 
     onFilterAlphabetics = true;
@@ -178,6 +253,7 @@ function showByAlphabeticCustomer(e) {
 
 }
 
+// Filtre par la plus recente inscription.
 function showByRecentCustomer(e) {
 
     if (onFilterAlphabetics) {
@@ -228,6 +304,7 @@ function showByRecentCustomer(e) {
 }
 
 
+// Met à jour en BDD les données d'un client.
 function updateOneCustomer(e, id) {
 
     e.preventDefault();

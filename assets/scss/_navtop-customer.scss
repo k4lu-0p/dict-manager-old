@@ -74,6 +74,7 @@
      background-color: #3E4755;
 
      input {
+         font-family: $main-font;
          outline: none;
          color: $white-color;
          min-height: 40px;
@@ -88,9 +89,13 @@
 
      input:focus {
 
-         border-left: solid $flash-color 1px;
-         border-top: solid $flash-color 1px;
-         border-bottom: solid $flash-color 1px;
+         border: solid $flash-color 2px;
+
+     }
+
+     input::placeholder {
+         color: $less-light-color;
+
      }
 
      button {
