@@ -33,18 +33,36 @@ function showChartsWithAjax() {
             return res.json();
         })
         .then(res => {
-
-            console.log(res.sessions)
+            console.log(res)
+            console.log(res.sessions);
 
             // BIENTOT   Tri par semaine des sessions
 
-            week = [];
-            weeks = [];
-            for (let j = 0; j < res.sessions.length; j++) {
-                let weekNumber = getWeekNumber(new Date(res.sessions[j][0]["date"]))[1];
-                weeks[weekNumber] += res.sessions[j][0]["date"];
-            }
-            console.log(weeks)
+            // res.sessions[0][0][1]["date"]
+            // [0]       =  [Numero du forfait]
+            // [0]       =  [Numero de la session]
+            // [1]       =  [Object date]
+            // ["date"]  =  [Date Année/Mois/Jour Heure/Minute/Seconde]
+            console.log(res.sessions[0][0][1]["date"]);
+
+            // let weeks = [];
+            // res.sessions.forEach(forfait => {
+            //     forfait.forEach(session => {
+            //         let weekNumber = getWeekNumber(new Date(session[1]["date"]))[1];
+            //         weeks.push(weekNumber);
+            //         weeks[weekNumber].push(new Date(session[1]["date"]));
+            //     });
+            // });
+
+            // console.log(weeks);
+
+            // week = [];
+            // weeks = [];
+            // for (let j = 0; j < res.sessions.length; j++) {
+            //     let weekNumber = getWeekNumber(new Date(res.sessions[j][0]["date"]))[1];
+            //     weeks[weekNumber] += res.sessions[j][0]["date"];
+            // }
+            // console.log(weeks)
 
             let result = getWeekNumber(new Date(res.dateTest["date"]));
             let monday = getMonday(new Date(res.dateTest["date"]));
@@ -58,12 +76,34 @@ function showChartsWithAjax() {
             // Injecte le contenu receptionné dans le container.
             app.innerHTML = res.render;
 
-            // Graphique courbe
-            new Chart(document.getElementById("test"), {
+            // // Graphique courbe 1
+            // new Chart(document.getElementById("test"), {
+            //     type: 'line',
+            //     data: {
+            //         // Axe X
+            //         labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+            //         datasets: [{
+            //             // Valeur à afficher
+            //             data: [90, 25, 35, 23, 132, 70, 100],
+            //             label: "Something",
+            //             borderColor: "#e12768",
+            //             fill: false
+            //         }]
+            //     },
+            //     options: {
+            //         title: {
+            //             display: true,
+            //             // Titre du graphique
+            //             text: 'A chart about something'
+            //         }
+            //     }
+            // });
+
+            new Chart(document.getElementById("test2"), {
                 type: 'line',
                 data: {
                     // Axe X
-                    labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+                    labels: ["1","2","3","4","5","6","7","8","9","10","11","12","13"],
                     datasets: [{
                         // Valeur à afficher
                         data: [90, 25, 35, 23, 132, 70, 100],

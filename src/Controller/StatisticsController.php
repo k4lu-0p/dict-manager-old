@@ -20,27 +20,32 @@ class StatisticsController extends AbstractController
      */
     public function showStatistics(CustomerRepository $customers, FlatRateRepository $flatRates, SessionRepository $sessions)
     {
-       
+
         $nbCustomers = count($customers->findAll());
         $nbFlatRates = count($flatRates->findAll());
         $nbSessions = count($sessions->findAll());
         $allCustomers = $customers->findAll();
         $allFlatRates = $flatRates->findAll();
         $allSessions = [];
-        $session = [];
-        foreach ( $sessions->findByFlatRateAsc() as $key) {
-            $test = $key;
-            array_push($session, $key["date"]);
-            array_push($session, $key["flatRate"]["id"]);
-            array_push($allSessions, $session);
-            $session = [];
-        }
-        $flatRateSessions = [];
-        foreach ($allFlatRates as $flatRate) {
-            $currentFlatRateSessions = $flatRate->getSessions();
-            array_push($flatRateSessions, $currentFlatRateSessions);
-        }
 
+        $session = [];
+        $flatRateSessions = [];
+        $currentFlatRateSessions = [];
+        foreach ($allFlatRates as $flatRate) {
+
+            foreach ($flatRate->getSessions() as $key) {
+
+                array_push($session, $key->getId());
+                array_push($session, $key->getDate());
+                array_push($session, idate("W", ($key->getDate())->format("U")));
+                array_push($currentFlatRateSessions, $session);
+                $session = [];
+            }
+
+            // Tableau final des forfaits
+            array_push($flatRateSessions, $currentFlatRateSessions);
+            $currentFlatRateSessions = [];
+        }
         $render = $this->render('statistics/show.html.twig');
         $data = [
             'render' => $render->getContent(),
@@ -51,7 +56,6 @@ class StatisticsController extends AbstractController
             'flatRates' => $allFlatRates,
             'sessions' => $flatRateSessions,
             "dateTest" => $sessions->findOneById(2)->getDate(),
-            "sessionTest" => $test
         ];
 
         return new JsonResponse($data, 200);
