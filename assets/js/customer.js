@@ -10,7 +10,6 @@ let toggleDisplaySearchBar;
 let valueInputSearch;
 let loadSearch;
 
-
 // Evénements :
 
 // Faire disparaître le menu quand on affiche le clavier smartphone
@@ -51,6 +50,9 @@ window.addEventListener('click', (e) => {
     switch (e.target.getAttribute('data-action')) {
         case 'show':
             showOneCustomer(id);
+            break;
+        case 'ajax':
+            showAllCustomers();
             break;
         case 'previous':
             showCustomers();
@@ -100,7 +102,7 @@ function searchCustomer() {
     // Valeur dans le champ
     valueInputSearch = document.querySelector('#input-search').value;
 
-    if (valueInputSearch.length >= 3) {
+    if (valueInputSearch.length >= 2) {
 
         // Formulaire à envoyer en POST.
         let formData = new FormData();
@@ -131,6 +133,9 @@ function searchCustomer() {
                 // Injecte le contenu receptionné dans le container.
                 containerCustomer.style.display = "grid";
                 containerCustomer.innerHTML = res;
+
+                // Revenir sur la page principal
+                defineActionPreviousButton('previous');
 
                 // Compte le nombre de client
                 let countCustomers = document.querySelectorAll('.card-customers').length;
@@ -207,7 +212,6 @@ function showCustomers() {
             let countCustomers = document.querySelectorAll('.card-customers').length;
             let countWrapper = document.querySelector('#count-customer');
             countWrapper.textContent = countCustomers;
-
 
         })
         .catch(err => {
@@ -318,7 +322,6 @@ function showByRecentCustomer(e) {
 
 }
 
-
 // Met à jour en BDD les données d'un client.
 function updateOneCustomer(e, id) {
 
@@ -394,7 +397,6 @@ function updateOneCustomer(e, id) {
         })
 }
 
-
 // Button edit Customer:
 function showFormEditCustomer(id) {
 
@@ -423,6 +425,8 @@ function showFormEditCustomer(id) {
             // Injecte le contenu receptionné dans le container.
             app.innerHTML = res;
 
+            defineActionPreviousButton('previous');
+
             // Boutton d'envois du formulaire.
             buttonUpdateCustomer = document.querySelector('#update-button-customer');
         })
@@ -432,7 +436,6 @@ function showFormEditCustomer(id) {
             }
         })
 }
-
 
 // Button add Customer :
 function addOneCustomer(e) {
@@ -498,6 +501,7 @@ function addOneCustomer(e) {
             // Injecte le contenu receptionné dans le container.
             app.innerHTML = res;
 
+
             onFilterAlphabetics = true;
 
         })
@@ -507,7 +511,6 @@ function addOneCustomer(e) {
             }
         })
 }
-
 
 // Button new Customer :
 function showFormNewCustomer() {
@@ -536,6 +539,8 @@ function showFormNewCustomer() {
 
             // Injecte le contenu receptionné dans le container.
             app.innerHTML = res;
+
+            defineActionPreviousButton('previous');
 
             // Boutton d'envois du formulaire.
             buttonAddCustomer = document.querySelector('#add-button-customer');
@@ -605,6 +610,7 @@ function deleteCancelCustomer() {
 // Button Détail :
 function showOneCustomer(id) {
 
+
     // Container de rendu.
     let app = document.querySelector('#app');
 
@@ -628,6 +634,9 @@ function showOneCustomer(id) {
 
             // Injecte le contenu receptionné dans le container.
             app.innerHTML = res;
+
+            // Revenir sur la page principal
+            defineActionPreviousButton('previous');
         })
 }
 
@@ -671,5 +680,16 @@ function showAllCustomers() {
                 throw err;
             }
         })
+
+}
+
+// Définir le role du boutton précédent en fonction de là ou on se trouve.
+function defineActionPreviousButton(dataAction) {
+
+    let buttonNavPrevious = document.querySelector('#nav-button-back');
+
+    if (buttonNavPrevious) {
+        buttonNavPrevious.setAttribute('data-action', dataAction);
+    }
 
 }

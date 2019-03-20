@@ -1,4 +1,3 @@
-
 const navbar = document.querySelector('.navbar');
 const buttonsMenu = document.querySelectorAll('.buttons-menu > i');
 const buttonByDefaultActivated = document.querySelector('#nav-button-chart > i');
@@ -45,3 +44,4 @@ function activeButton(buttonSelected) {
     buttonSelected.style.color = "#EAFFFE";
 
 }
+
