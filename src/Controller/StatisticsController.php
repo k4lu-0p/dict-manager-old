@@ -20,25 +20,25 @@ class StatisticsController extends AbstractController
      */
     public function showStatistics(CustomerRepository $customers, FlatRateRepository $flatRates, SessionRepository $sessions)
     {
-       
+
         $nbCustomers = count($customers->findAll());
         $nbFlatRates = count($flatRates->findAll());
         $nbSessions = count($sessions->findAll());
         $allCustomers = $customers->findAll();
         $allFlatRates = $flatRates->findAll();
         $allSessions = [];
-        
+
         $session = [];
         $flatRateSessions = [];
         $currentFlatRateSessions = [];
         foreach ($allFlatRates as $flatRate) {
 
-            foreach ( $flatRate->getSessions() as $key ) {
+            foreach ($flatRate->getSessions() as $key) {
 
                 array_push($session, $key->getId());
                 array_push($session, $key->getDate());
-
-                array_push( $currentFlatRateSessions, $session);
+                array_push($session, idate("W", ($key->getDate())->format("U")));
+                array_push($currentFlatRateSessions, $session);
                 $session = [];
             }
 
@@ -46,7 +46,6 @@ class StatisticsController extends AbstractController
             array_push($flatRateSessions, $currentFlatRateSessions);
             $currentFlatRateSessions = [];
         }
-
         $render = $this->render('statistics/show.html.twig');
         $data = [
             'render' => $render->getContent(),
