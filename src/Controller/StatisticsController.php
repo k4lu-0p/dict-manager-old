@@ -26,26 +26,37 @@ class StatisticsController extends AbstractController
         $nbSessions = count($sessions->findAll());
         $allCustomers = $customers->findAll();
         $allFlatRates = $flatRates->findAll();
-        $allSessions = [];
+        $allSessions = $sessions->findAll();
 
         $session = [];
-        $flatRateSessions = [];
+        $sessionsByFlatRate = [];
         $currentFlatRateSessions = [];
+
         foreach ($allFlatRates as $flatRate) {
-
             foreach ($flatRate->getSessions() as $key) {
-
                 array_push($session, $key->getId());
                 array_push($session, $key->getDate());
+                // Numero de semaine
                 array_push($session, idate("W", ($key->getDate())->format("U")));
                 array_push($currentFlatRateSessions, $session);
                 $session = [];
             }
-
             // Tableau final des forfaits
-            array_push($flatRateSessions, $currentFlatRateSessions);
+            array_push($sessionsByFlatRate, $currentFlatRateSessions);
             $currentFlatRateSessions = [];
         }
+
+        // $sessionsByWeek = [];
+        // $week = [];
+        // foreach ($sessions->findByDateAsc() as $key) {
+        //     array_push($week, "");
+        // }
+
+
+
+
+
+
         $render = $this->render('statistics/show.html.twig');
         $data = [
             'render' => $render->getContent(),
@@ -54,7 +65,8 @@ class StatisticsController extends AbstractController
             'nbSessions' => $nbSessions,
             'customers' => $allCustomers,
             'flatRates' => $allFlatRates,
-            'sessions' => $flatRateSessions,
+            'sessionsByFlatRate' => $sessionsByFlatRate,
+            // "sessionsByWeek" = $sessionsByWeek,
             "dateTest" => $sessions->findOneById(2)->getDate(),
         ];
 

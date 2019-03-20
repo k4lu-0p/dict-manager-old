@@ -31,6 +31,17 @@ class SessionRepository extends ServiceEntityRepository
             ->getArrayResult();
     }
 
+    public function findByDateAsc(): array
+    {
+        $qb = $this->createQueryBuilder('s');
+
+        return $qb->select('s')
+            ->orderBy('s.date', 'ASC')
+            ->distinct()
+            ->getQuery()
+            ->getArrayResult();
+    }
+
     // /**
     //  * @return Session[] Returns an array of Session objects
     //  */
