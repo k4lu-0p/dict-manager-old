@@ -38,13 +38,13 @@ function showChartsWithAjax() {
 
             // BIENTOT   Tri par semaine des sessions
 
-            week = [];
-            weeks = [];
-            for (let j = 0; j < res.sessions.length; j++) {
-                let weekNumber = getWeekNumber(new Date(res.sessions[j][0]["date"]))[1];
-                weeks[weekNumber] += res.sessions[j][0]["date"];
-            }
-            console.log(weeks)
+            // week = [];
+            // weeks = [];
+            // for (let j = 0; j < res.sessions.length; j++) {
+            //     let weekNumber = getWeekNumber(new Date(res.sessions[j][0]["date"]))[1];
+            //     weeks[weekNumber] += res.sessions[j][0]["date"];
+            // }
+            // console.log(weeks)
 
             let result = getWeekNumber(new Date(res.dateTest["date"]));
             let monday = getMonday(new Date(res.dateTest["date"]));

@@ -27,18 +27,24 @@ class StatisticsController extends AbstractController
         $allCustomers = $customers->findAll();
         $allFlatRates = $flatRates->findAll();
         $allSessions = [];
+        
         $session = [];
-        foreach ( $sessions->findByFlatRateAsc() as $key) {
-            $test = $key;
-            array_push($session, $key["date"]);
-            array_push($session, $key["flatRate"]["id"]);
-            array_push($allSessions, $session);
-            $session = [];
-        }
         $flatRateSessions = [];
+        $currentFlatRateSessions = [];
         foreach ($allFlatRates as $flatRate) {
-            $currentFlatRateSessions = $flatRate->getSessions();
+
+            foreach ( $flatRate->getSessions() as $key ) {
+
+                array_push($session, $key->getId());
+                array_push($session, $key->getDate());
+
+                array_push( $currentFlatRateSessions, $session);
+                $session = [];
+            }
+
+            // Tableau final des forfaits
             array_push($flatRateSessions, $currentFlatRateSessions);
+            $currentFlatRateSessions = [];
         }
 
         $render = $this->render('statistics/show.html.twig');
@@ -51,7 +57,6 @@ class StatisticsController extends AbstractController
             'flatRates' => $allFlatRates,
             'sessions' => $flatRateSessions,
             "dateTest" => $sessions->findOneById(2)->getDate(),
-            "sessionTest" => $test
         ];
 
         return new JsonResponse($data, 200);
