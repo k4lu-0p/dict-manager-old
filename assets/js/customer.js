@@ -8,6 +8,7 @@ let buttonAddCustomer;
 let onFilterAlphabetics;
 let toggleDisplaySearchBar;
 let valueInputSearch;
+let loadSearch;
 
 
 // Evénements :
@@ -33,7 +34,10 @@ navbar.addEventListener('click', (e) => {
 
 // A chaque touche pressées :
 window.addEventListener('keyup', (e) => {
-    setTimeout(() => {
+
+    clearTimeout(loadSearch);
+
+    loadSearch = setTimeout(() => {
         searchCustomer();
     }, 200)
 
