@@ -41,6 +41,21 @@ class CustomerRepository extends ServiceEntityRepository
             ->getArrayResult();
     }
 
+    public function findBySearch(string $search)
+    {
+
+        $qb = $this->createQueryBuilder('c');
+
+        return $qb->select('c')
+            ->where('c.lastname LIKE :val')
+            ->orWhere('c.firstname LIKE :val')
+            ->setParameter('val', '%' . $search . '%')
+            ->orderBy('c.lastname', 'ASC')
+            ->distinct()
+            ->getQuery()
+            ->getArrayResult();
+    }
+
     // /**
     //  * @return Customer[] Returns an array of Customer objects
     //  */

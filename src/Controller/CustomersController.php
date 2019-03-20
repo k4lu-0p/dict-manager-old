@@ -115,4 +115,15 @@ class CustomersController extends AbstractController
             ]);
         }
     }
+
+    /**
+     * @Route("/search", name="searchCustomer")
+     */
+    public function searchCustomer(Request $request, CustomerRepository $repo)
+    {
+        $res = $repo->findBySearch($request->get('search'));
+        return $this->render('customers/search.html.twig', [
+            'customers' => $res
+        ]);
+    }
 }
