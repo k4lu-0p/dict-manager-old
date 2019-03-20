@@ -9,7 +9,18 @@ let onFilterAlphabetics;
 let toggleDisplaySearchBar;
 let valueInputSearch;
 
-// Evénement :
+
+// Evénements :
+
+// Faire disparaître le menu quand on affiche le clavier smartphone
+window.onresize = (e) => {
+    if (e.path[0].innerHeight < 500) {
+        navbar.style.display = "none";
+    } else {
+        navbar.style.display = "block";
+    }
+};
+
 // Lorsque je clique sur l'icone Client du menu :
 navbar.addEventListener('click', (e) => {
     if (e.target != null && e.target != undefined) {
@@ -21,7 +32,7 @@ navbar.addEventListener('click', (e) => {
 });
 
 // A chaque touche pressées :
-window.addEventListener('keypress', (e) => {
+window.addEventListener('keyup', (e) => {
     setTimeout(() => {
         searchCustomer();
     }, 200)
@@ -79,6 +90,7 @@ window.addEventListener('click', (e) => {
 
 })
 
+// Rechercher un customer dynamiquement.
 function searchCustomer() {
 
     // Valeur dans le champ
@@ -126,9 +138,6 @@ function searchCustomer() {
                     containerCustomer.innerHTML = "<h1 class='no-result text-center'> No result found </h1>";
                 }
 
-
-
-
             })
             .catch(err => {
                 if (err) {
@@ -136,6 +145,8 @@ function searchCustomer() {
                 }
             })
 
+    } else if (valueInputSearch.length == 0) {
+        showAllCustomers();
     }
 
 
@@ -151,16 +162,16 @@ function displaySearchBar() {
         toggleDisplaySearchBar = false;
         buttonSearch.style.color = "#92a2bc";
         containerSearchBar.style.visibility = "hidden";
-        containerSearchBar.style.top = "-10vh";
+        containerSearchBar.style.top = "-70px";
     } else {
         toggleDisplaySearchBar = true;
         buttonSearch.style.color = "#EAFFFE";
         containerSearchBar.style.visibility = "visible";
-        containerSearchBar.style.top = "10vh";
+        containerSearchBar.style.top = "70px";
     }
 }
 
-// Montre tout les clients.
+// Montre tout les clients en raffraichissant toute la page.
 function showCustomers() {
 
     onFilterAlphabetics = true;
@@ -614,4 +625,47 @@ function showOneCustomer(id) {
             // Injecte le contenu receptionné dans le container.
             app.innerHTML = res;
         })
+}
+
+// Montre tout les clients directement dans le container client.
+function showAllCustomers() {
+
+    onFilterAlphabetics = true;
+    toggleDisplaySearchBar = false;
+
+    // Container de rendu.
+    let containerCustomer = document.querySelector('.container-customers');
+
+    // Effacement du contenu existant.
+    containerCustomer.innerHTML = "";
+
+    // Apparition du loader.
+    let loader = document.querySelector('.container-fluid-loader');
+    loader.style.display = "flex";
+
+    fetch("/app/customers/show/ajax")
+        .then(res => {
+            return res.text();
+        })
+        .then(res => {
+
+            // Dès reception, disparition du loader.
+            loader.style.display = "none";
+
+            // Injecte le contenu receptionné dans le container.
+            containerCustomer.innerHTML = res;
+
+            // Compte le nombre de client
+            let countCustomers = document.querySelectorAll('.card-customers').length;
+            let countWrapper = document.querySelector('#count-customer');
+            countWrapper.textContent = countCustomers;
+
+
+        })
+        .catch(err => {
+            if (err) {
+                throw err;
+            }
+        })
+
 }

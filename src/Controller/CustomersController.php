@@ -27,6 +27,17 @@ class CustomersController extends AbstractController
     }
 
     /**
+     * @Route("/show/ajax", name="showAllcustomersAjax")
+     */
+    public function showAllCustomersAjax(CustomerRepository $repo)
+    {
+        $customers = $repo->findAllByAlphabeticalLastName();
+        return $this->render('customers/showAllAjax.html.twig', [
+            'customers' => $customers,
+        ]);
+    }
+
+    /**
      * @Route("/show/alphabetics", name="showAllcustomersByAlphabetics")
      */
     public function showAllCustomersByAlphabetics(CustomerRepository $repo)

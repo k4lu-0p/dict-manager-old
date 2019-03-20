@@ -1,5 +1,4 @@
-// TODO: Disparation de la navbar au scroll down, 
-// TODO: Réaparition de la navbar au scroll up
+
 const navbar = document.querySelector('.navbar');
 const buttonsMenu = document.querySelectorAll('.buttons-menu > i');
 const buttonByDefaultActivated = document.querySelector('#nav-button-chart > i');
