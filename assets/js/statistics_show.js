@@ -34,16 +34,16 @@ function showChartsWithAjax() {
         })
         .then(res => {
             console.log(res)
-            console.log(res.sessions);
+            console.log(res.sessionsByFlatRate);
 
             // BIENTOT   Tri par semaine des sessions
 
-            // res.sessions[0][0][1]["date"]
+            // res.sessionsByFlatRate[0][0][1]["date"]
             // [0]       =  [Numero du forfait]
             // [0]       =  [Numero de la session]
             // [1]       =  [Object date]
             // ["date"]  =  [Date Année/Mois/Jour Heure/Minute/Seconde]
-            console.log(res.sessions[0][0][1]["date"]);
+            console.log(res.sessionsByFlatRate[0][0][1]["date"]);
 
             // let weeks = [];
             // res.sessions.forEach(forfait => {
@@ -99,14 +99,23 @@ function showChartsWithAjax() {
             //     }
             // });
 
+            let x = [];
+            let data = [];
+            let i = 1;
+            res.sessionsByFlatRate.forEach(element => {
+                x.push(i++);
+                data.push(element.length);
+            });
+            console.log(data)
+
             new Chart(document.getElementById("test2"), {
                 type: 'line',
                 data: {
                     // Axe X
-                    labels: ["1","2","3","4","5","6","7","8","9","10","11","12","13"],
+                    labels: x,
                     datasets: [{
                         // Valeur à afficher
-                        data: [90, 25, 35, 23, 132, 70, 100],
+                        data: data,
                         label: "Something",
                         borderColor: "#e12768",
                         fill: false
@@ -124,7 +133,7 @@ function showChartsWithAjax() {
             // cases inférieures nombre clients
             document.querySelector('#nbCustomers').textContent = "Number of customer : " + res.nbCustomers;
             document.querySelector('#nbFlatRates').textContent = "Number of flat rate : " + res.nbFlatRates;
-            document.querySelector('#nbSessions').textContent = "Number of session : " + res.nbSessions;
+            document.querySelector('#nbSessionsThisYear').textContent = "Number of session : " + res.nbSessions;
         })
         .catch(err => {
             if (err) {
