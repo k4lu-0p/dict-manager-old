@@ -93,8 +93,6 @@ function showChartsWithAjax() {
 
             // GRAPHIQUE BAR ===== Graphique en bar sessions par jour dans une semaine =====
 
-            let x = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
             let sunday = 0;
             let monday = 0;
             let tuesday = 0;
@@ -127,6 +125,7 @@ function showChartsWithAjax() {
                 }
             });
 
+            let x = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             let data = [sunday, monday, tuesday, wednesday, thursday, friday, saturday];
 
             console.log(data)
@@ -180,14 +179,38 @@ function showChartsWithAjax() {
 
             // GRAPHIQUE LINE ===== Graphique en courbe sessions par mois dans une année =====
 
+            let month1 = 0; // january
+            let month2 = 0; // february
+            let month3 = 0; // march
+            let month4 = 0; // april
+            let month5 = 0; // may
+            let month6 = 0; // june
+            let month7 = 0; // july
+            let month8 = 0; // august
+            let month9 = 0; // september
+            let month10 = 0; // october
+            let month11 = 0; // november
+            let month12 = 0; // december
+
+            for (let m = 0; m < res.currentYear.length; m++) {
+                for (let n = 1; n < res.currentYear.length + 1; n++) {
+                    if (m + 1 == n) {
+                        month = res.currentYear[m][session]
+                    }
+                }
+            }
+
+            let xMonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "Novelber", "December"];
+            let dataMonth = [month1, month2, month3, month4, month5, month6, month7, month8, month9, month10, month11, month12];
+
             new Chart(document.getElementById("year-chart"), {
                 type: 'line',
                 data: {
                     // Axe X
-                    labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+                    labels: xMonth,
                     datasets: [{
                         // Valeur à afficher
-                        data: [90, 25, 35, 23, 132, 70, 100],
+                        data: dataMonth,
                         label: "Sessions per month",
                         borderColor: "#e12768",
                         fill: false

@@ -28,6 +28,8 @@ class StatisticsController extends AbstractController
         $allFlatRates = $flatRates->findAll();
         $allSessions = $sessions->findAll();
         $currentWeek = $sessions->findSessionsByCurrentWeek(idate("W", time()));
+        // $currentMonth = sessions->
+        $currentYear = $sessions-> findSessionsOfCurrentYear();
 
         $session = [];
         $sessionsByFlatRate = [];
@@ -46,18 +48,7 @@ class StatisticsController extends AbstractController
             array_push($sessionsByFlatRate, $currentFlatRateSessions);
             $currentFlatRateSessions = [];
         }
-
-        // $sessionsByWeek = [];
-        // $week = [];
-        // foreach ($sessions->findByDateAsc() as $key) {
-        //     array_push($week, "");
-        // }
-
-
-
-
-
-
+        
         $render = $this->render('statistics/show.html.twig');
         $data = [
             'render' => $render->getContent(),
@@ -69,7 +60,8 @@ class StatisticsController extends AbstractController
             'sessionsByFlatRate' => $sessionsByFlatRate,
             // "sessionsByWeek" = $sessionsByWeek,
             "dateTest" => $sessions->findOneById(2)->getDate(),
-            "currentWeek" => $currentWeek
+            "currentWeek" => $currentWeek,
+            "currentYear" => $currentYear
         ];
 
         return new JsonResponse($data, 200);
