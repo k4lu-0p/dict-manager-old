@@ -1,6 +1,6 @@
 .container-customer {
 
-    // Message de confirmation
+    // Message de confirmation de suppression
     .container-warning {
         z-index: 9999999;
         opacity: 0;
@@ -56,7 +56,40 @@
         }
     }
 
+}
 
 
+.customer-profile-picture {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: solid $flash-color 2px;
+}
+
+
+.button-delete-customer {
+    font-family: $main-font;
+    background-color: $flash-color;
+    color: $white-color;
+}
+
+.opacity-zero {
+    opacity: 0;
+}
+
+.button-edit-customer-profile {
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $white-color;
+    background-color: $flash-color;
+    border: none;
 
 }

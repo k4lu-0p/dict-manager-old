@@ -69,12 +69,9 @@ class SessionRepository extends ServiceEntityRepository
     public function findSessionsOfCurrentYear()
     {
         $connexion = $this->getEntityManager()->getConnection();
-
         $sql = "SELECT MONTHNAME(date) AS month, COUNT(*) AS session FROM session GROUP BY month";
-
         $req = $connexion->prepare($sql);
         $req->execute();
-
         return $req->fetchAll();
     }
 

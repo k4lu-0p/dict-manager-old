@@ -1,3 +1,14 @@
+
+<nav id="nav-top-customer" class="d-flex justify-content-between align-items-center">
+        <button id="button-search-customer" class="opacity-zero"><i data-action="edit"  class='uil uil-pen'></i></button>
+            
+        <div class="d-flex justify-content-center align-items-center">
+            <h4 class="text-center p-3">{{ customer.firstname }} {{ customer.lastname }}</h4>
+        </div>
+
+        <button id="button-add-customer" data-action="new" class="new"><i class='uil uil-plus' data-action="new"></i></button>
+</nav>
+
 <div class="container container-customer">
 
     {# // Message de confirmation de suppression #}
@@ -13,20 +24,21 @@
 
     {# // Card #}    
     <div class="">
-        <div style="background-image: url({{ customer.picture }});"></div>
-        <p>Registration date : {{ customer.createdAt | date("m/d/Y") }}</p>
-        <p class="customer-name p-0 m-0"> Firstname : {{ customer.firstname }}  Lastname : {{ customer.lastname }}</p>
-        <p>Phone : <a class="customer-phone p-0 m-0" href="tel:{{ customer.phone }}">{{ customer.phone }}</a></p>
-        <p>Email : <a class="customer-address-number p-0 m-0" href="mailto:{{ customer.email }}">{{ customer.email }}</a></p>
-        <p>Send a message with <a href="https://wa.me/33760132568?text=Hi%20{{ customer.firstname }}%2C%20">WhatsApp</a></p>       
+        <div class="mx-auto my-4 customer-profile-picture" style="background-image: url({{ customer.picture }});">
+            <button class="button-edit-customer-profile " data-id="{{ customer.id }}" data-action="edit"><i class='uil uil-edit'
+                data-action="edit" data-id="{{ customer.id }}"></i></button>
+        </div>
+        <p class="p-0 m-0" > Firstname : {{ customer.firstname }}</p>
+        <p class="p-0 m-0" >Lastname : {{ customer.lastname }}</p>
+        <p class="p-0 m-0" >Registration date : {{ customer.createdAt | date("m/d/Y") }}</p>
+        <p class="p-0 m-0" >Phone : <a class="customer-phone p-0 m-0" href="tel:{{ customer.phone }}">{{ customer.phone }}</a></p>
+        <p class="p-0 m-0" >Email : <a class="customer-address-number p-0 m-0" href="mailto:{{ customer.email }}">{{ customer.email }}</a></p>
+        <p class="p-0 m-0" >Send a message with <a href="https://wa.me/33760132568?text=Hi%20{{ customer.firstname }}%2C%20">WhatsApp</a></p>       
     </div>
 
     {# // Buttons d'actions #}
-    <div class="d-flex flex-row justify-content-start align-items-center p-0 m-0">
-        <button class="button-delete-customer" data-id="{{ customer.id }}" data-action="delete"><i class='uil uil-times-square'
-                data-action="delete" data-id="{{ customer.id }}"></i></button>
-        <button class="button-edit-customer" data-id="{{ customer.id }}" data-action="edit"><i class='uil uil-edit'
-                data-action="edit" data-id="{{ customer.id }}"></i></button>
+    <div class="d-flex flex-row justify-content-start align-items-center p-2 m-0">
+        <button class="button-delete-customer btn " data-id="{{ customer.id }}" data-action="delete">Delete</button>
     </div>
 
 </div>
