@@ -27,6 +27,7 @@ class StatisticsController extends AbstractController
         $allCustomers = $customers->findAll();
         $allFlatRates = $flatRates->findAll();
         $allSessions = $sessions->findAll();
+        $currentWeek = $sessions->findSessionsByCurrentWeek(idate("W", time()));
 
         $session = [];
         $sessionsByFlatRate = [];
@@ -68,6 +69,7 @@ class StatisticsController extends AbstractController
             'sessionsByFlatRate' => $sessionsByFlatRate,
             // "sessionsByWeek" = $sessionsByWeek,
             "dateTest" => $sessions->findOneById(2)->getDate(),
+            "currentWeek" => $currentWeek
         ];
 
         return new JsonResponse($data, 200);
