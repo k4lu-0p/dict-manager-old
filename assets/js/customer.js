@@ -453,7 +453,8 @@ function addOneCustomer(e) {
     let postalCode = document.querySelector("#customer_pc").value;
     let country = document.querySelector("#customer_country").value;
     let building = document.querySelector("#customer_building").value;
-    let picture = document.querySelector("#customer_picture").value;
+    let picture = document.querySelector("#customer_picture").files[0];
+
     let newsletter = document.querySelector("#customer_newsletter").value;
     let token = document.querySelector("#customer__token").value;
 

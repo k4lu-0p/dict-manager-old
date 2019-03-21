@@ -6,6 +6,8 @@ use App\Entity\Customer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+
 
 class CustomerType extends AbstractType
 {
@@ -23,7 +25,7 @@ class CustomerType extends AbstractType
             ->add('pc')
             ->add('country')
             ->add('building')
-            ->add('picture')
+            ->add('picture', FileType::class, array('data_class' => null))
             ->add('newsletter');
     }
 

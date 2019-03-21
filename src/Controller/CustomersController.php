@@ -9,6 +9,7 @@ use App\Repository\CustomerRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Form\CustomerType;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 /**
  * @Route("/app/customers")
@@ -92,6 +93,19 @@ class CustomersController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $file = $form->get('picture')->getData();
+
+            $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
+
+            try {
+                $file->move(
+                    $this->getParameter('pictures_directory'),
+                    $fileName
+                );
+            } catch (FileException $e) { }
+
+            $customer->setPicture($fileName);
             $customer->setCreatedAt(new \DateTime('now +1 hour'));
             $manager->persist($customer);
             $manager->flush();
@@ -102,6 +116,16 @@ class CustomersController extends AbstractController
                 'form' => $form->createView()
             ]);
         };
+    }
+
+
+    /**
+     * @return string
+     */
+    private function generateUniqueFileName()
+    {
+
+        return md5(uniqid());
     }
 
     /**
