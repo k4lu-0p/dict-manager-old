@@ -31,6 +31,24 @@ class SessionRepository extends ServiceEntityRepository
             ->getArrayResult();
     }
 
+    public function findSessionsByCurrentWeek($currentWeek): array
+    {
+
+        $connexion = $this->getEntityManager()->getConnection();
+
+        $sql = "SELECT (SELECT WEEK(ADDDATE(date,5-DAYOFWEEK(date)),3)) as week, 
+                DAYNAME(date) as day, 
+                COUNT(*) AS session FROM `session`
+                WHERE (SELECT WEEK(ADDDATE(date,5-DAYOFWEEK(date)),3)) = ?
+                Group by week, day";
+
+        $req = $connexion->prepare($sql);
+        $req->bindValue(1, $currentWeek);
+        $req->execute();
+
+        return $req->fetchAll();
+    }
+
     // /**
     //  * @return Session[] Returns an array of Session objects
     //  */
