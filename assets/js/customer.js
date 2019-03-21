@@ -87,9 +87,6 @@ window.addEventListener('click', (e) => {
         case 'toggle':
             displaySearchBar();
             break;
-            // case 'search':
-            //     searchCustomer();
-            //     break;
         default:
             break;
     }
