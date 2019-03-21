@@ -34,9 +34,20 @@ function showChartsWithAjax() {
         })
         .then(res => {
             console.log(res)
-            console.log(res.sessionsByFlatRate);
 
-            // BIENTOT   Tri par semaine des sessions
+            // Fonction de Jules
+            Date.prototype.dayOfTheYear = function() {
+                let year = this.getFullYear();
+                let month = this.getMonth();
+                let day = this.getDate();
+
+                let offset = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+
+                // Vérifie les années bissextile
+                let bissextile = (month < 2) ? 0 : (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0));
+
+                return parseInt(day + pffset[month] + bissextile);
+            }
 
             // res.sessionsByFlatRate[0][0][1]["date"]
             // [0]       =  [Numero du forfait]
@@ -64,11 +75,15 @@ function showChartsWithAjax() {
             // }
             // console.log(weeks)
 
+            // Donne le numero de semaine actuelle
+            let actualWeekNumber = getWeekNumber(new Date);
+            console.log(actualWeekNumber);
+
             let result = getWeekNumber(new Date(res.dateTest["date"]));
             let monday = getMonday(new Date(res.dateTest["date"]));
-            console.log("Numéro jour de la semaine : " + new Date(res.dateTest["date"]).getDay());
-            console.log("Lundi de la semaine : " + monday);
-            console.log('week : ' + result[1] + ' of ' + result[0]);
+            // console.log("Numéro jour de la semaine : " + new Date(res.dateTest["date"]).getDay());
+            // console.log("Lundi de la semaine : " + monday);
+            // console.log('week : ' + result[1] + ' of ' + result[0]);
 
             // Dès reception, disparition du loader.
             loader.style.display = "none";
@@ -106,7 +121,6 @@ function showChartsWithAjax() {
                 x.push(i++);
                 data.push(element.length);
             });
-            console.log(data)
 
             new Chart(document.getElementById("test2"), {
                 type: 'line',
