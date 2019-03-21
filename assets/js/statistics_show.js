@@ -36,7 +36,7 @@ function showChartsWithAjax() {
             console.log(res)
 
             // Fonction de Jules
-            Date.prototype.dayOfTheYear = function() {
+            Date.prototype.dayOfTheYear = function () {
                 let year = this.getFullYear();
                 let month = this.getMonth();
                 let day = this.getDate();
@@ -79,8 +79,8 @@ function showChartsWithAjax() {
             let actualWeekNumber = getWeekNumber(new Date);
             console.log(actualWeekNumber);
 
-            let result = getWeekNumber(new Date(res.dateTest["date"]));
-            let monday = getMonday(new Date(res.dateTest["date"]));
+            // let result = getWeekNumber(new Date(res.dateTest["date"]));
+            // let monday = getMonday(new Date(res.dateTest["date"]));
             // console.log("Numéro jour de la semaine : " + new Date(res.dateTest["date"]).getDay());
             // console.log("Lundi de la semaine : " + monday);
             // console.log('week : ' + result[1] + ' of ' + result[0]);
@@ -91,8 +91,72 @@ function showChartsWithAjax() {
             // Injecte le contenu receptionné dans le container.
             app.innerHTML = res.render;
 
-            // // Graphique courbe 1
-            // new Chart(document.getElementById("test"), {
+            // GRAPHIQUE BAR ===== Graphique en bar sessions par jour dans une semaine =====
+
+            let x = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+            let sunday = 0;
+            let monday = 0;
+            let tuesday = 0;
+            let wednesday = 0;
+            let thursday = 0;
+            let friday = 0;
+            let saturday = 0;
+
+            res.currentWeek.forEach(day => {
+                if (day["day"] == "Sunday") {
+                    sunday = day["session"];
+                }
+                if (day["day"] == "Monday") {
+                    monday = day["session"];
+                }
+                if (day["day"] == "Tuesday") {
+                    tuesday = day["session"];
+                }
+                if (day["day"] == "Wednesday") {
+                    wednesday = day["session"];
+                }
+                if (day["day"] == "Thursday") {
+                    thursday = day["session"];
+                }
+                if (day["day"] == "Friday") {
+                    friday = day["session"];
+                }
+                if (day["day"] == "Saturday") {
+                    saturday = day["session"];
+                }
+            });
+
+            let data = [sunday, monday, tuesday, wednesday, thursday, friday, saturday];
+
+            console.log(data)
+
+            new Chart(document.getElementById("day-chart"), {
+                type: 'bar',
+                data: {
+                    // Axe X
+                    labels: x,
+                    datasets: [{
+                        // Valeur à afficher
+                        data: data,
+                        label: "Sessions per day",
+                        backgroundColor: "#e12768",
+                        fill: false
+                    }]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        // Titre du graphique
+                        text: 'Current week'
+                    }
+                }
+            });
+
+
+            // GRAPHIQUE LINE ===== Graphique en courbe sessions par semaine dans un mois =====
+
+            // new Chart(document.getElementById("month-chart"), {
             //     type: 'line',
             //     data: {
             //         // Axe X
@@ -100,7 +164,7 @@ function showChartsWithAjax() {
             //         datasets: [{
             //             // Valeur à afficher
             //             data: [90, 25, 35, 23, 132, 70, 100],
-            //             label: "Something",
+            //             label: "Sessions per week",
             //             borderColor: "#e12768",
             //             fill: false
             //         }]
@@ -109,28 +173,22 @@ function showChartsWithAjax() {
             //         title: {
             //             display: true,
             //             // Titre du graphique
-            //             text: 'A chart about something'
+            //             text: 'Current month'
             //         }
             //     }
             // });
 
-            let x = [];
-            let data = [];
-            let i = 1;
-            res.sessionsByFlatRate.forEach(element => {
-                x.push(i++);
-                data.push(element.length);
-            });
+            // GRAPHIQUE LINE ===== Graphique en courbe sessions par mois dans une année =====
 
-            new Chart(document.getElementById("test2"), {
+            new Chart(document.getElementById("year-chart"), {
                 type: 'line',
                 data: {
                     // Axe X
-                    labels: x,
+                    labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
                     datasets: [{
                         // Valeur à afficher
-                        data: data,
-                        label: "Something",
+                        data: [90, 25, 35, 23, 132, 70, 100],
+                        label: "Sessions per month",
                         borderColor: "#e12768",
                         fill: false
                     }]
@@ -139,7 +197,7 @@ function showChartsWithAjax() {
                     title: {
                         display: true,
                         // Titre du graphique
-                        text: 'A chart about something'
+                        text: 'Current year'
                     }
                 }
             });
