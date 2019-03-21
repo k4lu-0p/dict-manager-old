@@ -70,10 +70,7 @@ class SessionRepository extends ServiceEntityRepository
     {
         $connexion = $this->getEntityManager()->getConnection();
 
-        $sql = "SELECT
-                MONTH(date) AS month, 
-                COUNT(*) AS session
-                FROM session GROUP BY month";
+        $sql = "SELECT MONTHNAME(date) AS month, COUNT(*) AS session FROM session GROUP BY month";
 
         $req = $connexion->prepare($sql);
         $req->execute();
