@@ -29,8 +29,7 @@ class StatisticsController extends AbstractController
         $allSessions = $sessions->findAll();
         $currentWeek = $sessions->findSessionsByCurrentWeek(idate("W", time()));
         // $currentMonth = sessions->
-        $currentYear = $sessions-> findSessionsOfCurrentYear();
-
+        $sessionsYear = $sessions->findSessionsOfCurrentYear();
         $session = [];
         $sessionsByFlatRate = [];
         $currentFlatRateSessions = [];
@@ -48,7 +47,60 @@ class StatisticsController extends AbstractController
             array_push($sessionsByFlatRate, $currentFlatRateSessions);
             $currentFlatRateSessions = [];
         }
-        
+
+        $currentYear = [
+            "January" => "0" ,
+            "February" => "0" ,
+            "March" => "0" ,
+            "April" => "0" ,
+            "May" => "0" ,
+            "June" => "0" ,
+            "July" => "0" ,
+            "August" => "0" ,
+            "September" => "0" ,
+            "October" => "0" ,
+            "November" => "0" ,
+            "December" => "0" ,
+    ];
+
+    foreach ($sessionsYear as $key) {
+            if ($key["month"] == "January") {
+                $currentYear["January"] = $key["session"];
+            }
+            if ($key["month"] == "February") {
+                $currentYear["February"] = $key["session"];
+            }
+            if ($key["month"] == "March") {
+                $currentYear["March"] = $key["session"];
+            }
+            if ($key["month"] == "April") {
+                $currentYear["April"] = $key["session"];
+            }
+            if ($key["month"] == "May") {
+                $currentYear["May"] = $key["session"];
+            }
+            if ($key["month"] == "June") {
+                $currentYear["June"] = $key["session"];
+            }
+            if ($key["month"] == "July") {
+                $currentYear["July"] = $key["session"];
+            }
+            if ($key["month"] == "August") {
+                $currentYear["August"] = $key["session"];
+            }
+            if ($key["month"] == "September") {
+                $currentYear["September"] = $key["session"];
+            }
+            if ($key["month"] == "October") {
+                $currentYear["October"] = $key["session"];
+            }
+            if ($key["month"] == "November") {
+                $currentYear["November"] = $key["session"];
+            }
+            if ($key["month"] == "December") {
+                $currentYear["December"] = $key["session"];
+            }
+        }
         $render = $this->render('statistics/show.html.twig');
         $data = [
             'render' => $render->getContent(),
@@ -67,3 +119,5 @@ class StatisticsController extends AbstractController
         return new JsonResponse($data, 200);
     }
 }
+
+
