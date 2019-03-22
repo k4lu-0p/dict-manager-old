@@ -19,7 +19,7 @@ class AccountingController extends AbstractController
     public function index(BillRepository $billRepo)
     {
         $allBill = $billRepo->findAll();
-        
+
         $bills = [];
         $bill = [];
         $customer = [];
@@ -58,7 +58,7 @@ class AccountingController extends AbstractController
             $customer = [];
             $bill = [];
         }
-        
+
         return $this->render('accounting/show.html.twig', [
             'title' => 'My account handler\'s',
             "bills" => $bills,
@@ -71,15 +71,25 @@ class AccountingController extends AbstractController
     {
         // instantiate and use the dompdf class
         $dompdf = new Dompdf();
+
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+
         $dompdf->loadHtml('hello world');
 
-        // (Optional) Setup the paper size and orientation
-        $dompdf->setPaper('A4', 'landscape');
+        // (Optional) Setup the paper size and orientation 'portrait' or 'landscape'
+        $dompdf->setPaper('A4', 'portrait');
 
         // Render the HTML as PDF
         $dompdf->render();
 
-        // Output the generated PDF to Browser
-        $dompdf->stream();
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream("Facture.pdf", [
+            "Attachment" => true
+        ]);
     }
 }

@@ -22,20 +22,44 @@ function showAccountingWithAjax() {
     loader.style.display = "flex";
 
     fetch('/app/accounting/')
-    .then(res => {
-        return res.text();
-    })
-    .then(res => {
+        .then(res => {
+            return res.text();
+        })
+        .then(res => {
 
-        // Dès reception, disparition du loader.
-        loader.style.display = "none";
+            // Dès reception, disparition du loader.
+            loader.style.display = "none";
 
-        // Injecte le contenu receptionné dans le container.
-        app.innerHTML = res;
-    })
-    .catch(err => {
-        if (err) {
-            throw err;
-        }
-    })
+            // Injecte le contenu receptionné dans le container.
+            app.innerHTML = res;
+
+            const downloadBill = document.querySelector('.download-bill');
+
+            downloadBill.addEventListener('click', (e) => {
+                e.preventDefault();
+                let id = e.target.getAttribute('data-id');
+                fetch(`/app/accounting/download/${id}`)
+                    .then(res => {
+                        return res.text();
+                    })
+                    .then(res => {
+
+                        // Dès reception, disparition du loader.
+                        loader.style.display = "none";
+
+                        showAccountingWithAjax()
+
+                    })
+                    .catch(err => {
+                        if (err) {
+                            throw err;
+                        }
+                    })
+            })
+        })
+        .catch(err => {
+            if (err) {
+                throw err;
+            }
+        })
 }

@@ -37,8 +37,8 @@
                     {{ bill.flatRate.price }}
                 {% endif %}
             </p>
-        <button>Details</button>
-        <button>Download</button>
+            <button class="details-bill" data-id="{{ bill.id }}">Details</button>
+            <button class="download-bill" data-id="{{ bill.id }}">Download</button>
         </div>
     {% endfor %}
 </div>
