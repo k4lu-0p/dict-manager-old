@@ -104,7 +104,7 @@ class Customer
      *      
      * )
      */
-    private $picture = "/uploads/pictures/user.png";
+    private $picture = "user.png";
 
     public function __construct()
     {
