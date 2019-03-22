@@ -26,7 +26,6 @@ function showAccountingWithAjax() {
         return res.text();
     })
     .then(res => {
-        console.log(res)
 
         // Dès reception, disparition du loader.
         loader.style.display = "none";

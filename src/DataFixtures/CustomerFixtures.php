@@ -30,6 +30,16 @@ class CustomerFixtures extends Fixture
                 ->setSessionNumber($nombreSession)
                 ->setPrice(($nombreSession - $freeSession) * 250);
 
+            // ===== Factures ============================================================
+
+            $bill = new Bill();
+
+            $bill->setTax(10)
+                ->setCreatedAt(new \DateTime('now +1 hour'))
+                ->setFlatRate($flatRate);
+
+            $manager->persist($bill);
+
             // ===== Sessions ============================================================
 
             for ($j = 0; $j < 10; $j++) {
@@ -48,15 +58,6 @@ class CustomerFixtures extends Fixture
                 $manager->persist($session);
             }
             $manager->persist($flatRate);
-
-            // ===== Factures ============================================================
-
-            $bill = new Bill();
-
-            $bill->setTax(10)
-                ->setCreatedAt(new \DateTime('now +1 hour'));
-
-            $manager->persist($bill);
 
             // ===== Clients ============================================================
 

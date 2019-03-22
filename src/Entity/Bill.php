@@ -33,6 +33,11 @@ class Bill
      */
     private $created_at;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\FlatRate", inversedBy="bill", cascade={"persist", "remove"})
+     */
+    private $flatRate;
+
     public function getId(): ? int
     {
         return $this->id;
@@ -70,6 +75,18 @@ class Bill
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getFlatRate(): ?FlatRate
+    {
+        return $this->flatRate;
+    }
+
+    public function setFlatRate(FlatRate $flatRate): self
+    {
+        $this->flatRate = $flatRate;
 
         return $this;
     }

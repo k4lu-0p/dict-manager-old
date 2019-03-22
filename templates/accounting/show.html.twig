@@ -1,10 +1,17 @@
 <div class="container container-accounting">
     <h1>{{ title }}</h1>
-    {% for bill in allCustomersBills %}
+    {% for bill in bills %}
         <div class="card card-accounting">
-            {# <p>{{ bill.createdAt|date("d/m/Y") }}</p> #}
-            <p>{{ bill }}</p>
-            <p></p>
+            <p>Bill id :
+                {{ bill.id }}</p>
+            <p>Date :
+                {{ bill.createdAt|date("m/d/Y") }}</p>
+            <p>Customer(id/firstname/lastname) :
+                {{ bill.customer.id }}/{{ bill.customer.firstname }}/{{ bill.customer.lastname }}</p>
+            <p>FlatRate (id/dateStart/dateEnd/nBsessions) :
+                {{ bill.flatRate.id }}/{{ bill.flatRate.dateStart|date("m/d/Y") }}/{{ bill.flatRate.dateEnd|date("m/d/Y") }}/{{ bill.flatRate.nbSessions }}</p>
+            <p>Taxes :
+                {{ bill.tax }}%</p>
         </div>
     {% endfor %}
 </div>

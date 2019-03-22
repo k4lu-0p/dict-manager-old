@@ -48,6 +48,11 @@ class FlatRate
      */
     private $customer;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Bill", mappedBy="flatRate", cascade={"persist", "remove"})
+     */
+    private $bill;
+
     public function __construct()
     {
         $this->sessions = new ArrayCollection();
@@ -145,6 +150,23 @@ class FlatRate
     public function setCustomer(? Customer $customer): self
     {
         $this->customer = $customer;
+
+        return $this;
+    }
+
+    public function getBill(): ?Bill
+    {
+        return $this->bill;
+    }
+
+    public function setBill(Bill $bill): self
+    {
+        $this->bill = $bill;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $bill->getFlatRate()) {
+            $bill->setFlatRate($this);
+        }
 
         return $this;
     }
