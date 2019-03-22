@@ -1,7 +1,7 @@
   {% for customer in customers %}
     <div class="card-customers d-flex flex-column justify-content-around align-items-center">
         
-        <div data-id="{{ customer.id }}" data-action="show" class="customer-picture" style="background-image: url({{ customer.picture }});">
+        <div data-id="{{ customer.id }}" data-action="show" class="customer-picture" style="background-image: url(/uploads/pictures/{{ customer.picture }});">
         </div>
         <div>
             <p data-id="{{ customer.id }}" data-action="show" class="text-center">{{ customer.lastname }}</p>        
