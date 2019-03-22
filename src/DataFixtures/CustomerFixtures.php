@@ -28,7 +28,7 @@ class CustomerFixtures extends Fixture
 
             $flatRate->setDateStart($faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null))
                 ->setSessionNumber($nombreSession)
-                ->setPrice(($nombreSession - $freeSession) * 250);
+                ->setPrice(($nombreSession) * 227);
 
             // ===== Factures ============================================================
 
