@@ -111,7 +111,6 @@ class StatisticsController extends AbstractController
             'flatRates' => $allFlatRates,
             'sessionsByFlatRate' => $sessionsByFlatRate,
             // "sessionsByWeek" = $sessionsByWeek,
-            "dateTest" => $sessions->findOneById(2)->getDate(),
             "currentWeek" => $currentWeek,
             "currentYear" => $currentYear
         ];
