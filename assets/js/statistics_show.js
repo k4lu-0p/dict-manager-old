@@ -75,63 +75,125 @@ function showChartsWithAjax() {
                 }
             });
 
-            let xWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            let xWeek = ["S", "M", "T", "W", "T", "F", "S"];
             let data = [sunday, monday, tuesday, wednesday, thursday, friday, saturday];
 
-            new Chart(document.getElementById("day-chart"), {
-                type: 'bar',
-                data: {
-                    // Axe X
-                    labels: xWeek,
-                    datasets: [{
-                        // Valeur à afficher
-                        data: data,
-                        label: "Sessions per day",
-                        backgroundColor: "#e12768",
-                        fill: false
-                    }]
-                },
-                options: {
-                    title: {
-                        display: true,
-                        // Titre du graphique
-                        text: 'Current week'
+            $('.chart-carousel').slick({
+                dots: true,
+                arrows: false
+            });
+
+            // On swipe event
+            $('.chart-carousel').on('swipe', function (event, slick, direction) {
+                if (direction == "left") {
+                    $('.nav-top-title-stats').fadeOut();
+
+                    setTimeout(() => {
+                        $('.nav-top-title-stats').text('Sessions this year');
+                        $('.nav-top-title-stats').fadeIn();
+                    }, 500)
+
+                } else {
+                    $('.nav-top-title-stats').fadeOut();
+
+                    setTimeout(() => {
+                        $('.nav-top-title-stats').text('Sessions this week');
+                        $('.nav-top-title-stats').fadeIn();
+                    }, 500)
+
+                }
+            });
+
+            // let ctx = document.getElementById("day-chart");
+            // ctx.height = 500;
+
+            Chart.defaults.global.legend.display = false;
+            Chart.pluginService.register({
+                beforeDraw: function (chart, easing) {
+                    if (chart.config.options.chartArea) {
+                        let ctx = chart.chart.ctx;
+                        let chartArea = chart.chartArea;
+                        let source = document.getElementById('source');
+
+                        ctx.save();
+                        ctx.fillStyle = chart.config.options.chartArea.backgroundColor;
+                        ctx.drawImage(source, chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top);
+
+                        ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top);
+                        ctx.restore();
                     }
                 }
             });
 
+            let data1 = {
+                // Axe X
+                labels: xWeek,
 
-            // GRAPHIQUE LINE ===== Graphique en courbe sessions par semaine dans un mois =====
+                datasets: [{
+                    // Valeur à afficher
+                    data: data,
+                    backgroundColor: "#e12768",
+                    fill: false
+                }]
+            };
 
-            // let xMonth = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-            // let dataMonth = [90, 25, 35, 23, 132, 70, 100];
+            let options1 = {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            fontColor: '#EAFFFE',
+                            stepValue: 1,
+                            stepSize: 1
+                        },
+                        gridLines: {
+                            display: true,
+                            color: "#343D49"
+                        }
+                    }],
+                    xAxes: [{
+                        barPercentage: 0.1,
+                        ticks: {
+                            beginAtZero: true,
+                            fontColor: '#EAFFFE'
+                        },
+                        gridLines: {
+                            display: true,
+                            color: "#343D49"
+                        }
+                    }],
+                    legend: {
 
-            // new Chart(document.getElementById("month-chart"), {
-            //     type: 'line',
-            //     data: {
-            //         // Axe X
-            //         labels: xMonth,
-            //         datasets: [{
-            //             // Valeur à afficher
-            //             data: dataMonth,
-            //             label: "Sessions per week",
-            //             borderColor: "#e12768",
-            //             fill: false
-            //         }]
-            //     },
-            //     options: {
-            //         title: {
-            //             display: true,
-            //             // Titre du graphique
-            //             text: 'Current month'
-            //         }
-            //     }
-            // });
+                        labels: {
 
-            // GRAPHIQUE LINE ===== Graphique en courbe sessions par mois dans une année =====
+                            fontColor: '#EAFFFE'
+                        }
+                    }
+                },
+                title: {
+                    display: false,
+                    // Titre du graphique
+                    text: 'Current week'
+                },
+                chartArea: {
+                    backgroundColor: 'transparent'
+                }
+            }
 
-            let xYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            let dataYear = [
+            let chart1 = {
+                type: 'bar',
+                data: data1,
+                options: options1
+            }
+
+            let ctx = document.getElementById("day-chart").getContext("2d");
+            new Chart(ctx, chart1);
+
+
+
+
+            let xMonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            let dataMonth = [
                 res.currentYear.January,
                 res.currentYear.February,
                 res.currentYear.March,
@@ -150,11 +212,12 @@ function showChartsWithAjax() {
                 type: 'line',
                 data: {
                     // Axe X
-                    labels: xYear,
+                    labels: xMonth,
+
                     datasets: [{
                         // Valeur à afficher
-                        data: dataYear,
-                        label: "Sessions per month",
+                        data: dataMonth,
+
                         borderColor: "#e12768",
                         fill: false
                     }]
@@ -169,9 +232,9 @@ function showChartsWithAjax() {
             });
 
             // cases inférieures nombre clients
-            document.querySelector('#nbCustomers').textContent = "Number of customer : " + res.nbCustomers;
-            document.querySelector('#nbFlatRates').textContent = "Number of flat rate : " + res.nbFlatRates;
-            document.querySelector('#nbSessionsThisYear').textContent = "Number of session : " + res.nbSessions;
+            document.querySelector('#nbCustomers').textContent = res.nbCustomers;
+            document.querySelector('#nbFlatRates').textContent = res.nbFlatRates;
+            document.querySelector('#nbSessionsThisYear').textContent = res.nbSessions;
         })
         .catch(err => {
             if (err) {

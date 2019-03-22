@@ -1,14 +1,17 @@
 
+
+{# // Barre de navigation supérieur #}
 <nav id="nav-top-customer" class="d-flex justify-content-between align-items-center">
-        <button id="button-search-customer" class="opacity-zero"><i data-action="edit"  class='uil uil-pen'></i></button>
+        <button id="button-search-customer" class="opacity-zero p-0 pl-3 m-0"><i data-action="edit" class='uil uil-pen'></i></button>
             
         <div class="d-flex justify-content-center align-items-center">
-            <h4 class="text-center p-3">{{ customer.firstname }} {{ customer.lastname }}</h4>
+            <h4 class="text-center p-0">{{ customer.firstname }} {{ customer.lastname }}</h4>
         </div>
 
-        <button id="button-add-customer" data-action="new" class="new"><i class='uil uil-plus' data-action="new"></i></button>
+        <button id="button-add-customer" data-action="new" class="new p-0 pr-3 m-0"><i class='uil uil-plus' data-action="new"></i></button>
 </nav>
 
+{# // Container principal #}
 <div class="container container-customer">
 
     {# // Message de confirmation de suppression #}
@@ -23,14 +26,16 @@
     </div>
 
     {# // Card #}    
-    <div class="">
+    <div class="container-info-customer">
+
         <div class="mx-auto my-4 customer-profile-picture" style="background-image: url(/uploads/pictures/{{ customer.picture }});">
             <button class="button-edit-customer-profile " data-id="{{ customer.id }}" data-action="edit"><i class='uil uil-edit'
                 data-action="edit" data-id="{{ customer.id }}"></i></button>
         </div>
-        <p class="p-0 m-0" > Firstname : {{ customer.firstname }}</p>
-        <p class="p-0 m-0" >Lastname : {{ customer.lastname }}</p>
-        <p class="p-0 m-0" >Registration date : {{ customer.createdAt | date("m/d/Y") }}</p>
+
+        <p class="p-0 m-0" >Firstname : <span>{{ customer.firstname }}</span></p>
+        <p class="p-0 m-0" >Lastname : <span>{{ customer.lastname }}</span></p>
+        <p class="p-0 m-0" >Registration date : <span>{{ customer.createdAt | date("m/d/Y") }}</span></p>
         <p class="p-0 m-0" >Phone : <a class="customer-phone p-0 m-0" href="tel:{{ customer.phone }}">{{ customer.phone }}</a></p>
         <p class="p-0 m-0" >Email : <a class="customer-address-number p-0 m-0" href="mailto:{{ customer.email }}">{{ customer.email }}</a></p>
         <p class="p-0 m-0" >Send a message with <a href="https://wa.me/33760132568?text=Hi%20{{ customer.firstname }}%2C%20">WhatsApp</a></p>       

@@ -1,14 +1,56 @@
-<div class="container container-statistics">
-    <h1>Statistics</h1>
-    <div id="charts">
-        <canvas height="400" id="day-chart" width="400"></canvas>
-        {# <canvas height="400" id="month-chart" width="400"></canvas> #}
-        <canvas height="400" id="year-chart" width="400"></canvas>
+<nav id="nav-top-customer" class="d-flex justify-content-between align-items-center">
+        <button id="button-search-customer" data-action="toggle" class="search p-0 pl-3 m-0"><i data-action="toggle" class='uil uil-search'></i></button>
+            
+        <div class="d-flex justify-content-center align-items-center">
+            {# <span id="count-customer" class="px-1">0</span> #}
+            <h4 class="nav-top-title-stats text-center p-0">Sessions this week</h4>
+        </div>
+
+        <button id="button-add-customer" data-action="new" class="new p-0 pr-3 m-0"><i class='uil uil-plus' data-action="new"></i></button>
+</nav>
+
+<div class="container-search-bar p-3">
+    <div class="d-flex justify-content-center align-items-center">
+        <input id="input-search" type="text" placeholder="Search Lastname or Firstname" class="px-3 text-center">
+        {# <button data-action="search" ><i data-action="search" class='uil uil-search'></i></button> #}
     </div>
-    <div class="card">
+</div>
+
+<div class="container container-statistics">
+    
+    <div id="charts" class="pt-4 chart-carousel">
+        <div>
+            <canvas height="400" id="day-chart" width="400"></canvas> 
+
+            <div class="wrapper-square-stats  d-flex justify-content-around align-items-center">
+                <div class="square-stats d-flex flex-column justify-content-around align-items-center py-5">
+                    <p id="nbCustomers"></p>
+                    <p>Customers</p>
+                </div>
+                <div class="square-stats d-flex flex-column justify-content-around align-items-center py-5">
+                    <p id="nbFlatRates"></p>
+                    <p>Flat Rates</p>
+                </div>
+            </div>   
+        </div>
+        
+        <div>
+            <canvas height="400" id="year-chart" width="400"></canvas>
+        </div>
+        {# <canvas height="400" id="month-chart" width="400"></canvas> #}
+    </div>
+
+    {# <div class="card">
         <div id="nbCustomers"></div>
         <div id="nbFlatRates"></div>
         <div id="nbSessionsThisYear"></div>
         <div id="nbSessions"></div>
-    </div>
+    </div> #}
+</div>
+
+
+<div style="display:none;">
+  <img id="source"
+       src="/build/images/bg-chart.jpg"
+       width="300" height="227">
 </div>
