@@ -1,10 +1,10 @@
 <div class="container container-accounting">
     <h1>{{ title }}</h1>
-    <div class="card">
-
-        <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam voluptas, magnam commodi mollitia corrupti ratione consequuntur voluptatum fuga saepe quidem, explicabo adipisci reiciendis quaerat iste non sint quibusdam modi asperiores?
-        </p>
-
-    </div>
+    {% for bill in allCustomersBills %}
+        <div class="card card-accounting">
+            {# <p>{{ bill.createdAt|date("d/m/Y") }}</p> #}
+            <p>{{ bill }}</p>
+            <p></p>
+        </div>
+    {% endfor %}
 </div>

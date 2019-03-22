@@ -28,6 +28,11 @@ class Bill
      */
     private $customer;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $created_at;
+
     public function getId(): ? int
     {
         return $this->id;
@@ -53,6 +58,18 @@ class Bill
     public function setCustomer(? Customer $customer): self
     {
         $this->customer = $customer;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }

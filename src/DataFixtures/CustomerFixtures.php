@@ -53,7 +53,8 @@ class CustomerFixtures extends Fixture
 
             $bill = new Bill();
 
-            $bill->setTax(10);
+            $bill->setTax(10)
+                ->setCreatedAt(new \DateTime('now +1 hour'));
 
             $manager->persist($bill);
 

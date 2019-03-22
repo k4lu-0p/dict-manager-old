@@ -33,7 +33,7 @@ function showChartsWithAjax() {
             return res.json();
         })
         .then(res => {
-            console.log(res)
+            // console.log(res)
 
             // Dès reception, disparition du loader.
             loader.style.display = "none";
@@ -103,14 +103,17 @@ function showChartsWithAjax() {
 
             // GRAPHIQUE LINE ===== Graphique en courbe sessions par semaine dans un mois =====
 
+            // let xMonth = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+            // let dataMonth = [90, 25, 35, 23, 132, 70, 100];
+
             // new Chart(document.getElementById("month-chart"), {
             //     type: 'line',
             //     data: {
             //         // Axe X
-            //         labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+            //         labels: xMonth,
             //         datasets: [{
             //             // Valeur à afficher
-            //             data: [90, 25, 35, 23, 132, 70, 100],
+            //             data: dataMonth,
             //             label: "Sessions per week",
             //             borderColor: "#e12768",
             //             fill: false
@@ -127,10 +130,8 @@ function showChartsWithAjax() {
 
             // GRAPHIQUE LINE ===== Graphique en courbe sessions par mois dans une année =====
 
-            console.log(res.currentYear)
-
-            let xMonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            let dataMonth = [
+            let xYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            let dataYear = [
                 res.currentYear.January,
                 res.currentYear.February,
                 res.currentYear.March,
@@ -149,10 +150,10 @@ function showChartsWithAjax() {
                 type: 'line',
                 data: {
                     // Axe X
-                    labels: xMonth,
+                    labels: xYear,
                     datasets: [{
                         // Valeur à afficher
-                        data: dataMonth,
+                        data: dataYear,
                         label: "Sessions per month",
                         borderColor: "#e12768",
                         fill: false
