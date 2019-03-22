@@ -131,7 +131,7 @@ function searchCustomer() {
                 containerCustomer.style.display = "grid";
                 containerCustomer.innerHTML = res;
 
-                // Revenir sur la page principal
+                // // Revenir sur la page principal
                 defineActionPreviousButton('previous');
 
                 // Compte le nombre de client
@@ -422,7 +422,8 @@ function showFormEditCustomer(id) {
             // Injecte le contenu receptionné dans le container.
             app.innerHTML = res;
 
-            defineActionPreviousButton('previous');
+            // Revenir sur la page info client
+            defineActionPreviousButton('show', id);
 
             // Boutton d'envois du formulaire.
             buttonUpdateCustomer = document.querySelector('#update-button-customer');
@@ -499,7 +500,6 @@ function addOneCustomer(e) {
             // Injecte le contenu receptionné dans le container.
             app.innerHTML = res;
 
-
             onFilterAlphabetics = true;
 
         })
@@ -548,12 +548,10 @@ function showFormNewCustomer() {
                 throw err;
             }
         })
-
 }
 
 // Button Supprimé :
 function deleteOneCustomer(id) {
-
 
     let spanFirstnameLastname = document.querySelector("#confirm-delete-customer-fullname");
 
@@ -682,12 +680,16 @@ function showAllCustomers() {
 }
 
 // Définir le role du boutton précédent en fonction de là ou on se trouve.
-function defineActionPreviousButton(dataAction) {
+function defineActionPreviousButton(dataAction, id) {
 
     let buttonNavPrevious = document.querySelector('#nav-button-back');
 
     if (buttonNavPrevious) {
         buttonNavPrevious.setAttribute('data-action', dataAction);
+
+        if (id) {
+            buttonNavPrevious.setAttribute('data-id', id);
+        }
     }
 
 }
