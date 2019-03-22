@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\BillRepository;
 use App\Repository\CustomerRepository;
+use Dompdf\Dompdf;
 
 /**
  * @Route("/app/accounting")
@@ -62,5 +63,23 @@ class AccountingController extends AbstractController
             'title' => 'My account handler\'s',
             "bills" => $bills,
         ]);
+    }
+    /**
+     * @Route("/download/{id}", name="downloadBill")
+     */
+    public function download()
+    {
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml('hello world');
+
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream();
     }
 }
