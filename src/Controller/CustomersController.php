@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Form\CustomerType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use App\Service\Makani;
 
 /**
  * @Route("/app/customers")
@@ -65,8 +66,18 @@ class CustomersController extends AbstractController
      */
     public function showOneCustomer(Customer $customer, CustomerRepository $repo)
     {
+        $coord = ['lat' => '', 'lng' => ''];
+
+        if (strlen($customer->getAddressNumber()) == 10) {
+            $makani_no = substr_replace($customer->getAddressNumber(), " ", -5, -6);
+            $data = Makani::Query($makani_no)->toJson();
+            $coord['lat'] = $data->lat; 
+            $coord['lng'] = $data->lng;
+        }   
+
         return $this->render('customers/showOne.html.twig', [
-            'customer' => $customer
+            'customer' => $customer,
+            'coord' => $coord
         ]);
     }
 
@@ -124,7 +135,6 @@ class CustomersController extends AbstractController
      */
     private function generateUniqueFileName()
     {
-
         return md5(uniqid());
     }
 
@@ -137,6 +147,25 @@ class CustomersController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $file = $form->get('picture')->getData();
+
+            if ($file != null) {
+
+                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
+
+                try {
+                    $file->move(
+                        $this->getParameter('pictures_directory'),
+                        $fileName
+                    );
+                } catch (FileException $e) { }
+
+                $customer->setPicture($fileName);
+            } else {
+                $customer->setPicture('user.png');
+            }
+
             $manager->persist($customer);
             $manager->flush();
 

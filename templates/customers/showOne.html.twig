@@ -48,6 +48,13 @@
 
 </div>
 
+{% if coord.lat and coord.lng %}
+
+    <input id="lat" type="hidden" value="{{ coord.lat }}">
+    <input id="lng" type="hidden" value="{{ coord.lng }}">
+
+{% endif %}
+
         {# <h2>{{ customer.id }}</h2>
         <h2>{{ customer.firstname }}</h2>
         <h2>{{ customer.lastname }}</h2>
