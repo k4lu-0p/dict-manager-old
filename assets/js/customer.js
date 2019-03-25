@@ -252,6 +252,7 @@ function showByAlphabeticCustomer(e) {
 
                 // Injecte le contenu receptionné dans le container.
                 containerCustomer.innerHTML = res;
+                containerCustomer.style.display = "grid";
 
                 // Compte le nombre de client
                 let countCustomers = document.querySelectorAll('.card-customers').length;
@@ -663,6 +664,7 @@ function showAllCustomers() {
 
             // Injecte le contenu receptionné dans le container.
             containerCustomer.innerHTML = res;
+            containerCustomer.style.display = "grid";
 
             // Compte le nombre de client
             let countCustomers = document.querySelectorAll('.card-customers').length;

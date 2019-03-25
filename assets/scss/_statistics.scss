@@ -47,8 +47,10 @@
                     font-family: $main-font;
                 }
 
-                #nbCustomers,
-                #nbFlatRates {
+                #nbSessionsThisWeek,
+                #nbSessionsThisYear,
+                #nbSessionsThisDay,
+                #nbSessionsThisMonth {
                     letter-spacing: 1px;
                     color: $white-color;
                     // font-weight: bold;

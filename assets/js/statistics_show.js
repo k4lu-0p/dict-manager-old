@@ -77,6 +77,12 @@ function showChartsWithAjax() {
 
             let xWeek = ["S", "M", "T", "W", "T", "F", "S"];
             let data = [sunday, monday, tuesday, wednesday, thursday, friday, saturday];
+            let totalSessionThisWeek = 0;
+
+            data.forEach(element => {
+                e = Number.parseInt(element);
+                totalSessionThisWeek += e;
+            });
 
             $('.chart-carousel').slick({
                 dots: true,
@@ -125,6 +131,7 @@ function showChartsWithAjax() {
                 }
             });
 
+            // CONFIG CHART 1
             let data1 = {
                 // Axe X
                 labels: xWeek,
@@ -180,19 +187,10 @@ function showChartsWithAjax() {
                 }
             }
 
-            let chart1 = {
-                type: 'bar',
-                data: data1,
-                options: options1
-            }
 
-            let ctx = document.getElementById("day-chart").getContext("2d");
-            new Chart(ctx, chart1);
-
-
-
-
-            let xMonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            // CONFIG CHART 2
+            let xMonth = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
+            // let xMonth = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             let dataMonth = [
                 res.currentYear.January,
                 res.currentYear.February,
@@ -208,33 +206,90 @@ function showChartsWithAjax() {
                 res.currentYear.December
             ];
 
-            new Chart(document.getElementById("year-chart"), {
-                type: 'line',
-                data: {
-                    // Axe X
-                    labels: xMonth,
+            let data2 = {
+                // Axe X
+                labels: xMonth,
+                datasets: [{
+                    // Valeur à afficher
+                    data: dataMonth,
+                    backgroundColor: "#e12768",
+                    fill: false,
+                    borderColor: '#e12768',
+                    pointBorderColor: '#EAFFFE',
+                    pointBorderWidth: 1,
+                    pointRadius: 7
+                }]
+            };
 
-                    datasets: [{
-                        // Valeur à afficher
-                        data: dataMonth,
+            let options2 = {
 
-                        borderColor: "#e12768",
-                        fill: false
-                    }]
-                },
-                options: {
-                    title: {
-                        display: true,
-                        // Titre du graphique
-                        text: 'Current year'
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: false,
+                            fontColor: '#EAFFFE',
+                            stepValue: 1,
+                            stepSize: 5
+                        },
+                        gridLines: {
+                            display: true,
+                            color: "#343D49"
+                        }
+                    }],
+                    xAxes: [{
+
+                        ticks: {
+                            beginAtZero: true,
+                            fontColor: '#EAFFFE'
+                        },
+                        gridLines: {
+                            display: true,
+                            color: "#343D49"
+                        }
+                    }],
+                    legend: {
+
+                        labels: {
+
+                            fontColor: '#EAFFFE'
+                        }
                     }
+                },
+                title: {
+                    display: false,
+                    // Titre du graphique
+                    text: 'Current year'
+                },
+                chartArea: {
+                    backgroundColor: 'transparent'
                 }
-            });
+            }
+
+            let chart1 = {
+                type: 'bar',
+                data: data1,
+                options: options1
+            }
+
+            let chart2 = {
+                type: 'line',
+                data: data2,
+                options: options2
+            }
+
+            let ctx1 = document.getElementById("day-chart").getContext("2d");
+            new Chart(ctx1, chart1);
+
+            let ctx2 = document.getElementById("year-chart").getContext("2d");
+            new Chart(ctx2, chart2);
+
 
             // cases inférieures nombre clients
-            document.querySelector('#nbCustomers').textContent = res.nbCustomers;
-            document.querySelector('#nbFlatRates').textContent = res.nbFlatRates;
+            // document.querySelector('#nbCustomers').textContent = res.nbCustomers;
+            document.querySelector('#nbSessionsThisWeek').textContent = totalSessionThisWeek;
+            // document.querySelector('#nbFlatRates').textContent = res.nbFlatRates;
             document.querySelector('#nbSessionsThisYear').textContent = res.nbSessions;
+
         })
         .catch(err => {
             if (err) {
