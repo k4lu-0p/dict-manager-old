@@ -1,3 +1,8 @@
+let today = new Date();
+let currentMonth = today.getMonth();
+let currentDay = today.getDay() >= 7 ? 0 : today.getDay();
+
+
 // Premier affichage
 if (document.querySelector('#app')) {
     window.addEventListener("onLoad", showChartsWithAjax());
@@ -85,6 +90,7 @@ function showChartsWithAjax() {
             });
 
             $('.chart-carousel').slick({
+                infinite: false,
                 dots: true,
                 arrows: false
             });
@@ -110,8 +116,6 @@ function showChartsWithAjax() {
                 }
             });
 
-            // let ctx = document.getElementById("day-chart");
-            // ctx.height = 500;
 
             Chart.defaults.global.legend.display = false;
             Chart.pluginService.register({
@@ -286,6 +290,8 @@ function showChartsWithAjax() {
 
             // cases inférieures nombre clients
             // document.querySelector('#nbCustomers').textContent = res.nbCustomers;
+            document.querySelector('#nbSessionsThisMonth').textContent = dataMonth[currentMonth];
+            document.querySelector('#nbSessionsThisDay').textContent = data[currentDay];
             document.querySelector('#nbSessionsThisWeek').textContent = totalSessionThisWeek;
             // document.querySelector('#nbFlatRates').textContent = res.nbFlatRates;
             document.querySelector('#nbSessionsThisYear').textContent = res.nbSessions;
