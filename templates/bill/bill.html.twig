@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+            <title>Facture {{ bill.id }}</title>
+            <style type="text/css">
+                * {
+                    font-family: Verdana, Arial, sans-serif;
+                }
+                table {
+                    font-size: x-small;
+                }
+                tfoot tr td {
+                    font-weight: bold;
+                    font-size: x-small;
+                }
+                .gray {
+                    background-color: rgb(228, 228, 228);
+                }
+                .lightgray {
+                    background-color: lightgray;
+                }
+            </style>
+        </head>
+        <body>
+            <table width="100%">
+                <tr>
+                    <td valign="top">
+                        <h1>
+                            <strong>Facture {{ bill.id }}</strong>
+                        </h1>
+                    </td>
+                    <td align="right">
+                        <h3></h3>
+                        <pre>
+                Adresse
+                CP ville
+                Pays
+            </pre>
+                        <pre>
+                Telephone
+                eMail
+            </pre>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <strong>Adresse de facturation :</strong>
+                    </td>
+                    <td>
+                        <strong>Adresse de livraison :</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <pre>
+                    John Doe
+                    Une adresse
+                </pre>
+                    </td>
+                    <td>
+                        <pre>
+                    Jeannette Doe
+                    Une autre adresse
+                </pre>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <br/>
+            <br/>
+            <table width="100%">
+                <thead class="lightgray">
+                    <tr>
+                        <th>FlatRate date</th>
+                        <th>Nb sessions</th>
+                        <th>Free</th>
+                        <th>Prix unitaire €</th>
+                        <th>Total €</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                            <th scope="row">{{ bill.flatRate.dateStart|date("m/d/Y") }}</th>
+                            <td class="gray">{{ bill.flatRate.nbSessions }}</td>
+                            {# <td align="right">{{ bill.flatRate.nbFreeSessions }}</td> #}
+                            <td align="right" class="gray"></td>
+                            <td align="right">{{ bill.flatRate.price }}</td>
+                        </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3"></td>
+                        <td align="right">Total €</td>
+                        <td align="right" class="lightgray">{{ bill.flatRate.price }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </body>
+    </html>

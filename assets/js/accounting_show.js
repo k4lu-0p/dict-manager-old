@@ -33,28 +33,32 @@ function showAccountingWithAjax() {
             // Injecte le contenu receptionné dans le container.
             app.innerHTML = res;
 
-            const downloadBill = document.querySelector('.download-bill');
+            const downloadBills = document.querySelectorAll('.download-bill');
 
-            downloadBill.addEventListener('click', (e) => {
-                e.preventDefault();
-                let id = e.target.getAttribute('data-id');
-                fetch(`/app/accounting/download/${id}`)
-                    .then(res => {
-                        return res.text();
-                    })
-                    .then(res => {
+            downloadBills.forEach(downloadBill => {
 
-                        // Dès reception, disparition du loader.
-                        loader.style.display = "none";
+                downloadBill.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    let id = e.target.getAttribute('data-id');
+                    fetch(`/app/accounting/download/${id}`)
+                        .then(res => {
+                            return res.text();
+                        })
+                        .then(res => {
 
-                        showAccountingWithAjax()
+                            console.log(res)
+                            // Dès reception, disparition du loader.
+                            loader.style.display = "none";
 
-                    })
-                    .catch(err => {
-                        if (err) {
-                            throw err;
-                        }
-                    })
+                            showAccountingWithAjax()
+
+                        })
+                        .catch(err => {
+                            if (err) {
+                                throw err;
+                            }
+                        })
+                });
             })
         })
         .catch(err => {

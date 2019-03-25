@@ -7,6 +7,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\BillRepository;
 use App\Repository\CustomerRepository;
 use Dompdf\Dompdf;
+use Dompdf\Options;
+use App\Entity\FlatRate;
+use App\Entity\Bill;
 
 /**
  * @Route("/app/accounting")
@@ -53,7 +56,7 @@ class AccountingController extends AbstractController
 
             array_push($bills, $bill);
 
-            // Remise 
+            // Remise à zero
             $flatRate = [];
             $customer = [];
             $bill = [];
@@ -64,31 +67,60 @@ class AccountingController extends AbstractController
             "bills" => $bills,
         ]);
     }
+
     /**
      * @Route("/download/{id}", name="downloadBill")
      */
-    public function download()
+    public function download(Bill $bill)
     {
-        // instantiate and use the dompdf class
+        $currentBill = [];
+        $customer = [];
+        $flatRate = [];
+
+        $customerName = $bill->getCustomer();
+
+        // Id
+        $currentBill["id"] = $bill->getId();
+
+        // Created_at
+        $currentBill["createdAt"] = $bill->getCreatedAt();
+
+        // Taxes
+        $currentBill["tax"] = $bill->getTax();
+
+        // Customer
+        $customer["id"] = $customerName->getId();
+        $customer["firstname"] = $customerName->getFirstname();
+        $customer["lastname"] = $customerName->getLastname();
+        $currentBill["customer"] = $customer;
+
+        // FlatRate
+        $flatRate["id"] = $bill->getFlatRate()->getId();
+        $flatRate["price"] = $bill->getFlatRate()->getPrice();
+        $flatRate["dateStart"] = $bill->getFlatRate()->getDateStart();
+        $flatRate["dateEnd"] = $bill->getFlatRate()->getDateEnd();
+        $flatRate["nbSessions"] = $bill->getFlatRate()->getSessionNumber();
+        // $flatRate["nbSessions"] = $bill->getFlatRate()->getSessions();
+        $currentBill["flatRate"] = $flatRate;
+
         $dompdf = new Dompdf();
 
-        // Configure Dompdf according to your needs
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Arial');
+        $html = $this->renderView('bill/bill.html.twig', [
+            "bill" => $currentBill
+        
+            ]
+        );
 
-        // Instantiate Dompdf with our options
-        $dompdf = new Dompdf($pdfOptions);
+        $dompdf->loadHtml($html);
 
-        $dompdf->loadHtml('hello world');
-
-        // (Optional) Setup the paper size and orientation 'portrait' or 'landscape'
+        // (Optional) Setup the paper size and orientation
         $dompdf->setPaper('A4', 'portrait');
 
         // Render the HTML as PDF
         $dompdf->render();
 
         // Output the generated PDF to Browser (force download)
-        $dompdf->stream("Facture.pdf", [
+        $dompdf->stream("Facture-". $currentBill["id"] .".pdf", [
             "Attachment" => true
         ]);
     }
