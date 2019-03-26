@@ -1,5 +1,108 @@
 <!doctype html>
 <html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Facture {{ bill.id }}</title>
+
+<style type="text/css">
+    * {
+                    font-family: Verdana, Arial, sans-serif;
+                }
+                table {
+                    font-size: x-small;
+                }
+                tfoot tr td {
+                    font-weight: bold;
+                    font-size: x-small;
+                }
+                .gray {
+                    background-color: rgb(228, 228, 228);
+                }
+                .lightgray {
+                    background-color: lightgray;
+                }
+                h3{
+                    margin-bottom: 0;
+                }
+</style>
+
+</head>
+<body>
+
+  <table width="100%">
+        <td valign="top">
+            <img src="build/images/logo-color.svg" alt="logo DICT" height="60">
+        </td>
+        <td align="right">
+            <h3>Shinra Electric power company</h3>
+            <pre>
+                Company representative name
+                Company address
+                Tax ID
+                phone
+                fax
+            </pre>
+        </td>
+    </tr>
+
+  </table>
+
+  <table width="100%">
+    <tr>
+        <td><h3><strong>Customer:</strong></h3></td>
+        <td><h3><strong>FlatRate:</strong></h3></td>
+    </tr>
+    <tr>
+        <td><strong>Fullname : </strong>{{ bill.customer.lastname}} {{ bill.customer.firstname}}</td>
+        <td><strong>Date : </strong>{{ bill.flatRate.dateStart|date("d/m/Y") }} to {{ bill.flatRate.dateEnd|date("d/m/Y") }}</td>
+    </tr>
+    <tr>
+        <td><strong>Makani Number : </strong>{{ bill.customer.makani }}</td>
+        <td><strong>nB of sessions : </strong>{{ bill.flatRate.nbSessions }}</td>
+    </tr>
+
+  </table>
+
+            <br/>
+            <br/>
+            <table width="100%">
+                <thead class="lightgray">
+                    <tr>
+                        <th>FlatRate date</th>
+                        <th>Nb sessions</th>
+                        <th>Free</th>
+                        <th>Prix unitaire €</th>
+                        <th>Total €</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                            <th scope="row">{{ bill.flatRate.dateStart|date("m/d/Y") }}</th>
+                            <td class="gray">{{ bill.flatRate.nbSessions }}</td>
+                            {# <td align="right">{{ bill.flatRate.nbFreeSessions }}</td> #}
+                            <td align="right"></td>
+                            <td align="right" class="gray">{{ bill.flatRate.price }}</td>
+                        </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3"></td>
+                        <td align="right">Total €</td>
+                        <td align="right" class="lightgray">{{ bill.flatRate.price }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+</body>
+</html>
+
+
+
+
+
+{# 
+<!doctype html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
             <title>Facture {{ bill.id }}</title>
@@ -20,9 +123,16 @@
                 .lightgray {
                     background-color: lightgray;
                 }
+                #logo{
+                    width: 5vw;
+                }
+                svg{
+                    height: 5vh;
+                }
             </style>
         </head>
         <body>
+        <img src="build/images/logo.svg" alt="logo DICT" id="logo">
             <table width="100%">
                 <tr>
                     <td valign="top">
@@ -86,7 +196,7 @@
                         <tr>
                             <th scope="row">{{ bill.flatRate.dateStart|date("m/d/Y") }}</th>
                             <td class="gray">{{ bill.flatRate.nbSessions }}</td>
-                            {# <td align="right">{{ bill.flatRate.nbFreeSessions }}</td> #}
+                            {# <td align="right">{{ bill.flatRate.nbFreeSessions }}</td>
                             <td align="right" class="gray"></td>
                             <td align="right">{{ bill.flatRate.price }}</td>
                         </tr>
@@ -100,4 +210,4 @@
                 </tfoot>
             </table>
         </body>
-    </html>
+    </html> #}

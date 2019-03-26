@@ -92,6 +92,7 @@ class AccountingController extends AbstractController
         $customer["id"] = $customerName->getId();
         $customer["firstname"] = $customerName->getFirstname();
         $customer["lastname"] = $customerName->getLastname();
+        $customer["makani"] = $customerName->getAddressNumber();
         $currentBill["customer"] = $customer;
 
         // FlatRate
@@ -107,9 +108,7 @@ class AccountingController extends AbstractController
 
         $html = $this->renderView('bill/bill.html.twig', [
             "bill" => $currentBill
-        
-            ]
-        );
+        ]);
 
         $dompdf->loadHtml($html);
 
@@ -120,8 +119,9 @@ class AccountingController extends AbstractController
         $dompdf->render();
 
         // Output the generated PDF to Browser (force download)
-        $dompdf->stream("Facture-". $currentBill["id"] .".pdf", [
+        $dompdf->stream("Facture-" . $currentBill["id"] . ".pdf", [
             "Attachment" => true
         ]);
+        return $this;
     }
 }

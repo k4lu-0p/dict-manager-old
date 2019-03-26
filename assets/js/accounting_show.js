@@ -39,6 +39,7 @@ function showAccountingWithAjax() {
 
                 downloadBill.addEventListener('click', (e) => {
                     e.preventDefault();
+                    
                     let id = e.target.getAttribute('data-id');
                     fetch(`/app/accounting/download/${id}`)
                         .then(res => {
