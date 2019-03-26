@@ -70,9 +70,56 @@ class AccountingController extends AbstractController
     }
 
     /**
+     * @Route("/show/{id}", name="showOneBill")
+     */
+    public function showOneBill($id)
+    {
+
+        $repo = $this->getDoctrine()->getRepository(Bill::class);
+        $bill = $repo->find($id);
+
+        $currentBill = [];
+        $customer = [];
+        $flatRate = [];
+
+        $customerName = $bill->getCustomer();
+
+        // Id
+        $currentBill["id"] = $bill->getId();
+
+        // Created_at
+        $currentBill["createdAt"] = $bill->getCreatedAt();
+
+        // Taxes
+        $currentBill["tax"] = $bill->getTax();
+
+        // Customer
+        $customer["id"] = $customerName->getId();
+        $customer["firstname"] = $customerName->getFirstname();
+        $customer["lastname"] = $customerName->getLastname();
+        $customer["phone"] = $customerName->getPhone();
+        $customer["makani"] = $customerName->getAddressNumber();
+        $currentBill["customer"] = $customer;
+
+        // FlatRate
+        $flatRate["id"] = $bill->getFlatRate()->getId();
+        $flatRate["price"] = $bill->getFlatRate()->getPrice();
+        $flatRate["dateStart"] = $bill->getFlatRate()->getDateStart();
+        $flatRate["dateEnd"] = $bill->getFlatRate()->getDateEnd();
+        $flatRate["nbSessions"] = $bill->getFlatRate()->getSessionNumber();
+        // $flatRate["nbFreeSessions"] = $bill->getFlatRate()->getSessions();
+        $currentBill["flatRate"] = $flatRate;
+
+        return $this->render('accounting/showOneBill.html.twig', [
+            'title' => 'Bill',
+            "bill" => $currentBill,
+        ]);
+    }
+
+    /**
      * @Route("/download/{id}", name="downloadBill")
      */
-    public function download(Bill $bill, AdminRepository $adminRepo)
+    public function downloadBill(Bill $bill, AdminRepository $adminRepo)
     {
         $currentBill = [];
         $admin = [];

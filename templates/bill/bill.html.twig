@@ -51,12 +51,12 @@
 
   <table width="100%">
     <tr>
-        <td><h3><strong>Customer:</strong></h3></td>
-        <td><h3><strong>Flat rate:</strong></h3></td>
+        <td><h3><strong>Customer :</strong></h3></td>
+        <td><h3><strong>Flat rate :</strong></h3></td>
     </tr>
     <tr>
         <td><strong>Fullname : </strong>{{ bill.customer.lastname}} {{ bill.customer.firstname}}</td>
-        <td><strong>Start date: </strong>{{ bill.flatRate.dateStart|date("d/m/Y") }}</td>
+        <td><strong>Start date : </strong>{{ bill.flatRate.dateStart|date("d/m/Y") }}</td>
     </tr>
     <tr>
         <td><strong>Makani Number : </strong>{{ bill.customer.makani }}</td>
