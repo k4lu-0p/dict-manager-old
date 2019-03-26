@@ -10,6 +10,7 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Entity\FlatRate;
 use App\Entity\Bill;
+use App\Repository\AdminRepository;
 
 /**
  * @Route("/app/accounting")
@@ -71,13 +72,15 @@ class AccountingController extends AbstractController
     /**
      * @Route("/download/{id}", name="downloadBill")
      */
-    public function download(Bill $bill)
+    public function download(Bill $bill, AdminRepository $adminRepo)
     {
         $currentBill = [];
+        $admin = [];
         $customer = [];
         $flatRate = [];
 
         $customerName = $bill->getCustomer();
+        $theAdmin = $adminRepo->findAll();
 
         // Id
         $currentBill["id"] = $bill->getId();
@@ -88,10 +91,18 @@ class AccountingController extends AbstractController
         // Taxes
         $currentBill["tax"] = $bill->getTax();
 
+        // Info admin
+        $admin["firstname"] = $theAdmin[0]->getFirstname();
+        $admin["lastname"] = $theAdmin[0]->getLastname();
+        $admin["phone"] = $theAdmin[0]->getPhone();
+        $admin["societyNumber"] = $theAdmin[0]->getSocietyNumber();
+        $currentBill["admin"] = $admin;
+
         // Customer
         $customer["id"] = $customerName->getId();
         $customer["firstname"] = $customerName->getFirstname();
         $customer["lastname"] = $customerName->getLastname();
+        $customer["phone"] = $customerName->getPhone();
         $customer["makani"] = $customerName->getAddressNumber();
         $currentBill["customer"] = $customer;
 
