@@ -9,8 +9,7 @@ require('../../node_modules/slick-carousel/slick/slick.min.js');
 require('../../node_modules/moment/moment');
 require('../../node_modules/fullcalendar/dist/fullcalendar');
 require('../../node_modules/chart.js/src/chart');
-require('../../node_modules/leaflet/dist/leaflet.js');
-require('../../node_modules/leaflet/dist/leaflet.css');
+
 
 // Feuilles de style et script personnel
 require('../scss/main.scss');
