@@ -64,7 +64,6 @@ class AccountingController extends AbstractController
         }
 
         return $this->render('accounting/show.html.twig', [
-            'title' => 'My account handler\'s',
             "bills" => $bills,
         ]);
     }

@@ -1,11 +1,17 @@
+<nav id="navbar-accounting" class="d-flex justify-content-center align-items-center">
+    <h1>Bills</h1>
+</nav>
 <div class="container container-accounting">
-    <h1>{{ title }}</h1>
     {% for bill in bills %}
-        <div class="card card-accounting" data-id="{{ bill.id }}">
-            <p>Bill {{ bill.id }}</p>
-            <p>{{ bill.createdAt|date("m/d/Y") }}</p>
-            <p>{{ bill.customer.firstname }} {{ bill.customer.lastname }}</p>
-            <p>Sessions : {{ bill.flatRate.nbSessions }}</p>
+        <div class="card-accounting" data-id="{{ bill.id }}">
+            <div>
+                <p>Bill {{ bill.id }}</p>
+                <p>{{ bill.createdAt|date("m/d/Y") }}</p>
+            </div>
+            <div>
+                <p>{{ bill.customer.firstname }} {{ bill.customer.lastname }}</p>
+                <p>Sessions : {{ bill.flatRate.nbSessions }}</p>
+            </div>
         </div>
     {% endfor %}
 </div>
