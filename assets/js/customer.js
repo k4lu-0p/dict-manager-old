@@ -9,6 +9,8 @@ let onFilterAlphabetics;
 let toggleDisplaySearchBar;
 let valueInputSearch;
 let loadSearch;
+let map = null;
+let marker;
 
 // Evénements :
 
@@ -96,65 +98,69 @@ window.addEventListener('click', (e) => {
 // Rechercher un customer dynamiquement.
 function searchCustomer() {
 
-    // Valeur dans le champ
-    valueInputSearch = document.querySelector('#input-search').value;
 
-    if (valueInputSearch.length >= 2) {
 
-        // Formulaire à envoyer en POST.
-        let formData = new FormData();
-        formData.append('search', valueInputSearch);
 
-        // Container de rendu.
-        let containerCustomer = document.querySelector('.container-customers');
+    if (document.querySelector('#input-search')) {
+        // Valeur dans le champ
+        valueInputSearch = document.querySelector('#input-search').value;
 
-        // Effacement du contenu existant.
-        containerCustomer.innerHTML = "";
+        if (valueInputSearch.length >= 2) {
 
-        // Apparition du loader.
-        let loader = document.querySelector('.container-fluid-loader');
-        loader.style.display = "flex";
+            // Formulaire à envoyer en POST.
+            let formData = new FormData();
+            formData.append('search', valueInputSearch);
 
-        fetch("/app/customers/search", {
-                method: 'POST',
-                body: formData
-            })
-            .then(res => {
-                return res.text();
-            })
-            .then(res => {
+            // Container de rendu.
+            let containerCustomer = document.querySelector('.container-customers');
 
-                // Dès reception, disparition du loader.
-                loader.style.display = "none";
+            // Effacement du contenu existant.
+            containerCustomer.innerHTML = "";
 
-                // Injecte le contenu receptionné dans le container.
-                containerCustomer.style.display = "grid";
-                containerCustomer.innerHTML = res;
+            // Apparition du loader.
+            let loader = document.querySelector('.container-fluid-loader');
+            loader.style.display = "flex";
 
-                // // Revenir sur la page principal
-                defineActionPreviousButton('previous');
+            fetch("/app/customers/search", {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(res => {
+                    return res.text();
+                })
+                .then(res => {
 
-                // Compte le nombre de client
-                let countCustomers = document.querySelectorAll('.card-customers').length;
-                let countWrapper = document.querySelector('#count-customer');
-                countWrapper.textContent = countCustomers;
+                    // Dès reception, disparition du loader.
+                    loader.style.display = "none";
 
-                if (countCustomers == 0) {
-                    containerCustomer.style.display = "block";
-                    containerCustomer.innerHTML = "<h1 class='no-result text-center'> No result found </h1>";
-                }
+                    // Injecte le contenu receptionné dans le container.
+                    containerCustomer.style.display = "grid";
+                    containerCustomer.innerHTML = res;
 
-            })
-            .catch(err => {
-                if (err) {
-                    throw err;
-                }
-            })
+                    // // Revenir sur la page principal
+                    defineActionPreviousButton('previous');
 
-    } else if (valueInputSearch.length == 0) {
-        showAllCustomers();
+                    // Compte le nombre de client
+                    let countCustomers = document.querySelectorAll('.card-customers').length;
+                    let countWrapper = document.querySelector('#count-customer');
+                    countWrapper.textContent = countCustomers;
+
+                    if (countCustomers == 0) {
+                        containerCustomer.style.display = "block";
+                        containerCustomer.innerHTML = "<h1 class='no-result text-center'> No result found </h1>";
+                    }
+
+                })
+                .catch(err => {
+                    if (err) {
+                        throw err;
+                    }
+                })
+
+        } else if (valueInputSearch.length == 0) {
+            showAllCustomers();
+        }
     }
-
 
 }
 
@@ -634,6 +640,43 @@ function showOneCustomer(id) {
 
             // Revenir sur la page principal
             defineActionPreviousButton('previous');
+
+            // Carousel
+            $('.customer-carousel').slick({
+                infinite: false,
+                dots: true,
+                arrows: false
+            });
+
+            // Capte les coordonnées des champs cachées
+            let myLatLng = {
+                lat: parseFloat(document.querySelector('#lat').value),
+                lng: parseFloat(document.querySelector('#lng').value)
+            };
+
+            // Affiche la map
+            let mapProp = {
+                center: new google.maps.LatLng(25.20, 55.27),
+                zoom: 10,
+                streetViewControl: false
+            };
+
+            map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+            let infowindow = new google.maps.InfoWindow({
+                content: `<a class="btn-infobulle-map p-3" href="https://map.google.com/?q=${myLatLng.lat},${myLatLng.lng}">View path</a>`
+            });
+
+            marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Hello World!'
+            });
+
+            marker.addListener('click', function () {
+                infowindow.open(map, marker);
+            });
+
         })
 }
 
@@ -693,5 +736,13 @@ function defineActionPreviousButton(dataAction, id) {
             buttonNavPrevious.setAttribute('data-id', id);
         }
     }
+}
+
+
+function myMap() {
+    let mapProp = {
+        center: new google.maps.LatLng(51.508742, -0.120850),
+        zoom: 5,
+    };
 
 }

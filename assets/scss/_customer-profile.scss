@@ -83,22 +83,30 @@
 
         }
 
-        p {
 
-            color: $less-light-color;
+        .main-info-customer,
+        .locate-info-customer {
 
-            span {
-                color: $white-color;
+            p {
+
+                color: $less-light-color;
+
+                span {
+                    color: $white-color;
+                }
+
+                a {
+                    color: $flash-color;
+                    // font-weight: bold;
+                }
+
             }
-
-            a {
-                color: $flash-color;
-                // font-weight: bold;
-            }
-
-
         }
 
+        #googleMap {
+            height: 500px;
+            width: 100%;
+        }
     }
 
 
@@ -112,5 +120,24 @@
     .button-delete-customer:focus {
         outline: 0;
     }
+
+    .btn-infobulle-map {
+        outline: 0;
+        font-family: $main-font;
+        background-color: $flash-color;
+        color: $white-color;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .gm-style-iw-c,
+    .gm-style-iw-d {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 70px !important;
+        overflow: hidden;
+    }
+
 
 }

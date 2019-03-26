@@ -1,14 +1,14 @@
-
-
 {# // Barre de navigation supérieur #}
 <nav id="nav-top-customer" class="d-flex justify-content-between align-items-center">
-        <button id="button-search-customer" class="opacity-zero p-0 pl-3 m-0"><i data-action="edit" class='uil uil-pen'></i></button>
-            
-        <div class="d-flex justify-content-center align-items-center">
-            <h4 class="text-center p-0">{{ customer.firstname }} {{ customer.lastname }}</h4>
-        </div>
+    <button id="button-search-customer" class="opacity-zero p-0 pl-3 m-0"><i data-action="edit"
+            class='uil uil-pen'></i></button>
 
-        <button id="button-add-customer" data-action="new" class="new p-0 pr-3 m-0"><i class='uil uil-plus' data-action="new"></i></button>
+    <div class="d-flex justify-content-center align-items-center">
+        <h4 class="text-center p-0">{{ customer.firstname }} {{ customer.lastname }}</h4>
+    </div>
+
+    <button id="button-add-customer" data-action="new" class="new p-0 pr-3 m-0"><i class='uil uil-plus'
+            data-action="new"></i></button>
 </nav>
 
 {# // Container principal #}
@@ -17,7 +17,9 @@
     {# // Message de confirmation de suppression #}
     <div class="container-warning">
         <div class="wrapper-warning d-flex flex-column justify-content-around align-items-center p-3">
-            <h4>Do you really want to delete <strong><span id="confirm-delete-customer-fullname">{{ customer.firstname }} {{ customer.lastname }}</span></strong> ?</h4>
+            <h4>Do you really want to delete <strong><span
+                        id="confirm-delete-customer-fullname">{{ customer.firstname }}
+                        {{ customer.lastname }}</span></strong> ?</h4>
             <div class="wrapper-button-confirm d-flex justify-content-around align-items-center w-100">
                 <button id="confirm-delete-customer-no" class="btn btn-info" data-action="no">Cancel</button>
                 <button id="confirm-delete-customer-yes" class="btn btn-danger" data-action="yes">Confirm</button>
@@ -25,47 +27,85 @@
         </div>
     </div>
 
-    {# // Card #}    
+    {# Container principale de la section #}
     <div class="container-info-customer">
 
-        <div class="mx-auto my-4 customer-profile-picture" style="background-image: url(/uploads/pictures/{{ customer.picture }});">
-            <button class="button-edit-customer-profile " data-id="{{ customer.id }}" data-action="edit"><i class='uil uil-edit'
-                data-action="edit" data-id="{{ customer.id }}"></i></button>
+        <div class="customer-carousel">
+
+            {# // SLIDE 1 #}
+            <div>
+                {# Photo + Action de modifier #}
+                <div class="mx-auto my-4 customer-profile-picture"
+                    style="background-image: url(/uploads/pictures/{{ customer.picture }});">
+                    <button class="button-edit-customer-profile " data-id="{{ customer.id }}" data-action="edit"><i
+                            class='uil uil-edit' data-action="edit" data-id="{{ customer.id }}"></i></button>
+                </div>
+
+                {# Informations principales #}
+                <div class="main-info-customer mb-4">
+
+                    <p class="p-0 m-0">Firstname : <span>{{ customer.firstname }}</span></p>
+                    <p class="p-0 m-0">Lastname : <span>{{ customer.lastname }}</span></p>
+                    <p class="p-0 m-0">Registration date : <span>{{ customer.createdAt | date("m/d/Y") }}</span></p>
+                    <p class="p-0 m-0">Phone : <a class="customer-phone p-0 m-0"
+                            href="tel:{{ customer.phone }}">{{ customer.phone }}</a></p>
+                    <p class="p-0 m-0">Email : <a class="customer-address-number p-0 m-0"
+                            href="mailto:{{ customer.email }}">{{ customer.email }}</a></p>
+                    <p class="p-0 m-0">Send a message with <a
+                            href="https://wa.me/33760132568?text=Hi%20{{ customer.firstname }}%2C%20">WhatsApp</a></p>
+
+                </div>
+
+                {# Informations sur la localisation #}
+                <div class="locate-info-customer ">
+                    <p class="p-0 m-0">Address Number / Makani : <span>{{ customer.addressNumber }}</span></p>
+                    <p class="p-0 m-0">Street Number : <span>{{ customer.streetNumber }}</span></p>
+                    <p class="p-0 m-0">Street Name : <span>{{ customer.streetName }}</span></p>
+                    <p class="p-0 m-0">City : <span>{{ customer.city }}</span></p>
+                    <p class="p-0 m-0">Postal Code : <span>{{ customer.pc }}</span></p>
+                    <p class="p-0 m-0">Country : <span>{{ customer.country }}</span></p>
+                    <p class="p-0 m-0">Building : <span>{{ customer.building }}</span></p>
+
+                </div>
+
+                {# // Buttons d'actions #}
+                <div class="d-flex flex-row justify-content-start align-items-center py-4 m-0">
+                    <button class="button-delete-customer btn " data-id="{{ customer.id }}"
+                        data-action="delete">Delete</button>
+                </div>
+            </div>
+
+            {# // SLIDE 2 #}
+            <div>
+                <div id="googleMap"></div>
+
+            </div>
+            {# // SLIDE 3 #}
+            <div>
+
+            </div>
+            {# // SLIDE 4 #}
+            <div>
+
+            </div>
+
         </div>
 
-        <p class="p-0 m-0" >Firstname : <span>{{ customer.firstname }}</span></p>
-        <p class="p-0 m-0" >Lastname : <span>{{ customer.lastname }}</span></p>
-        <p class="p-0 m-0" >Registration date : <span>{{ customer.createdAt | date("m/d/Y") }}</span></p>
-        <p class="p-0 m-0" >Phone : <a class="customer-phone p-0 m-0" href="tel:{{ customer.phone }}">{{ customer.phone }}</a></p>
-        <p class="p-0 m-0" >Email : <a class="customer-address-number p-0 m-0" href="mailto:{{ customer.email }}">{{ customer.email }}</a></p>
-        <p class="p-0 m-0" >Send a message with <a href="https://wa.me/33760132568?text=Hi%20{{ customer.firstname }}%2C%20">WhatsApp</a></p>       
+
+
+
+        
+
     </div>
 
-    {# // Buttons d'actions #}
-    <div class="d-flex flex-row justify-content-start align-items-center p-2 m-0">
-        <button class="button-delete-customer btn " data-id="{{ customer.id }}" data-action="delete">Delete</button>
-    </div>
 
 </div>
 
+
+{# Champ caché qui contiennent les coordonnées du client #}
 {% if coord.lat and coord.lng %}
-
-    <input id="lat" type="hidden" value="{{ coord.lat }}">
-    <input id="lng" type="hidden" value="{{ coord.lng }}">
-
+<input id="lat" type="hidden" value="{{ coord.lat }}">
+<input id="lng" type="hidden" value="{{ coord.lng }}">
 {% endif %}
 
-        {# <h2>{{ customer.id }}</h2>
-        <h2>{{ customer.firstname }}</h2>
-        <h2>{{ customer.lastname }}</h2>
-        <h2>{{ customer.phone }}</h2>
-        <h2>{{ customer.email }}</h2>
-        <h2>{{ customer.addressNumber }}</h2>
-        <h2>{{ customer.streetNumber }}</h2>
-        <h2>{{ customer.streetName }}</h2>
-        <h2>{{ customer.city }}</h2>
-        <h2>{{ customer.pc }}</h2>
-        <h2>{{ customer.country }}</h2>
-        <h2>{{ customer.building }}</h2>
-        <h2>{{ customer.picture }}</h2>
-        <h2>{{ customer.newsletter }}</h2> #}
+{# <h2>{{ customer.newsletter }}</h2> #}

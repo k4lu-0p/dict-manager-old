@@ -129,7 +129,6 @@ class CustomersController extends AbstractController
         };
     }
 
-
     /**
      * @return string
      */
