@@ -10,6 +10,7 @@ require('../../node_modules/moment/moment');
 require('../../node_modules/fullcalendar/dist/fullcalendar');
 require('../../node_modules/chart.js/src/chart');
 
+
 // Feuilles de style et script personnel
 require('../scss/main.scss');
 require('./login_verification');
