@@ -1,44 +1,17 @@
+<nav id="navbar-accounting" class="d-flex justify-content-center align-items-center">
+    <h1>Bills</h1>
+</nav>
 <div class="container container-accounting">
-    <h1>{{ title }}</h1>
     {% for bill in bills %}
-        <div class="card card-accounting">
-            <p>Bill ID :
-                {{ bill.id }}</p>
-            <p>Date :
-                {{ bill.createdAt|date("m/d/Y") }}</p>
-            <h5>
-                <strong>Customer</strong>
-            </h5>
-            <p>Customer ID :
-                {{ bill.customer.id }}</p>
-            <p>Customer firstname :
-                {{ bill.customer.firstname }}</p>
-            <p>Customer lastname :
-                {{ bill.customer.lastname }}</p>
-            <h5>
-                <strong>FlatRate</strong>
-            </h5>
-            <p>FlatRate ID :
-                {{ bill.flatRate.id }}</p>
-            <p>FlatRate price :
-                {{ bill.flatRate.price }}</p>
-            <p>FlatRate dateStart :
-                {{ bill.flatRate.dateStart|date("m/d/Y") }}</p>
-            <p>FlatRate dateEnd :
-                {{ bill.flatRate.dateEnd|date("m/d/Y") }}</p>
-            <p>FlatRate nbSessions :
-                {{ bill.flatRate.nbSessions }}</p>
-            <p>Taxes :
-                {{ bill.tax }}%</p>
-            <p>Total (price + taxes):
-                {% if bill.tax != 0 %}
-                    {{ ((bill.flatRate.price)/100)*(bill.tax) + bill.flatRate.price }}
-                {% else %}
-                    {{ bill.flatRate.price }}
-                {% endif %}
-            </p>
-            <button class="details-bill" data-id="{{ bill.id }}">Details</button>
-            <button class="download-bill" data-id="{{ bill.id }}">Download</button>
+        <div class="card-accounting" data-id="{{ bill.id }}">
+            <div>
+                <p>Bill {{ bill.id }}</p>
+                <p>{{ bill.createdAt|date("m/d/Y") }}</p>
+            </div>
+            <div>
+                <p>{{ bill.customer.firstname }} {{ bill.customer.lastname }}</p>
+                <p>Sessions : {{ bill.flatRate.nbSessions }}</p>
+            </div>
         </div>
     {% endfor %}
 </div>

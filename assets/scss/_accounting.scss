@@ -1,0 +1,36 @@
+#navbar-accounting {
+    width: 100vw;
+    height: 82px;
+    background-color: #3E4755;
+    font-family: $main-font;
+
+    h1 {
+        color: $white-color;
+        text-align: center;
+        font-family: $main-font;
+        font-size: 18px;
+        margin: 0;
+    }
+}
+
+.container-accounting {
+    width: 85vw;
+    margin: 0 auto;
+
+    .card-accounting {
+        border-radius: 3px;
+        color: $less-light-color;
+        font-family: $main-font;
+        padding-top: 25px;
+        padding-bottom: 15px;
+
+        div {
+            display: flex;
+            justify-content: space-between;
+
+            p {
+                margin: 0;
+            }
+        }
+    }
+}
