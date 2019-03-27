@@ -47,14 +47,12 @@
         font-size: 18px;
     }
 
-
     .card-customers {
 
         border-radius: 3px;
         color: $less-light-color;
         font-family: $main-font;
         height: 105px;
-
 
         .customer-picture {
             height: 50px;
@@ -63,9 +61,6 @@
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;
-
-            // transform: translate(-10px, -30px);
-
         }
 
         div>p {

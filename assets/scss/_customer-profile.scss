@@ -59,56 +59,69 @@
 
         font-family: $main-font;
 
-        .customer-profile-picture {
-            height: 100px;
-            width: 100px;
-            border-radius: 50%;
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            border: solid $flash-color 2px;
-        }
+        .slide-1-profil-customer {
 
-        .button-edit-customer-profile {
-            border-radius: 50%;
-            height: 30px;
-            width: 30px;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: $white-color;
-            background-color: $flash-color;
-            border: none;
+            .customer-profile-picture {
+                height: 100px;
+                width: 100px;
+                border-radius: 50%;
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+                border: solid $flash-color 2px;
+            }
 
-        }
+            .button-edit-customer-profile {
+                border-radius: 50%;
+                height: 30px;
+                width: 30px;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: $white-color;
+                background-color: $flash-color;
+                border: none;
 
+            }
 
-        .main-info-customer,
-        .locate-info-customer {
+            .main-info-customer,
+            .locate-info-customer {
 
-            p {
+                background-color: #3C4556;
+                border-radius: 5px;
 
-                color: $less-light-color;
+                p {
 
-                span {
-                    color: $white-color;
+                    color: $less-light-color;
+
+                    span {
+                        color: $white-color;
+                    }
+
+                    a {
+                        color: $flash-color;
+                        // font-weight: bold;
+                    }
+
                 }
-
-                a {
-                    color: $flash-color;
-                    // font-weight: bold;
-                }
-
             }
         }
 
-        #googleMap {
-            height: 500px;
-            width: 100%;
+        .slide-2-profil-customer {
+            h2 {
+                font-size: 23px;
+                color: $white-color;
+                font-family: $main-font;
+                font-weight: lighter;
+            }
+
+            #googleMap {
+                height: 500px;
+                width: 100%;
+            }
         }
     }
-
 
     .button-delete-customer {
         outline: 0;

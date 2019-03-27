@@ -14,19 +14,7 @@
             height: 100%;
         }
 
-        .slick-dots {}
 
-        .slick-dots li button:before {
-            padding-top: 5px;
-            font-size: 9px;
-            transition: all 0.5s;
-            color: $less-light-color;
-        }
-
-        .slick-dots li.slick-active button:before {
-            color: $flash-color;
-            font-size: 13px;
-        }
 
         .wrapper-square-stats {
             height: 17vh;
@@ -62,4 +50,19 @@
 
     }
 
+}
+
+
+.slick-dots {}
+
+.slick-dots li button:before {
+    padding-top: 5px;
+    font-size: 9px;
+    transition: all 0.5s;
+    color: $less-light-color;
+}
+
+.slick-dots li.slick-active button:before {
+    color: $flash-color;
+    font-size: 13px;
 }
