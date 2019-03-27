@@ -45,6 +45,7 @@ class AccountingController extends AbstractController
             $customer["id"] = $customerName->getId();
             $customer["firstname"] = $customerName->getFirstname();
             $customer["lastname"] = $customerName->getLastname();
+            $customer["picture"] = $customerName->getPicture();
             $bill["customer"] = $customer;
 
             // FlatRate

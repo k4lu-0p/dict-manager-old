@@ -1,17 +1,26 @@
-<nav id="navbar-accounting" class="d-flex justify-content-center align-items-center">
+<nav class="d-flex justify-content-center align-items-center" id="navbar-accounting">
     <h1>Bills</h1>
 </nav>
 <div class="container container-accounting">
     {% for bill in bills %}
-        <div class="card-accounting" data-id="{{ bill.id }}">
-            <div>
-                <p>Bill {{ bill.id }}</p>
-                <p>{{ bill.createdAt|date("m/d/Y") }}</p>
+        <div class="card-accounting d-flex justify-content-between p-3" data-id="{{ bill.id }}">
+            <div class="d-flex align-items-center">
+                <img alt="Customer Picture" class="bill-customer-picture" src="/uploads/pictures/{{ bill.customer.picture }}">
+                <div class="d-flex flex-column pl-4">
+                    <p>{{ bill.customer.firstname }}
+                        {{ bill.customer.lastname }}</p>
+                    <p>Bill
+                        {{ bill.id }}</p>
+                    <p>{{ bill.createdAt|date("m/d/Y") }}</p>
+                </div>
             </div>
             <div>
-                <p>{{ bill.customer.firstname }} {{ bill.customer.lastname }}</p>
-                <p>Sessions : {{ bill.flatRate.nbSessions }}</p>
+                <i class='uil uil-ellipsis-v three-dots iNormalColor'></i>
             </div>
+        </div>
+        <div class="bill-options">
+            <span title="Show details" data-action="showBill" data-id="{{ bill.id }}">Details</span>
+            <i title="Download" data-action="downloadBill" data-id="{{ bill.id }}" class='uil uil-download-alt'></i>
         </div>
     {% endfor %}
 </div>
