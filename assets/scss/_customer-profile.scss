@@ -130,6 +130,15 @@
         color: $white-color;
     }
 
+    .button-edit-customer {
+        outline: 0;
+        font-family: $main-font;
+        background-color: #56627C;
+        color: $white-color;
+        margin-right: 24px;
+    }
+
+    .button-edit-customer:focus,
     .button-delete-customer:focus {
         outline: 0;
     }

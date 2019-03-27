@@ -65,13 +65,13 @@
                     <p class="p-0 m-0">Postal Code : <span>{{ customer.pc }}</span></p>
                     <p class="p-0 m-0">Country : <span>{{ customer.country }}</span></p>
                     <p class="p-0 m-0">Building : <span>{{ customer.building }}</span></p>
-
                 </div>
 
                 {# // Buttons d'actions #}
                 <div class="d-flex flex-row justify-content-start align-items-center py-4 m-0">
-                    <button class="button-delete-customer btn " data-id="{{ customer.id }}"
-                        data-action="delete">Delete</button>
+                    <button class="button-edit-customer btn " data-id="{{ customer.id }}" data-action="new-flatrate">New Flat Rate</button>
+                    <button class="button-edit-customer btn " data-id="{{ customer.id }}" data-action="edit">Edit Profile</button>
+                    <button class="button-delete-customer btn " data-id="{{ customer.id }}" data-action="delete">Delete</button>
                 </div>
             </div>
 
