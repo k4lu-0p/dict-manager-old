@@ -11,6 +11,9 @@ use Doctrine\Common\Persistence\ObjectManager;
 use App\Form\CustomerType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use App\Service\Makani;
+use Proxies\__CG__\App\Entity\FlatRate;
+use App\Form\FlaterateType;
+use App\Entity\Session;
 
 /**
  * @Route("/app/customers")
@@ -71,9 +74,9 @@ class CustomersController extends AbstractController
         if (strlen($customer->getAddressNumber()) == 10) {
             $makani_no = substr_replace($customer->getAddressNumber(), " ", -5, -6);
             $data = Makani::Query($makani_no)->toJson();
-            $coord['lat'] = $data->lat; 
+            $coord['lat'] = $data->lat;
             $coord['lng'] = $data->lng;
-        }   
+        }
 
         return $this->render('customers/showOne.html.twig', [
             'customer' => $customer,

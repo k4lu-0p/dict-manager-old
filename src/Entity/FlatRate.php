@@ -21,7 +21,7 @@ class FlatRate
     /**
      * @ORM\Column(type="integer")
      */
-    private $session_number;
+    private $sessionNumber;
 
     /**
      * @ORM\Column(type="integer")
@@ -31,12 +31,12 @@ class FlatRate
     /**
      * @ORM\Column(type="datetime")
      */
-    private $date_start;
+    private $dateStart;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $date_end;
+    private $dateEnd;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="flatRate", cascade={"persist", "remove"})
@@ -65,12 +65,12 @@ class FlatRate
 
     public function getSessionNumber(): ? int
     {
-        return $this->session_number;
+        return $this->sessionNumber;
     }
 
-    public function setSessionNumber(int $session_number): self
+    public function setSessionNumber(int $sessionNumber): self
     {
-        $this->session_number = $session_number;
+        $this->sessionNumber = $sessionNumber;
 
         return $this;
     }
@@ -89,24 +89,24 @@ class FlatRate
 
     public function getDateStart(): ? \DateTimeInterface
     {
-        return $this->date_start;
+        return $this->dateStart;
     }
 
-    public function setDateStart(\DateTimeInterface $date_start): self
+    public function setDateStart(\DateTimeInterface $dateStart): self
     {
-        $this->date_start = $date_start;
+        $this->dateStart = $dateStart;
 
         return $this;
     }
 
     public function getDateEnd(): ? \DateTimeInterface
     {
-        return $this->date_end;
+        return $this->dateEnd;
     }
 
-    public function setDateEnd(? \DateTimeInterface $date_end): self
+    public function setDateEnd(? \DateTimeInterface $dateEnd): self
     {
-        $this->date_end = $date_end;
+        $this->dateEnd = $dateEnd;
 
         return $this;
     }
@@ -154,7 +154,7 @@ class FlatRate
         return $this;
     }
 
-    public function getBill(): ?Bill
+    public function getBill(): ? Bill
     {
         return $this->bill;
     }

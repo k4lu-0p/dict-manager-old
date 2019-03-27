@@ -89,17 +89,58 @@ window.addEventListener('click', (e) => {
         case 'toggle':
             displaySearchBar();
             break;
+        case 'new-flatrate':
+            showFormFlatRate(id);
+            break;
         default:
             break;
     }
 
 })
 
+
+function showFormFlatRate(id) {
+
+    // Container de rendu.
+    let app = document.querySelector('#app');
+
+    // Effacement du contenu existant.
+    app.innerHTML = "";
+
+    // Apparition du loader.
+    let loader = document.querySelector('.container-fluid-loader');
+    loader.style.display = "flex";
+
+    // Requête AJAX :
+    fetch(`/app/customers/flaterate/new/${id}`, {
+            method: 'GET'
+        })
+        .then(res => {
+            return res.text();
+        })
+        .then(res => {
+
+            // Dès reception, disparition du loader.
+            loader.style.display = "none";
+
+            // Injecte le contenu receptionné dans le container.
+            app.innerHTML = res;
+
+            // Revenir sur la page info client
+            defineActionPreviousButton('show', id);
+
+            // Boutton d'envois du formulaire.
+            // buttonUpdateCustomer = document.querySelector('#update-button-customer');
+        })
+        .catch(err => {
+            if (err) {
+                throw err;
+            }
+        })
+}
+
 // Rechercher un customer dynamiquement.
 function searchCustomer() {
-
-
-
 
     if (document.querySelector('#input-search')) {
         // Valeur dans le champ
