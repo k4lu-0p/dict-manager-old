@@ -14,23 +14,50 @@
 }
 
 .container-accounting {
-    width: 85vw;
+    width: 92vw;
     margin: 0 auto;
 
     .card-accounting {
         border-radius: 3px;
-        color: $less-light-color;
+        color: $white-color;
         font-family: $main-font;
-        padding-top: 25px;
-        padding-bottom: 15px;
+        margin-top: 15px;
+        background-color: #3C4556;
+
+        .bill-customer-picture {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+        }
 
         div {
             display: flex;
             justify-content: space-between;
-            
+
             p {
                 margin: 0;
+
+                &:nth-child(3){
+                    color: $less-light-color;
+                }
+            }
+
+            i {
+                font-size: 3.5vh;
+                &::before {
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+            .iNormalColor{
+                color: $less-light-color;
+            }
+            .iSelectedColor{
+                color: $flash-color;
             }
         }
+    }
+    .bill-options{
+        
     }
 }
