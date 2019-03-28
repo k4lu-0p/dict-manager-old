@@ -11,16 +11,16 @@
                         {{ bill.customer.lastname }}</p>
                     <p>Bill
                         {{ bill.id }}</p>
-                    <p>{{ bill.createdAt|date("m/d/Y") }}</p>
+                    <p>{{ bill.createdAt|date("d/m/Y") }}</p>
                 </div>
             </div>
             <div>
-                <i class='uil uil-ellipsis-v three-dots iNormalColor'></i>
+                <i datat-action="showOptions" class='uil uil-ellipsis-v options iNormalColor'></i>
             </div>
         </div>
         <div class="bill-options">
-            <span title="Show details" data-action="showBill" data-id="{{ bill.id }}">Details</span>
-            <i title="Download" data-action="downloadBill" data-id="{{ bill.id }}" class='uil uil-download-alt'></i>
+            <button class="btn-bill-details btn" title="Show details" data-action="showBill" data-id="{{ bill.id }}">Details</button>
+            <button class="btn-bill-download btn" title="Download" data-action="downloadBill" data-id="{{ bill.id }}">Download</button>
         </div>
     {% endfor %}
 </div>
