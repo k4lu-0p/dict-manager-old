@@ -15,12 +15,12 @@
                 </div>
             </div>
             <div>
-                <i datat-action="showOptions" class='uil uil-ellipsis-v options iNormalColor'></i>
+                <i class='uil uil-ellipsis-v options iNormalColor' data-id="{{ bill.id }}" data-action="showOptions"></i>
             </div>
-        </div>
-        <div class="bill-options">
-            <button class="btn-bill-details btn" title="Show details" data-action="showBill" data-id="{{ bill.id }}">Details</button>
-            <button class="btn-bill-download btn" title="Download" data-action="downloadBill" data-id="{{ bill.id }}">Download</button>
+            <div class="bill-options bill-options-{{ bill.id }} d-flex flex-column justify-content-between">
+                <button class="btn-bill-details btn" title="Show details" data-action="showBill" data-id="{{ bill.id }}">Details</button>
+                <button class="btn-bill-download btn" title="Download" data-action="downloadBill" data-id="{{ bill.id }}">Download</button>
+            </div>
         </div>
     {% endfor %}
 </div>

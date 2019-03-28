@@ -1,4 +1,4 @@
-// Boutton comptabilité du menu.
+// bouton comptabilité du menu.
 const buttonNavAccounting = document.querySelector('#nav-button-accounting');
 
 
@@ -45,9 +45,6 @@ function showAccountingWithAjax() {
 
 // Action sur les bills.
 window.addEventListener('click', (e) => {
-    if (e.target.classList.contains("options")) {
-        activeOptionsBills(e.target);
-    }
     let id = e.target.getAttribute('data-id') ? e.target.getAttribute('data-id') : undefined;
 
     switch (e.target.getAttribute('data-action')) {
@@ -58,7 +55,7 @@ window.addEventListener('click', (e) => {
             downloadBill(id);
             break;
         case "showOptions":
-            showOptions();
+            showOptions(id, e.target);
             break;
         case "previousBill":
             showAccountingWithAjax();
@@ -127,18 +124,41 @@ function downloadBill(id) {
         })
 }
 
+// Affichage les boutons details et download des factures + change la couleur des trois points
+function showOptions(id, clicked) {
 
-function showOptions() {
+    const allOptionsBills = document.querySelectorAll('.options');
+    let allButtonOptions = document.querySelectorAll('.bill-options');
 
-    containerSoptions = document.querySelector(".options");
+    allButtonOptions.forEach(buttonOption => {
+        buttonOption.style.visibility = "hidden";
+        buttonOption.style.opacity = 0;
+    });
+    if (clicked.classList.contains('iSelectedColor')) {
+        // On éteint tout les boutons déjà allumés.
+        allOptionsBills.forEach(options => {
+            if (options.classList.contains('iSelectedColor')) {
+                options.classList.replace('iSelectedColor', 'iNormalColor')
+            }
+        });
 
-    containerSoptions.style.visibility = "visible";
-    containerSoptions.style.opacity = 1.0;
+        // Allume le bouton sélectionné.
+    } else {
+        allOptionsBills.forEach(options => {
+            if (options.classList.contains('iSelectedColor')) {
+                options.classList.replace('iSelectedColor', 'iNormalColor')
+            }
+        });
+        clicked.classList.replace('iNormalColor', 'iSelectedColor');
 
+        let divOptions = document.querySelector('.bill-options-' + clicked.getAttribute('data-id'))
+        divOptions.style.visibility = "visible";
+        divOptions.style.opacity = 1.0;
+
+    }
 }
 
-
-// Définir le role du boutton précédent en fonction de là ou on se trouve.
+// Définir le role du bouton précédent en fonction de là ou on se trouve.
 function defineActionPreviousButton(dataAction, id) {
 
     let buttonNavPrevious = document.querySelector('#nav-button-back');
@@ -152,38 +172,27 @@ function defineActionPreviousButton(dataAction, id) {
     }
 }
 
-// Fonction chargé d'allumé le boutton de la facture choisie.
-function activeOptionsBills(optionsBillsSelected) {
+// // Fonction chargé d'allumé le bouton de la facture choisie.
+// function activeOptionsBills(optionsBillsSelected) {
 
-    const allOptionsBills = document.querySelectorAll('.options');
+//     const allOptionsBills = document.querySelectorAll('.options');
 
-    if (optionsBillsSelected.classList.contains('iSelectedColor')) {
-        // On éteint tout les boutons déjà allumés.
-        allOptionsBills.forEach(options => {
+//     if (optionsBillsSelected.classList.contains('iSelectedColor')) {
+//         // On éteint tout les boutons déjà allumés.
+//         allOptionsBills.forEach(options => {
+//             if (options.classList.contains('iSelectedColor')) {
+//                 options.classList.replace('iSelectedColor', 'iNormalColor')
+//             }
+//         });
 
-                    containerSoptions = document.querySelector(".options");
+//         // Allume le bouton sélectionné.
+//     } else {
+//         allOptionsBills.forEach(options => {
+//             if (options.classList.contains('iSelectedColor')) {
+//                 options.classList.replace('iSelectedColor', 'iNormalColor')
+//             }
+//         });
+//         optionsBillsSelected.classList.replace('iNormalColor', 'iSelectedColor');
+//     }
 
-                    containerSoptions.style.visibility = "hidden";
-                    containerSoptions.style.opacity = 0;
-
-            if (options.classList.contains('iSelectedColor')) {
-                options.classList.replace('iSelectedColor', 'iNormalColor')
-            }
-        });
-
-        // Allume le boutton sélectionné.
-    } else {
-        allOptionsBills.forEach(options => {
-            if (options.classList.contains('iSelectedColor')) {
-                options.classList.replace('iSelectedColor', 'iNormalColor')
-            }
-        });
-        optionsBillsSelected.classList.replace('iNormalColor', 'iSelectedColor');
-        
-        containerSoptions = document.querySelector(".options");
-
-        containerSoptions.style.visibility = "visible";
-        containerSoptions.style.opacity = 1.0;
-    }
-
-}
+// }

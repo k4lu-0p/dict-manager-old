@@ -16,6 +16,7 @@
 .container-accounting {
     width: 92vw;
     margin: 0 auto;
+    height: 75px;
 
     .card-accounting {
         border-radius: 3px;
@@ -37,39 +38,54 @@
             p {
                 margin: 0;
 
-                &:nth-child(3){
+                &:nth-child(3) {
                     color: $less-light-color;
                 }
             }
 
             i {
                 font-size: 3.5vh;
+
                 &::before {
                     height: 100%;
                     width: 100%;
                 }
             }
-            .iNormalColor{
+
+            .iNormalColor {
                 color: $less-light-color;
             }
-            .iSelectedColor{
+
+            .iSelectedColor {
                 color: $flash-color;
             }
         }
     }
 
-    .bill-options{
+    .bill-options {
+        z-index: 9999999;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        position: absolute;
+        height: 80px;
+        transform: translateX(156%);
+
+
         .btn-bill-details,
-        .btn-bill-download{
+        .btn-bill-download {
             font-family: $main-font;
             color: $white-color;
             display: flex;
             flex-direction: column;
+            align-items: center;
         }
-        .btn-bill-details{
+
+        .btn-bill-details {
             background-color: #56627C;
         }
-        .btn-bill-download{
+
+        .btn-bill-download {
             background-color: $flash-color;
         }
     }
