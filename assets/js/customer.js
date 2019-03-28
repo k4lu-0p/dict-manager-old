@@ -149,7 +149,7 @@ function showFormFlatRate(id) {
             calendarAddFlaterate = new Calendar(calendarContainerAddFlaterate, {
                 plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin],
                 height: 625, // Définir une hauteur globale.
-                longPressDelay : 500, // Temp de réaction, une fois l'évenement touché, avant de pouvoir drag l'évenement.
+                longPressDelay: 500, // Temp de réaction, une fois l'évenement touché, avant de pouvoir drag l'évenement.
                 // selectable: true,  // Rendre selectionnable les jours.
                 // selectMirror: true,
                 customButtons: { // Créer un boutton avec une action personalisé.
@@ -157,6 +157,7 @@ function showFormFlatRate(id) {
                         text: 'custom!',
                         click: function (event) {
                             console.log('coucou');
+
                         }
                     }
                 },
@@ -167,11 +168,22 @@ function showFormFlatRate(id) {
                 },
                 dateClick: function (info) { // Déclenche la fonction suivante au clique d'un jour.
                     // console.log(info);
-                    info.dayEl.style.backgroundColor = 'red'; 
+                    // info.dayEl.style.backgroundColor = 'red';
+
+                    calendarAddFlaterate.addEvent({ // this object will be "parsed" into an Event Object
+                        title: 'The Title', // a property!
+                        start: '2019-03-05', // a property!
+                        end: '2019-03-07' // a property! ** see important note below about 'end' **
+                    })
                 },
                 // eventLongPressDelay: (e) => {
                 //     console.log(e)
                 // }
+                events: [{ // this object will be "parsed" into an Event Object
+                    title: 'The Title', // a property!
+                    start: '2019-03-01', // a property!
+                    end: '2019-03-02' // a property! ** see important note below about 'end' **
+                }]
             });
 
             calendarAddFlaterate.render(); // Faire le rendu du calendrier.
