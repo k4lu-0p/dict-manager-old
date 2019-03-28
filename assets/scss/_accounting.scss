@@ -57,7 +57,20 @@
             }
         }
     }
+
     .bill-options{
-        
+        .btn-bill-details,
+        .btn-bill-download{
+            font-family: $main-font;
+            color: $white-color;
+            display: flex;
+            flex-direction: column;
+        }
+        .btn-bill-details{
+            background-color: #56627C;
+        }
+        .btn-bill-download{
+            background-color: $flash-color;
+        }
     }
 }

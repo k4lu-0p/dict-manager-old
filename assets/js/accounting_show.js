@@ -45,7 +45,7 @@ function showAccountingWithAjax() {
 
 // Action sur les bills.
 window.addEventListener('click', (e) => {
-    if (e.target.classList.contains("three-dots")) {
+    if (e.target.classList.contains("options")) {
         activeOptionsBills(e.target);
     }
     let id = e.target.getAttribute('data-id') ? e.target.getAttribute('data-id') : undefined;
@@ -56,6 +56,9 @@ window.addEventListener('click', (e) => {
             break;
         case "downloadBill":
             downloadBill(id);
+            break;
+        case "showOptions":
+            showOptions();
             break;
         case "previousBill":
             showAccountingWithAjax();
@@ -124,6 +127,17 @@ function downloadBill(id) {
         })
 }
 
+
+function showOptions() {
+
+    containerSoptions = document.querySelector(".options");
+
+    containerSoptions.style.visibility = "visible";
+    containerSoptions.style.opacity = 1.0;
+
+}
+
+
 // Définir le role du boutton précédent en fonction de là ou on se trouve.
 function defineActionPreviousButton(dataAction, id) {
 
@@ -141,11 +155,17 @@ function defineActionPreviousButton(dataAction, id) {
 // Fonction chargé d'allumé le boutton de la facture choisie.
 function activeOptionsBills(optionsBillsSelected) {
 
-    const allOptionsBills = document.querySelectorAll('.three-dots');
+    const allOptionsBills = document.querySelectorAll('.options');
 
     if (optionsBillsSelected.classList.contains('iSelectedColor')) {
         // On éteint tout les boutons déjà allumés.
         allOptionsBills.forEach(options => {
+
+                    containerSoptions = document.querySelector(".options");
+
+                    containerSoptions.style.visibility = "hidden";
+                    containerSoptions.style.opacity = 0;
+
             if (options.classList.contains('iSelectedColor')) {
                 options.classList.replace('iSelectedColor', 'iNormalColor')
             }
@@ -159,6 +179,11 @@ function activeOptionsBills(optionsBillsSelected) {
             }
         });
         optionsBillsSelected.classList.replace('iNormalColor', 'iSelectedColor');
+        
+        containerSoptions = document.querySelector(".options");
+
+        containerSoptions.style.visibility = "visible";
+        containerSoptions.style.opacity = 1.0;
     }
 
 }
