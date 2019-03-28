@@ -1,3 +1,11 @@
+import {
+    Calendar
+} from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+import interactionPlugin from '@fullcalendar/interaction';
+
 // Bouton clients du menu.
 const buttonNavCustomers = document.querySelector('#nav-button-customers');
 const navbar = document.querySelector('.navbar');
@@ -11,6 +19,8 @@ let valueInputSearch;
 let loadSearch;
 let map = null;
 let marker;
+let calendarContainerAddFlaterate;
+let calendarAddFlaterate;
 
 // Evénements :
 
@@ -112,7 +122,7 @@ function showFormFlatRate(id) {
     loader.style.display = "flex";
 
     // Requête AJAX :
-    fetch(`/app/customers/flaterate/new/${id}`, {
+    fetch(`/app/flaterate/new/${id}`, {
             method: 'GET'
         })
         .then(res => {
@@ -131,6 +141,41 @@ function showFormFlatRate(id) {
 
             // Boutton d'envois du formulaire.
             // buttonUpdateCustomer = document.querySelector('#update-button-customer');
+
+            // Selection de la div contenant le calendrier
+            calendarContainerAddFlaterate = document.getElementById('calendar-add-session');
+
+            // Instanciation et configuration du calendrier
+            calendarAddFlaterate = new Calendar(calendarContainerAddFlaterate, {
+                plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin],
+                height: 625, // Définir une hauteur globale.
+                longPressDelay : 500, // Temp de réaction, une fois l'évenement touché, avant de pouvoir drag l'évenement.
+                // selectable: true,  // Rendre selectionnable les jours.
+                // selectMirror: true,
+                customButtons: { // Créer un boutton avec une action personalisé.
+                    myCustomButton: {
+                        text: 'custom!',
+                        click: function (event) {
+                            console.log('coucou');
+                        }
+                    }
+                },
+                header: { // Définir les boutons ainsi que leurs positions dans le header.
+                    left: 'prev,next today myCustomButton',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                dateClick: function (info) { // Déclenche la fonction suivante au clique d'un jour.
+                    // console.log(info);
+                    info.dayEl.style.backgroundColor = 'red'; 
+                },
+                // eventLongPressDelay: (e) => {
+                //     console.log(e)
+                // }
+            });
+
+            calendarAddFlaterate.render(); // Faire le rendu du calendrier.
+
         })
         .catch(err => {
             if (err) {
@@ -690,33 +735,37 @@ function showOneCustomer(id) {
             });
 
             // Capte les coordonnées des champs cachées
-            let myLatLng = {
-                lat: parseFloat(document.querySelector('#lat').value),
-                lng: parseFloat(document.querySelector('#lng').value)
-            };
+            if (document.querySelector('#lat') && document.querySelector('#lng')) {
 
-            // Affiche la map
-            let mapProp = {
-                center: new google.maps.LatLng(25.20, 55.27),
-                zoom: 10,
-                streetViewControl: false
-            };
+                let myLatLng = {
+                    lat: parseFloat(document.querySelector('#lat').value),
+                    lng: parseFloat(document.querySelector('#lng').value)
+                };
 
-            map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+                // Affiche la map
+                let mapProp = {
+                    center: new google.maps.LatLng(25.20, 55.27),
+                    zoom: 10,
+                    streetViewControl: false
+                };
 
-            let infowindow = new google.maps.InfoWindow({
-                content: `<a class="btn-infobulle-map p-3" href="https://map.google.com/?q=${myLatLng.lat},${myLatLng.lng}">View path</a>`
-            });
+                map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
 
-            marker = new google.maps.Marker({
-                position: myLatLng,
-                map: map,
-                title: 'Hello World!'
-            });
+                let infowindow = new google.maps.InfoWindow({
+                    content: `<a class="btn-infobulle-map p-3" href="https://map.google.com/?q=${myLatLng.lat},${myLatLng.lng}">View path</a>`
+                });
 
-            marker.addListener('click', function () {
-                infowindow.open(map, marker);
-            });
+                marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                    title: 'Hello World!'
+                });
+
+                marker.addListener('click', function () {
+                    infowindow.open(map, marker);
+                });
+
+            }
 
         })
 }
