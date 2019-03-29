@@ -172,7 +172,6 @@ function showOptions(id, clicked) {
             el.style.opacity = 0;
         });
 
-        customerNameCenter.style.left = 
     }
 }
 

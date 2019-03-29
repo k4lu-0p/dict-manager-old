@@ -5,6 +5,6 @@
             <p>{{ bill.createdAt|date("m/d/Y") }}</p>
             <p>{{ bill.customer.firstname }} {{ bill.customer.lastname }}</p>
             <p>Sessions : {{ bill.flatRate.nbSessions }}</p>
-            <button id="download-bill" data-action="downloadBill" data-id="{{ bill.id }}">Download</button>
+            <button id="download-bill" class="btn" data-action="downloadBill" data-id="{{ bill.id }}">Download</button>
         </div>
 </div>

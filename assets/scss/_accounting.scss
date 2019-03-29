@@ -26,15 +26,16 @@
         margin-top: 15px;
         background-color: #3C4556;
 
-        
+
         .bill-left-part {
             display: flex;
             justify-content: space-between;
-            
-            .fade-away{
+
+            .fade-away {
                 position: relative;
                 transition: all 0.5s ease;
             }
+
             .bill-customer-picture {
                 height: 50px;
                 width: 50px;
@@ -49,20 +50,24 @@
                 }
             }
 
-            i {
-                font-size: 3.5vh;
-                &::before {
-                    height: 100%;
-                    width: 100%;
+            .three-dots {
+
+                i {
+                    font-size: 3.5vh;
+
+                    &::before {
+                        height: 100%;
+                        width: 100%;
+                    }
                 }
-            }
 
-            .iNormalColor {
-                color: $less-light-color;
-            }
+                .iNormalColor {
+                    color: $less-light-color;
+                }
 
-            .iSelectedColor {
-                color: $flash-color;
+                .iSelectedColor {
+                    color: $flash-color;
+                }
             }
         }
 
