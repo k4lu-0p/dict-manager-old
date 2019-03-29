@@ -4,23 +4,33 @@
 <div class="container container-accounting">
     {% for bill in bills %}
         <div class="card-accounting d-flex justify-content-between p-3" data-id="{{ bill.id }}">
-            <div class="d-flex align-items-center">
-                <img alt="Customer Picture" class="bill-customer-picture" src="/uploads/pictures/{{ bill.customer.picture }}">
+
+            <div class="bill-left-part d-flex align-items-center">
+
+                <img alt="Customer Picture" class="bill-customer-picture fade-away fade-away-{{ bill.id }}" src="/uploads/pictures/{{ bill.customer.picture }}">
+
                 <div class="d-flex flex-column pl-4">
-                    <p>{{ bill.customer.firstname }}
+
+                    <p class="bill-customer-name bill-customer-name-{{ bill.id }}">{{ bill.customer.firstname }}
                         {{ bill.customer.lastname }}</p>
-                    <p>Bill
+
+                    <p class="fade-away fade-away-{{ bill.id }}">Bill
                         {{ bill.id }}</p>
-                    <p>{{ bill.createdAt|date("d/m/Y") }}</p>
+                    <p class="fade-away fade-away-{{ bill.id }}">{{ bill.createdAt|date("d/m/Y") }}</p>
+
                 </div>
+
             </div>
+
             <div>
                 <i class='uil uil-ellipsis-v options iNormalColor' data-id="{{ bill.id }}" data-action="showOptions"></i>
             </div>
-            <div class="bill-options bill-options-{{ bill.id }} d-flex flex-column justify-content-between">
+
+            <div class="bill-options bill-options-{{ bill.id }} d-flex justify-content-between">
                 <button class="btn-bill-details btn" title="Show details" data-action="showBill" data-id="{{ bill.id }}">Details</button>
                 <button class="btn-bill-download btn" title="Download" data-action="downloadBill" data-id="{{ bill.id }}">Download</button>
             </div>
+
         </div>
     {% endfor %}
 </div>

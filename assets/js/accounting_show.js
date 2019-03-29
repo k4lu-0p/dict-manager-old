@@ -1,3 +1,5 @@
+
+
 // bouton comptabilité du menu.
 const buttonNavAccounting = document.querySelector('#nav-button-accounting');
 
@@ -41,7 +43,6 @@ function showAccountingWithAjax() {
             }
         })
 }
-
 
 // Action sur les bills.
 window.addEventListener('click', (e) => {
@@ -128,11 +129,17 @@ function downloadBill(id) {
 function showOptions(id, clicked) {
 
     const allOptionsBills = document.querySelectorAll('.options');
-    let allButtonOptions = document.querySelectorAll('.bill-options');
+    const allButtonOptions = document.querySelectorAll('.bill-options');
+    const fadeAways = document.querySelectorAll('.fade-away');
 
+    fadeAways.forEach(el => {
+        el.style.visibility = "visible";
+        el.style.opacity = 1.0;
+    });
     allButtonOptions.forEach(buttonOption => {
         buttonOption.style.visibility = "hidden";
         buttonOption.style.opacity = 0;
+        buttonOption.style.right = "-10%";
     });
     if (clicked.classList.contains('iSelectedColor')) {
         // On éteint tout les boutons déjà allumés.
@@ -149,12 +156,23 @@ function showOptions(id, clicked) {
                 options.classList.replace('iSelectedColor', 'iNormalColor')
             }
         });
+
         clicked.classList.replace('iNormalColor', 'iSelectedColor');
 
-        let divOptions = document.querySelector('.bill-options-' + clicked.getAttribute('data-id'))
+        let divOptions = document.querySelector('.bill-options-' + id);
+        let divFadeAway = document.querySelectorAll('.fade-away-' + id);
+        let customerNameCenter = document.querySelector('.cill-customer-name-' + id);
+
         divOptions.style.visibility = "visible";
         divOptions.style.opacity = 1.0;
+        divOptions.style.right = "23%";
 
+        divFadeAway.forEach(el => {
+            el.style.visibility = "hidden";
+            el.style.opacity = 0;
+        });
+
+        customerNameCenter.style.left = 
     }
 }
 
