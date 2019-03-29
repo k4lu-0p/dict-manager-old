@@ -16,11 +16,7 @@ class Session
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $date;
-
+    
     /**
      * @ORM\Column(type="boolean")
      */
@@ -31,23 +27,22 @@ class Session
      */
     private $flatRate;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateStart;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateEnd;
+
     public function getId(): ? int
     {
         return $this->id;
     }
 
-    public function getDate(): ? \DateTimeInterface
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTimeInterface $date): self
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
+   
     public function getFree(): ? bool
     {
         return $this->free;
@@ -68,6 +63,30 @@ class Session
     public function setFlatRate(? FlatRate $flatRate): self
     {
         $this->flatRate = $flatRate;
+
+        return $this;
+    }
+
+    public function getDateStart(): ?\DateTimeInterface
+    {
+        return $this->dateStart;
+    }
+
+    public function setDateStart(\DateTimeInterface $dateStart): self
+    {
+        $this->dateStart = $dateStart;
+
+        return $this;
+    }
+
+    public function getDateEnd(): ?\DateTimeInterface
+    {
+        return $this->dateEnd;
+    }
+
+    public function setDateEnd(?\DateTimeInterface $dateEnd): self
+    {
+        $this->dateEnd = $dateEnd;
 
         return $this;
     }

@@ -22,13 +22,20 @@ class CustomerFixtures extends Fixture
             // ===== Forfaits ============================================================
 
             $flatRate = new FlatRate();
+            $flatRate2 = new FlatRate();
 
             $nombreSession = 10; // $faker->numberBetween($min = 5,$max = 20);
             $freeSession = $nombreSession / 10;
 
-            $flatRate->setDateStart($faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null))
+            $flatRate->setCreatedAt($faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null))
                 ->setSessionNumber($nombreSession)
                 ->setPrice(($nombreSession) * 227);
+
+            $flatRate2->setCreatedAt($faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null))
+                ->setSessionNumber($nombreSession)
+                ->setPrice(($nombreSession) * 227);    
+
+                
 
             // ===== Factures ============================================================
 
@@ -46,7 +53,8 @@ class CustomerFixtures extends Fixture
 
                 $session = new Session();
 
-                $session->setDate($faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now', $timezone = null));
+                $session->setDateStart($faker->dateTimeBetween($startDate = 'now', $endDate = '+19 day', $timezone = null));
+                $session->setDateEnd($faker->dateTimeBetween($startDate = '+20 day', $endDate = '+20 day', $timezone = null));
                 if ($j == 0) {
                     $session->setFree(true);
                 } else {
@@ -59,6 +67,24 @@ class CustomerFixtures extends Fixture
             }
             $manager->persist($flatRate);
 
+            for ($j = 0; $j < 10; $j++) {
+
+                $session2 = new Session();
+
+                $session2->setDateStart($faker->dateTimeBetween($startDate = 'now', $endDate = '+19 day', $timezone = null));
+                $session2->setDateEnd($faker->dateTimeBetween($startDate = '+20 day', $endDate = '+20 day', $timezone = null));
+                if ($j == 0) {
+                    $session2->setFree(true);
+                } else {
+                    $session2->setFree(false);
+                }
+
+                $session2->setFlatRate($flatRate2);
+
+                $manager->persist($session2);
+            }
+            $manager->persist($flatRate2);
+
             // ===== Clients ============================================================
 
             $customer = new Customer();
@@ -68,6 +94,7 @@ class CustomerFixtures extends Fixture
                 ->setEmail($faker->email)
                 ->setAddressNumber($faker->numerify('##### #####'))
                 ->addFlatRate($flatRate)
+                ->addFlatRate($flatRate2)
                 ->setNewsletter(true)
                 ->setCreatedAt(new \DateTime('now +1 hour'))
                 ->addBill($bill);
