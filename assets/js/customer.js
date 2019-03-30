@@ -844,27 +844,32 @@ function addExistingDateToCalendar(flatratesArrays) {
 function moveEvent(info) {
 
 
-    // DEBUG
-    let app = document.querySelector("#app");
-    //-------------------------------------
+    // // DEBUG
+    // let app = document.querySelector("#app");
+    // //-------------------------------------
 
+    let dateStart = info.event.start;
+    let dateEnd = info.event.end;
 
     let idSession = info.event.id;
-    let formData = new FormData();
+    let formDataMove = new FormData();
 
-    formData.append("dateStart", info.event.start);
-    formData.append("dateEnd", info.event.end);
+    // console.log(dateStart);
+    // console.log(idSession);
+
+    formDataMove.append("dateStart", dateStart);
+    formDataMove.append("dateEnd", dateEnd);
 
     fetch(`/app/calendar/session/update/${idSession}`, {
-            method: 'PUT',
-            body: formData
+            method: 'POST',
+            body: formDataMove
         })
         .then(res => {
-            return res.text();
+            return res.json();
         })
         .then(res => {
-            console.log(res);
-            app.innerHTML = res;
+            // console.log(res);
+            // app.innerHTML = res;
         })
         .catch(err => {
             if (err) {

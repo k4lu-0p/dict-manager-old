@@ -7,8 +7,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Customer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Repository\FlatRateRepository;
-use Symfony\Component\HttpFoundation\Session\Session;
+use App\Entity\Session;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * @Route("/app/calendar")
@@ -53,11 +54,31 @@ class CalendarController extends AbstractController
     /**
      * @Route("/session/update/{id}", name="updateSession")
      */
-    public function updateSession(Session $session, Request $request)
+    public function updateSession(Session $session, Request $request, ObjectManager $manager)
     {
-        dump($request->getContent());
-        die();
+        $startRaw = $request->request->get('dateStart');
+        $endRaw = $request->request->get('dateEnd');
 
-        // TODO: Récuperer le contenu du la requete PUT
+        if ($startRaw && $endRaw) {
+
+            $start = substr($startRaw, 0, strpos($startRaw, '('));
+            $end = substr($startRaw, 0, strpos($endRaw, '('));
+    
+            $dateStart = date('Y-m-d h:i:s', strtotime($start));
+            $dateEnd = date('Y-m-d h:i:s', strtotime($end));
+    
+            $session->setDateStart(new \DateTime($dateStart));
+            $session->setDateEnd(new \DateTime($dateEnd));
+    
+            $manager->persist($session);
+            $manager->flush();
+
+            return new JsonResponse(['status' => 200]);
+        } else {
+
+            return new JsonResponse(['status' => 500 ]);
+        }
+
+
     }
 }
