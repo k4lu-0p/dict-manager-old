@@ -131,6 +131,11 @@ function showOptions(id, clicked) {
     const allOptionsBills = document.querySelectorAll('.options');
     const allButtonOptions = document.querySelectorAll('.bill-options');
     const fadeAways = document.querySelectorAll('.fade-away');
+    const customerName = document.querySelectorAll('.bill-customer-name');
+
+    customerName.forEach(element => {
+        element.style.left = "28%";
+    });
 
     fadeAways.forEach(el => {
         el.style.visibility = "visible";
@@ -161,11 +166,17 @@ function showOptions(id, clicked) {
 
         let divOptions = document.querySelector('.bill-options-' + id);
         let divFadeAway = document.querySelectorAll('.fade-away-' + id);
-        let customerNameCenter = document.querySelector('.cill-customer-name-' + id);
+        let customerNameCenter = document.querySelector('.bill-customer-name-' + id);
+
+        // Donne en % la largeur de customerNameCenter par rapport à son parent     ( (parent * 100) / enfant )
+        // Donne en % le milieu de l'element enfant                                 ( (parent * 100) / enfant ) / 2
+        // Donne en % la valeur en % du placement gauche pour affichage centrer     50 - ( ( (parent * 100) / enfant ) / 2 )
+        // Permet de déduire le placement du nom lors de l'apparition des boutons options
+        customerNameCenter.style.left = (50 - (((customerNameCenter.offsetWidth * 100) / customerNameCenter.parentElement.offsetWidth) / 2)) + "%";
 
         divOptions.style.visibility = "visible";
         divOptions.style.opacity = 1.0;
-        divOptions.style.right = "23%";
+        divOptions.style.right = "17.5%";
 
         divFadeAway.forEach(el => {
             el.style.visibility = "hidden";

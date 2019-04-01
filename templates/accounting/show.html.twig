@@ -5,22 +5,17 @@
     {% for bill in bills %}
         <div class="card-accounting d-flex justify-content-between p-3" data-id="{{ bill.id }}">
 
-            <div class="bill-left-part d-flex align-items-center">
-
                 <img alt="Customer Picture" class="bill-customer-picture fade-away fade-away-{{ bill.id }}" src="/uploads/pictures/{{ bill.customer.picture }}">
+                <p class="bill-customer-name bill-customer-name-{{ bill.id }}">{{ bill.customer.firstname }}
+                    {{ bill.customer.lastname }}</p>
 
-                <div class="d-flex flex-column pl-4">
-
-                    <p class="bill-customer-name bill-customer-name-{{ bill.id }}">{{ bill.customer.firstname }}
-                        {{ bill.customer.lastname }}</p>
+                <div class="fade-aways-infos d-flex flex-column">
 
                     <p class="fade-away fade-away-{{ bill.id }}">Bill
                         {{ bill.id }}</p>
+
                     <p class="fade-away fade-away-{{ bill.id }}">{{ bill.createdAt|date("d/m/Y") }}</p>
-
                 </div>
-
-            </div>
 
             <div class="three-dots">
                 <i class='uil uil-ellipsis-v options iNormalColor' data-id="{{ bill.id }}" data-action="showOptions"></i>

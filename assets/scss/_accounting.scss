@@ -27,10 +27,6 @@
         background-color: #3C4556;
 
 
-        .bill-left-part {
-            display: flex;
-            justify-content: space-between;
-
             .fade-away {
                 position: relative;
                 transition: all 0.5s ease;
@@ -48,6 +44,19 @@
                 &:nth-child(3) {
                     color: $less-light-color;
                 }
+            }
+
+            .bill-customer-name {
+                position: absolute;
+                top: 10%;
+                left: 28%;
+                transition: all 0.5s ease; 
+            }
+
+            .fade-aways-infos {
+                position: absolute;
+                top: 38%;
+                left: 28%;
             }
 
             .three-dots {
@@ -69,9 +78,9 @@
                     color: $flash-color;
                 }
             }
-        }
 
         .bill-options {
+            width: 65%;
             z-index: 9999999;
             opacity: 0;
             visibility: hidden;
@@ -89,14 +98,19 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                background-color: #56627C;
+
             }
 
             .btn-bill-details {
-                background-color: #56627C;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+                border-right: solid $less-light-color 1px;
             }
 
             .btn-bill-download {
-                background-color: $flash-color;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
             }
         }
     }
