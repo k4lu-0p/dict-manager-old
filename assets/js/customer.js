@@ -6,7 +6,6 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
 import interactionPlugin from "@fullcalendar/interaction";
 
-
 // Bouton clients du menu.
 const buttonNavCustomers = document.querySelector("#nav-button-customers");
 const navbar = document.querySelector(".navbar");
@@ -101,15 +100,17 @@ window.addEventListener("click", e => {
         case "toggle":
             displaySearchBar();
             break;
-        case "new-flatrate":
-            showFormFlatRate(id);
+        case "show-calendar":
+            showCalendarOfOneCustomer(id);
             break;
+        case "save-session":
+            saveNewSessionCalendar(id);
         default:
             break;
     }
 });
 
-function showFormFlatRate(id) {
+function showCalendarOfOneCustomer(idCustomer) {
     // Container de rendu.
     let app = document.querySelector("#app");
 
@@ -121,7 +122,7 @@ function showFormFlatRate(id) {
     loader.style.display = "flex";
 
     // Requête AJAX :
-    fetch(`/app/calendar/session/customer/${id}`, {
+    fetch(`/app/calendar/session/customer/${idCustomer}`, {
             method: "GET"
         })
         .then(res => {
@@ -135,28 +136,28 @@ function showFormFlatRate(id) {
             app.innerHTML = res.render;
 
             // Revenir sur la page info client
-            defineActionPreviousButton("show", id);
+            defineActionPreviousButton("show", idCustomer);
+
+            console.log(idCustomer);
 
             // Boutton d'envois du formulaire.
             // buttonUpdateCustomer = document.querySelector('#update-button-customer');
 
             // Selection de la div contenant le calendrier
-            calendarContainerForOne = document.getElementById(
-                "calendar-add-session"
-            );
+            calendarContainerForOne = document.getElementById("calendar-add-session");
 
             // Instanciation et configuration du calendrier
             calendarForOne = new Calendar(calendarContainerForOne, {
                 plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin],
                 height: 625,
                 longPressDelay: 500,
-                // selectable: true,
+                selectable: true,
                 // selectMirror: true,
                 customButtons: {
                     myCustomButton: {
-                        text: "custom!",
+                        text: "New Session",
                         click: function (event) {
-                            console.log("coucou");
+                            showFormNewSessionCalendar(idCustomer);
                         }
                     }
                 },
@@ -169,23 +170,17 @@ function showFormFlatRate(id) {
                 dateClick: function (info) {
                     // Déclenche la fonction suivante au clique d'un jour.
                     console.log(info);
-                    // info.dayEl.style.backgroundColor = 'red';
-
-                    calendarForOne.addEvent({
-                        // this object will be "parsed" into an Event Object
-                        title: "The Title",
-                        start: new Date("2019-03-17T17:24:00"),
-                        end: new Date("2019-03-17T19:24:00"),
-                        editable: true
-                    });
                 },
-                eventDrop: (info) => {
-                    moveEvent(info);
+                eventDrop: info => {
+                    saveEvent(info);
+                },
+                eventResizeStop: info => {
+                    saveEvent(info);
                 }
             });
 
             // Ajoute les sessions du forfait du client au calendrier
-            addExistingDateToCalendar(res.flatrates)
+            addExistingDateToCalendar(res.flatrates);
 
             calendarForOne.render(); // Faire le rendu du calendrier.
         })
@@ -814,67 +809,145 @@ function myMap() {
 }
 
 function addExistingDateToCalendar(flatratesArrays) {
-
     let i = -1;
-    let colors = ['#e12768', '#92a2bc', '#424C61'];
+    let colors = ["#e12768", "#92a2bc", "#424C61"];
 
-    console.log(flatratesArrays);
+    // console.log(flatratesArrays);
 
     flatratesArrays.forEach(datesArrays => {
-
         i++;
         datesArrays.forEach(array => {
-
             calendarForOne.addEvent({
                 id: array.id.toString(),
                 title: `Forfait n°${i}`,
                 start: new Date(array.start.date),
-                // end: new Date(array.end.date),
-                end: null,
+                end: new Date(array.end.date),
+                // end: null,
                 editable: true,
+                eventResizableFromStart: true,
+                eventStartEditable: true,
                 backgroundColor: colors[i],
                 borderColor: colors[i],
-                textColor: 'EAFFFE'
+                textColor: "EAFFFE"
             });
         });
     });
-
 }
 
-function moveEvent(info) {
-
-
-    // // DEBUG
-    // let app = document.querySelector("#app");
-    // //-------------------------------------
-
+function saveEvent(info) {
     let dateStart = info.event.start;
     let dateEnd = info.event.end;
+
+    //   console.log(info);
 
     let idSession = info.event.id;
     let formDataMove = new FormData();
 
-    // console.log(dateStart);
-    // console.log(idSession);
+    //   console.log(`Date de début : ${dateStart}`);
+    //   console.log(`Date de fin : ${dateEnd}`);
 
     formDataMove.append("dateStart", dateStart);
     formDataMove.append("dateEnd", dateEnd);
 
     fetch(`/app/calendar/session/update/${idSession}`, {
-            method: 'POST',
+            method: "POST",
             body: formDataMove
         })
         .then(res => {
             return res.json();
         })
-        .then(res => {
-            // console.log(res);
-            // app.innerHTML = res;
-        })
+        .then(res => {})
         .catch(err => {
             if (err) {
-                console.log(err);
+                console.log(err); // console.log(res);
+                // app.innerHTML = res;
             }
+        });
+}
+
+function showFormNewSessionCalendar(idCustomer) {
+    //   if (document.querySelector(".wrapper-form-calendar-add-session")) {
+
+    //   }
+
+    fetch(`/app/calendar/sessions/create/${idCustomer}`)
+        .then(res => {
+            return res.json();
         })
+        .then(res => {
+            let wrapperForm = document.querySelector(
+                ".wrapper-form-calendar-add-session"
+            );
+            wrapperForm.innerHTML = res.render;
+
+            $('#session_dateEnd').datepicker({
+                language: 'en',
+                timepicker: true,
+            });
+
+            $('#session_dateStart').datepicker({
+                language: 'en',
+                timepicker: true,
+            });
+        })
+        .catch(err => console.log(err));
+    // TODO: afficher le formulaire.
+}
+
+function saveNewSessionCalendar(idCustomer) {
+
+    let wrapperForm = document.querySelector(
+        ".wrapper-form-calendar-add-session"
+    );
+
+    let isFree = document.querySelector("#session_free").value;
+    let dateStartChoose = document.querySelector("#session_dateStart").value;
+    let dateEndChoose = document.querySelector("#session_dateEnd").value;
+    let tokenSessionForm = document.querySelector("#session__token").value;
+
+    // console.log(isFree);
+    // console.log(dateStartChoose);
+    // console.log(dateEndChoose);
+    // console.log(tokenSessionForm);
+
+    // Formulaire à envoyer en POST.
+    let formData = new FormData();
+
+    formData.append('session[free]', isFree);
+    formData.append('session[dateStart]', dateStartChoose);
+    formData.append('session[dateEnd]', dateEndChoose);
+    formData.append('session[_token]', tokenSessionForm);
+
+
+    fetch(`/app/calendar/sessions/create/${idCustomer}`, {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => {
+            return res.json()
+        })
+        .then(res => {
+
+
+            // DEBUG
+            console.log(res);
+            wrapperForm.innerHTML = res;
+
+
+            // calendarForOne.addEvent({
+            //     // id: array.id.toString(),
+            //     // title: `Forfait n°${i}`,
+            //     start: new Date(dateStartChoose),
+            //     end: new Date(dateEndChoose),
+            //     // end: null,
+            //     editable: true,
+            //     eventResizableFromStart: true,
+            //     eventStartEditable: true,
+            //     // backgroundColor: colors[i],
+            //     // borderColor: colors[i],
+            //     textColor: "EAFFFE"
+            // });
+        })
+        .catch(err => console.log(err))
 
 }

@@ -11,6 +11,9 @@ require('../../node_modules/@fullcalendar/core/main.css');
 require('../../node_modules/@fullcalendar/daygrid/main.css');
 require('../../node_modules/@fullcalendar/timegrid/main.css');
 require('../../node_modules/@fullcalendar/list/main.css');
+require('../../node_modules/air-datepicker/dist/css/datepicker.min.css');
+require('../../node_modules/air-datepicker/dist/js/datepicker');
+require('../../node_modules/air-datepicker/dist/js/i18n/datepicker.en');
 
 // Feuilles de style et script personnel
 require('../scss/main.scss');
