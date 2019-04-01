@@ -1,10 +1,15 @@
+<nav class="d-flex justify-content-center align-items-center" id="navbar-accounting">
+    <h1>{{ bill.customer.firstname }}
+        {{ bill.customer.lastname }}</h1>
+</nav>
 <div class="container container-accounting">
-    <h1>{{ title }}</h1>
-        <div class="card card-accounting">
-            <p>Bill {{ bill.id }}</p>
-            <p>{{ bill.createdAt|date("m/d/Y") }}</p>
-            <p>{{ bill.customer.firstname }} {{ bill.customer.lastname }}</p>
-            <p>Sessions : {{ bill.flatRate.nbSessions }}</p>
-            <button id="download-bill" data-action="downloadBill" data-id="{{ bill.id }}">Download</button>
-        </div>
+    <div class="card card-accounting">
+        <p>Bill
+            {{ bill.id }}</p>
+        <p>{{ bill.createdAt|date("m/d/Y") }}</p>
+        <p>Sessions :
+            {{ bill.flatRate.nbSessions }}</p>
+{{ bill.flatRate.dateStart|date("m/d/Y") }}
+        <button id="download-bill" class="btn" data-action="downloadBill" data-id="{{ bill.id }}">Download</button>
+    </div>
 </div>

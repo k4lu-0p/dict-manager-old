@@ -19,11 +19,18 @@
     height: 75px;
 
     .card-accounting {
+        position: relative;
         border-radius: 3px;
         color: $white-color;
         font-family: $main-font;
         margin-top: 15px;
         background-color: #3C4556;
+
+
+        .fade-away {
+            position: relative;
+            transition: all 0.3s ease;
+        }
 
         .bill-customer-picture {
             height: 50px;
@@ -31,17 +38,29 @@
             border-radius: 50%;
         }
 
-        div {
-            display: flex;
-            justify-content: space-between;
+        p {
+            margin: 0;
 
-            p {
-                margin: 0;
-
-                &:nth-child(3) {
-                    color: $less-light-color;
-                }
+            &:nth-child(3) {
+                color: $less-light-color;
             }
+        }
+
+        .bill-customer-name {
+            position: absolute;
+            top: 10%;
+            left: 28%;
+            transition: all 0.3s ease;
+        }
+
+        .bill-infos {
+            position: absolute;
+            top: 38%;
+            left: 28%;
+            transition: all 0.3s ease;
+        }
+
+        .three-dots {
 
             i {
                 font-size: 3.5vh;
@@ -60,33 +79,39 @@
                 color: $flash-color;
             }
         }
-    }
 
-    .bill-options {
-        z-index: 9999999;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
-        position: absolute;
-        height: 80px;
-        transform: translateX(156%);
+        .bill-options {
+            width: 65%;
+            z-index: 9999999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            position: absolute;
+            top: 45%;
+            right: -10%;
 
+            .btn-bill-details,
+            .btn-bill-download {
+                width: 50%;
+                height: 10%;
+                font-family: $main-font;
+                color: $white-color;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background-color: #56627C;
+            }
 
-        .btn-bill-details,
-        .btn-bill-download {
-            font-family: $main-font;
-            color: $white-color;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+            .btn-bill-details {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+                border-right: solid $less-light-color 1px;
+            }
 
-        .btn-bill-details {
-            background-color: #56627C;
-        }
-
-        .btn-bill-download {
-            background-color: $flash-color;
+            .btn-bill-download {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
         }
     }
 }

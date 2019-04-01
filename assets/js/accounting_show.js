@@ -42,7 +42,6 @@ function showAccountingWithAjax() {
         })
 }
 
-
 // Action sur les bills.
 window.addEventListener('click', (e) => {
     let id = e.target.getAttribute('data-id') ? e.target.getAttribute('data-id') : undefined;
@@ -127,34 +126,83 @@ function downloadBill(id) {
 // Affichage les boutons details et download des factures + change la couleur des trois points
 function showOptions(id, clicked) {
 
-    const allOptionsBills = document.querySelectorAll('.options');
-    let allButtonOptions = document.querySelectorAll('.bill-options');
+    const allOptionsBills = document.querySelectorAll('.iSelectedColor');
+    const card = document.querySelectorAll('.card-accounting');
 
-    allButtonOptions.forEach(buttonOption => {
-        buttonOption.style.visibility = "hidden";
-        buttonOption.style.opacity = 0;
+    card.forEach(el => {
+        let test = Array.from(el.children);
+        test.forEach(child => {
+            // Photo
+            if (child.classList.contains('bill-customer-picture')) {
+                child.style.visibility = "visible";
+                child.style.opacity = 1.0;
+            }
+
+            // Info
+            if (child.classList.contains('bill-infos')) {
+                child.style.visibility = "visible";
+                child.style.opacity = 1.0;
+            }
+
+            // Nom
+            if (child.classList.contains('bill-customer-name')) {
+                child.style.left = "28%";
+            }
+
+            // Bouton details download
+            if (child.classList.contains('bill-options')) {
+                child.style.visibility = "hidden";
+                child.style.opacity = 0;
+                child.style.right = "-10%";
+            }
+
+        });
     });
+
+    let divOptions = document.querySelector('.bill-options-' + id);
+    let customerPicture = document.querySelector('.bill-customer-picture-' + id);
+    let infos = document.querySelector('.bill-infos-' + id);
+    let customerNameCenter = document.querySelector('.bill-customer-name-' + id);
+
+    // Eteind si click sur l'element deja actif
     if (clicked.classList.contains('iSelectedColor')) {
-        // On éteint tout les boutons déjà allumés.
+        
+        // On éteint tous les boutons déjà allumés.
         allOptionsBills.forEach(options => {
-            if (options.classList.contains('iSelectedColor')) {
-                options.classList.replace('iSelectedColor', 'iNormalColor')
-            }
+            options.classList.replace('iSelectedColor', 'iNormalColor')
         });
 
-        // Allume le bouton sélectionné.
+        divOptions.style.visibility = "hidden";
+        divOptions.style.opacity = 0;
+        divOptions.style.right = "-10%";
+
+        customerPicture.style.visibility = "visible";
+        customerPicture.style.opacity = 1.0;
+
+        infos.style.visibility = "visible";
+        infos.style.opacity = 1.0;
+
     } else {
+        // Allume le bouton sélectionné.
+
+        // On éteint tous les boutons déjà allumés.
         allOptionsBills.forEach(options => {
-            if (options.classList.contains('iSelectedColor')) {
                 options.classList.replace('iSelectedColor', 'iNormalColor')
-            }
         });
+
         clicked.classList.replace('iNormalColor', 'iSelectedColor');
 
-        let divOptions = document.querySelector('.bill-options-' + clicked.getAttribute('data-id'))
+        customerNameCenter.style.left = (50 - (((customerNameCenter.offsetWidth * 100) / customerNameCenter.parentElement.offsetWidth) / 2)) + "%";
+
         divOptions.style.visibility = "visible";
         divOptions.style.opacity = 1.0;
+        divOptions.style.right = "17.5%";
 
+        customerPicture.style.visibility = "hidden";
+        customerPicture.style.opacity = 0;
+
+        infos.style.visibility = "hidden";
+        infos.style.opacity = 0;
     }
 }
 
@@ -171,28 +219,3 @@ function defineActionPreviousButton(dataAction, id) {
         }
     }
 }
-
-// // Fonction chargé d'allumé le bouton de la facture choisie.
-// function activeOptionsBills(optionsBillsSelected) {
-
-//     const allOptionsBills = document.querySelectorAll('.options');
-
-//     if (optionsBillsSelected.classList.contains('iSelectedColor')) {
-//         // On éteint tout les boutons déjà allumés.
-//         allOptionsBills.forEach(options => {
-//             if (options.classList.contains('iSelectedColor')) {
-//                 options.classList.replace('iSelectedColor', 'iNormalColor')
-//             }
-//         });
-
-//         // Allume le bouton sélectionné.
-//     } else {
-//         allOptionsBills.forEach(options => {
-//             if (options.classList.contains('iSelectedColor')) {
-//                 options.classList.replace('iSelectedColor', 'iNormalColor')
-//             }
-//         });
-//         optionsBillsSelected.classList.replace('iNormalColor', 'iSelectedColor');
-//     }
-
-// }
