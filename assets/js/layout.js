@@ -7,14 +7,13 @@ require('../../node_modules/slick-carousel/slick/slick.css');
 require('../../node_modules/slick-carousel/slick/slick-theme.css');
 require('../../node_modules/slick-carousel/slick/slick.min.js');
 require('../../node_modules/chart.js/src/chart');
-// require('../../node_modules/@fullcalendar/core/main');
-// require('../../node_modules/@fullcalendar/daygrid/main');
-// require('../../node_modules/@fullcalendar/list/main');
-// require('../../node_modules/@fullcalendar/timegrid/main');
 require('../../node_modules/@fullcalendar/core/main.css');
 require('../../node_modules/@fullcalendar/daygrid/main.css');
 require('../../node_modules/@fullcalendar/timegrid/main.css');
 require('../../node_modules/@fullcalendar/list/main.css');
+require('../../node_modules/air-datepicker/dist/css/datepicker.min.css');
+require('../../node_modules/air-datepicker/dist/js/datepicker');
+require('../../node_modules/air-datepicker/dist/js/i18n/datepicker.en');
 
 // Feuilles de style et script personnel
 require('../scss/main.scss');

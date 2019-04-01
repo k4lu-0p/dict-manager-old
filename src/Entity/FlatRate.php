@@ -28,16 +28,7 @@ class FlatRate
      */
     private $price;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $dateStart;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $dateEnd;
-
+    
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="flatRate", cascade={"persist", "remove"})
      */
@@ -52,6 +43,11 @@ class FlatRate
      * @ORM\OneToOne(targetEntity="App\Entity\Bill", mappedBy="flatRate", cascade={"persist", "remove"})
      */
     private $bill;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
 
     public function __construct()
     {
@@ -83,30 +79,6 @@ class FlatRate
     public function setPrice(int $price): self
     {
         $this->price = $price;
-
-        return $this;
-    }
-
-    public function getDateStart(): ? \DateTimeInterface
-    {
-        return $this->dateStart;
-    }
-
-    public function setDateStart(\DateTimeInterface $dateStart): self
-    {
-        $this->dateStart = $dateStart;
-
-        return $this;
-    }
-
-    public function getDateEnd(): ? \DateTimeInterface
-    {
-        return $this->dateEnd;
-    }
-
-    public function setDateEnd(? \DateTimeInterface $dateEnd): self
-    {
-        $this->dateEnd = $dateEnd;
 
         return $this;
     }
@@ -167,6 +139,18 @@ class FlatRate
         if ($this !== $bill->getFlatRate()) {
             $bill->setFlatRate($this);
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

@@ -22,11 +22,11 @@
         "@fullcalendar/interaction": "^4.0.1",
         "@fullcalendar/list": "^4.0.1",
         "@fullcalendar/timegrid": "^4.0.1",
+        "air-datepicker": "^2.2.3",
         "bootstrap": "^4.3.1",
         "chart.js": "^2.7.3",
         "fullcalendar": "^3.10.0",
         "jquery": "^3.3.1",
-        "moment": "^2.24.0",
         "popper.js": "^1.14.7",
         "slick-carousel": "^1.8.1"
     }
