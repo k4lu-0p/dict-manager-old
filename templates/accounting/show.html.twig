@@ -5,20 +5,20 @@
     {% for bill in bills %}
         <div class="card-accounting d-flex justify-content-between p-3" data-id="{{ bill.id }}">
 
-                <img alt="Customer Picture" class="bill-customer-picture fade-away fade-away-{{ bill.id }}" src="/uploads/pictures/{{ bill.customer.picture }}">
-                <p class="bill-customer-name bill-customer-name-{{ bill.id }}">{{ bill.customer.firstname }}
-                    {{ bill.customer.lastname }}</p>
+            <img alt="Customer Picture" class="bill-customer-picture bill-customer-picture-{{ bill.id }}" src="/uploads/pictures/{{ bill.customer.picture }}">
+            <p class="bill-customer-name bill-customer-name-{{ bill.id }}">{{ bill.customer.firstname }}
+                {{ bill.customer.lastname }}</p>
 
-                <div class="fade-aways-infos d-flex flex-column">
+            <div class="bill-infos bill-infos-{{ bill.id }} d-flex flex-column">
 
-                    <p class="fade-away fade-away-{{ bill.id }}">Bill
-                        {{ bill.id }}</p>
+                <p class="fade-away fade-away-{{ bill.id }}">Bill
+                    {{ bill.id }}</p>
 
-                    <p class="fade-away fade-away-{{ bill.id }}">{{ bill.createdAt|date("d/m/Y") }}</p>
-                </div>
+                <p class="fade-away fade-away-{{ bill.id }}">{{ bill.createdAt|date("d/m/Y") }}</p>
+            </div>
 
             <div class="three-dots">
-                <i class='uil uil-ellipsis-v options iNormalColor' data-id="{{ bill.id }}" data-action="showOptions"></i>
+                <i class='iNormalColor uil uil-ellipsis-v options' data-id="{{ bill.id }}" data-action="showOptions"></i>
             </div>
 
             <div class="bill-options bill-options-{{ bill.id }} d-flex justify-content-between">

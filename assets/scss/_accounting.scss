@@ -27,64 +27,65 @@
         background-color: #3C4556;
 
 
-            .fade-away {
-                position: relative;
-                transition: all 0.5s ease;
+        .fade-away {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .bill-customer-picture {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+        }
+
+        p {
+            margin: 0;
+
+            &:nth-child(3) {
+                color: $less-light-color;
             }
+        }
 
-            .bill-customer-picture {
-                height: 50px;
-                width: 50px;
-                border-radius: 50%;
-            }
+        .bill-customer-name {
+            position: absolute;
+            top: 10%;
+            left: 28%;
+            transition: all 0.3s ease;
+        }
 
-            p {
-                margin: 0;
+        .bill-infos {
+            position: absolute;
+            top: 38%;
+            left: 28%;
+            transition: all 0.3s ease;
+        }
 
-                &:nth-child(3) {
-                    color: $less-light-color;
+        .three-dots {
+
+            i {
+                font-size: 3.5vh;
+
+                &::before {
+                    height: 100%;
+                    width: 100%;
                 }
             }
 
-            .bill-customer-name {
-                position: absolute;
-                top: 10%;
-                left: 28%;
-                transition: all 0.5s ease; 
+            .iNormalColor {
+                color: $less-light-color;
             }
 
-            .fade-aways-infos {
-                position: absolute;
-                top: 38%;
-                left: 28%;
+            .iSelectedColor {
+                color: $flash-color;
             }
-
-            .three-dots {
-
-                i {
-                    font-size: 3.5vh;
-
-                    &::before {
-                        height: 100%;
-                        width: 100%;
-                    }
-                }
-
-                .iNormalColor {
-                    color: $less-light-color;
-                }
-
-                .iSelectedColor {
-                    color: $flash-color;
-                }
-            }
+        }
 
         .bill-options {
             width: 65%;
             z-index: 9999999;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.5s ease;
+            transition: all 0.3s ease;
             position: absolute;
             top: 45%;
             right: -10%;
@@ -99,7 +100,6 @@
                 flex-direction: column;
                 align-items: center;
                 background-color: #56627C;
-
             }
 
             .btn-bill-details {

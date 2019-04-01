@@ -1,5 +1,3 @@
-
-
 // bouton comptabilité du menu.
 const buttonNavAccounting = document.querySelector('#nav-button-accounting');
 
@@ -128,61 +126,83 @@ function downloadBill(id) {
 // Affichage les boutons details et download des factures + change la couleur des trois points
 function showOptions(id, clicked) {
 
-    const allOptionsBills = document.querySelectorAll('.options');
-    const allButtonOptions = document.querySelectorAll('.bill-options');
-    const fadeAways = document.querySelectorAll('.fade-away');
-    const customerName = document.querySelectorAll('.bill-customer-name');
+    const allOptionsBills = document.querySelectorAll('.iSelectedColor');
+    const card = document.querySelectorAll('.card-accounting');
 
-    customerName.forEach(element => {
-        element.style.left = "28%";
-    });
-
-    fadeAways.forEach(el => {
-        el.style.visibility = "visible";
-        el.style.opacity = 1.0;
-    });
-    allButtonOptions.forEach(buttonOption => {
-        buttonOption.style.visibility = "hidden";
-        buttonOption.style.opacity = 0;
-        buttonOption.style.right = "-10%";
-    });
-    if (clicked.classList.contains('iSelectedColor')) {
-        // On éteint tout les boutons déjà allumés.
-        allOptionsBills.forEach(options => {
-            if (options.classList.contains('iSelectedColor')) {
-                options.classList.replace('iSelectedColor', 'iNormalColor')
+    card.forEach(el => {
+        let test = Array.from(el.children);
+        test.forEach(child => {
+            // Photo
+            if (child.classList.contains('bill-customer-picture')) {
+                child.style.visibility = "visible";
+                child.style.opacity = 1.0;
             }
+
+            // Info
+            if (child.classList.contains('bill-infos')) {
+                child.style.visibility = "visible";
+                child.style.opacity = 1.0;
+            }
+
+            // Nom
+            if (child.classList.contains('bill-customer-name')) {
+                child.style.left = "28%";
+            }
+
+            // Bouton details download
+            if (child.classList.contains('bill-options')) {
+                child.style.visibility = "hidden";
+                child.style.opacity = 0;
+                child.style.right = "-10%";
+            }
+
+        });
+    });
+
+    let divOptions = document.querySelector('.bill-options-' + id);
+    let customerPicture = document.querySelector('.bill-customer-picture-' + id);
+    let infos = document.querySelector('.bill-infos-' + id);
+    let customerNameCenter = document.querySelector('.bill-customer-name-' + id);
+
+    // Eteind si click sur l'element deja actif
+    if (clicked.classList.contains('iSelectedColor')) {
+        
+        // On éteint tous les boutons déjà allumés.
+        allOptionsBills.forEach(options => {
+            options.classList.replace('iSelectedColor', 'iNormalColor')
         });
 
-        // Allume le bouton sélectionné.
+        divOptions.style.visibility = "hidden";
+        divOptions.style.opacity = 0;
+        divOptions.style.right = "-10%";
+
+        customerPicture.style.visibility = "visible";
+        customerPicture.style.opacity = 1.0;
+
+        infos.style.visibility = "visible";
+        infos.style.opacity = 1.0;
+
     } else {
+        // Allume le bouton sélectionné.
+
+        // On éteint tous les boutons déjà allumés.
         allOptionsBills.forEach(options => {
-            if (options.classList.contains('iSelectedColor')) {
                 options.classList.replace('iSelectedColor', 'iNormalColor')
-            }
         });
 
         clicked.classList.replace('iNormalColor', 'iSelectedColor');
 
-        let divOptions = document.querySelector('.bill-options-' + id);
-        let divFadeAway = document.querySelectorAll('.fade-away-' + id);
-        let customerNameCenter = document.querySelector('.bill-customer-name-' + id);
-
-        // Donne en % la largeur de customerNameCenter par rapport à son parent     ( (parent * 100) / enfant )
-        // Donne en % le milieu de l'element enfant                                 ( (parent * 100) / enfant ) / 2
-        // Donne en % la valeur en % du placement gauche pour affichage centrer     50 - ( ( (parent * 100) / enfant ) / 2 )
-        // Permet de déduire le placement du nom lors de l'apparition des boutons options
         customerNameCenter.style.left = (50 - (((customerNameCenter.offsetWidth * 100) / customerNameCenter.parentElement.offsetWidth) / 2)) + "%";
 
         divOptions.style.visibility = "visible";
         divOptions.style.opacity = 1.0;
         divOptions.style.right = "17.5%";
 
-        divFadeAway.forEach(el => {
-            el.style.visibility = "hidden";
-            el.style.opacity = 0;
-        });
+        customerPicture.style.visibility = "hidden";
+        customerPicture.style.opacity = 0;
 
+        infos.style.visibility = "hidden";
+        infos.style.opacity = 0;
     }
 }
 
@@ -199,28 +219,3 @@ function defineActionPreviousButton(dataAction, id) {
         }
     }
 }
-
-// // Fonction chargé d'allumé le bouton de la facture choisie.
-// function activeOptionsBills(optionsBillsSelected) {
-
-//     const allOptionsBills = document.querySelectorAll('.options');
-
-//     if (optionsBillsSelected.classList.contains('iSelectedColor')) {
-//         // On éteint tout les boutons déjà allumés.
-//         allOptionsBills.forEach(options => {
-//             if (options.classList.contains('iSelectedColor')) {
-//                 options.classList.replace('iSelectedColor', 'iNormalColor')
-//             }
-//         });
-
-//         // Allume le bouton sélectionné.
-//     } else {
-//         allOptionsBills.forEach(options => {
-//             if (options.classList.contains('iSelectedColor')) {
-//                 options.classList.replace('iSelectedColor', 'iNormalColor')
-//             }
-//         });
-//         optionsBillsSelected.classList.replace('iNormalColor', 'iSelectedColor');
-//     }
-
-// }
