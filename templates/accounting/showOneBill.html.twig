@@ -1,15 +1,24 @@
-<nav class="d-flex justify-content-center align-items-center" id="navbar-accounting">
+<nav class="d-flex justify-content-center align-items-center mb-4" id="navbar-accounting">
     <h1>{{ bill.customer.firstname }}
         {{ bill.customer.lastname }}</h1>
 </nav>
 <div class="container container-accounting">
-    <div class="card card-accounting">
-        <p>Bill
-            {{ bill.id }}</p>
-        <p>{{ bill.createdAt|date("m/d/Y") }}</p>
+    <div class="card card-accounting-profile p-3">
+        <div class="d-flex justify-content-between">
+            <p>Bill :
+                <span class="data">{{ bill.id }}</span>
+            </p>
+            <p class="data">{{ bill.createdAt|date("m/d/Y") }}</p>
+        </div>
         <p>Sessions :
-            {{ bill.flatRate.nbSessions }}</p>
-{{ bill.flatRate.createdAt|date("m/d/Y") }}
-        <button id="download-bill" class="btn" data-action="downloadBill" data-id="{{ bill.id }}">Download</button>
+            <span class="data">{{ bill.flatRate.nbSessions }}</span>
+        </p>
+        <p>Flat rate created at :
+            <span class="data">{{ bill.flatRate.createdAt|date("m/d/Y") }}</span>
+        </p>
+
+    </div>
+    <div class="d-flex justify-content-center align-items-center py-4">
+        <button class="download-bill btn" data-action="downloadBill" data-id="{{ bill.id }}">Download</button>
     </div>
 </div>

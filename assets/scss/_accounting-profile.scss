@@ -1,8 +1,19 @@
 .container-accounting {
-    .card-accounting{
-        #download-bill{
-            background-color: #56627C;
-            color: $white-color;
+    .card-accounting-profile {
+        background-color: #3C4556;
+        color: $light-color;
+
+        p {
+            margin: 0;
+
+            .data {
+                color: $white-color;
+            }
         }
+    }
+
+    .download-bill {
+        background-color: #56627C;
+        color: $white-color;
     }
 }
