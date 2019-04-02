@@ -224,3 +224,21 @@ function defineActionPreviousButton(dataAction, id) {
         }
     }
 }
+
+// Affiche/Referme la barre de recherche quand on clique sur la loupe.
+function displaySearchBar() {
+    let containerSearchBar = document.querySelector(".container-search-bar");
+    let buttonSearch = document.querySelector("#button-search-customer");
+
+    if (toggleDisplaySearchBar) {
+        toggleDisplaySearchBar = false;
+        buttonSearch.style.color = "#92a2bc";
+        containerSearchBar.style.visibility = "hidden";
+        containerSearchBar.style.top = "-70px";
+    } else {
+        toggleDisplaySearchBar = true;
+        buttonSearch.style.color = "#EAFFFE";
+        containerSearchBar.style.visibility = "visible";
+        containerSearchBar.style.top = "70px";
+    }
+}

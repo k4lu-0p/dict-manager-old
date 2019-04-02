@@ -1,8 +1,26 @@
+// NAVTOP ACCOUNTNG
+
 #navbar-accounting {
     width: 100vw;
     height: 82px;
     background-color: #3E4755;
     font-family: $main-font;
+
+    #button-search-bill {
+        outline: 0;
+        background-color: transparent;
+        color: $white-color;
+        border: none;
+        transition: color 0.3s;
+        color: $less-light-color;
+
+        i {
+            height: 100%;
+            width: 100%;
+            font-size: 3.5vh;
+
+        }
+    }
 
     #count-bill {
         background-color: $flash-color;
@@ -23,6 +41,8 @@
         margin: 0;
     }
 }
+
+//  CONTENT ACCOUNTING
 
 .container-accounting {
     width: 92vw;
