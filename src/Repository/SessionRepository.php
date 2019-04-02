@@ -36,10 +36,10 @@ class SessionRepository extends ServiceEntityRepository
 
         $connexion = $this->getEntityManager()->getConnection();
 
-        $sql = "SELECT (SELECT WEEK(ADDDATE(date,5-DAYOFWEEK(date)),3)) as week, 
-                DAYNAME(date) as day, 
+        $sql = "SELECT (SELECT WEEK(ADDDATE(date_start,5-DAYOFWEEK(date_start)),3)) as week, 
+                DAYNAME(date_start) as day, 
                 COUNT(*) AS session FROM `session`
-                WHERE (SELECT WEEK(ADDDATE(date,5-DAYOFWEEK(date)),3)) = (WEEK(CURRENT_DATE) + 1)
+                WHERE (SELECT WEEK(ADDDATE(date_start,5-DAYOFWEEK(date_start)),3)) = (WEEK(CURRENT_DATE) + 1)
                 GROUP BY week, day";
 
         $req = $connexion->prepare($sql);
@@ -54,9 +54,9 @@ class SessionRepository extends ServiceEntityRepository
 
         $connexion = $this->getEntityManager()->getConnection();
 
-        $sql = "SELECT (SELECT WEEK(ADDDATE(date,5-DAYOFWEEK(date)),3)) as week, 
+        $sql = "SELECT (SELECT WEEK(ADDDATE(date_start,5-DAYOFWEEK(date_start)),3)) as week, 
                 COUNT(*) AS session FROM `session`
-                WHERE (SELECT WEEK(ADDDATE(date,5-DAYOFWEEK(date)),3)) = ?
+                WHERE (SELECT WEEK(ADDDATE(date_start,5-DAYOFWEEK(date_start)),3)) = ?
                 GROUP BY week";
 
         $req = $connexion->prepare($sql);
@@ -69,7 +69,7 @@ class SessionRepository extends ServiceEntityRepository
     public function findSessionsOfCurrentYear()
     {
         $connexion = $this->getEntityManager()->getConnection();
-        $sql = "SELECT MONTHNAME(date) AS month, COUNT(*) AS session FROM session GROUP BY month";
+        $sql = "SELECT MONTHNAME(date_start) AS month, COUNT(*) AS session FROM session GROUP BY month";
         $req = $connexion->prepare($sql);
         $req->execute();
         return $req->fetchAll();

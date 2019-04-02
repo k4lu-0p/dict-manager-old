@@ -37,9 +37,9 @@ class StatisticsController extends AbstractController
         foreach ($allFlatRates as $flatRate) {
             foreach ($flatRate->getSessions() as $key) {
                 array_push($session, $key->getId());
-                array_push($session, $key->getDate());
+                array_push($session, $key->getDateStart());
                 // Numero de semaine
-                array_push($session, idate("W", ($key->getDate())->format("U")));
+                array_push($session, idate("W", ($key->getDateStart())->format("U")));
                 array_push($currentFlatRateSessions, $session);
                 $session = [];
             }

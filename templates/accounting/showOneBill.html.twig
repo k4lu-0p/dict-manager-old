@@ -9,7 +9,7 @@
         <p>{{ bill.createdAt|date("m/d/Y") }}</p>
         <p>Sessions :
             {{ bill.flatRate.nbSessions }}</p>
-{{ bill.flatRate.dateStart|date("m/d/Y") }}
+{{ bill.flatRate.createdAt|date("m/d/Y") }}
         <button id="download-bill" class="btn" data-action="downloadBill" data-id="{{ bill.id }}">Download</button>
     </div>
 </div>

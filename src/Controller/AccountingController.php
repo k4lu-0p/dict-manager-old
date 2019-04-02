@@ -51,8 +51,7 @@ class AccountingController extends AbstractController
             // FlatRate
             $flatRate["id"] = $oneBill->getFlatRate()->getId();
             $flatRate["price"] = $oneBill->getFlatRate()->getPrice();
-            $flatRate["dateStart"] = $oneBill->getFlatRate()->getDateStart();
-            $flatRate["dateEnd"] = $oneBill->getFlatRate()->getDateEnd();
+            $flatRate["createdAt"] = $bill->getFlatRate()->getCreatedAt();
             $flatRate["nbSessions"] = $oneBill->getFlatRate()->getSessionNumber();
             $bill["flatRate"] = $flatRate;
 
@@ -104,8 +103,7 @@ class AccountingController extends AbstractController
         // FlatRate
         $flatRate["id"] = $bill->getFlatRate()->getId();
         $flatRate["price"] = $bill->getFlatRate()->getPrice();
-        $flatRate["dateStart"] = $bill->getFlatRate()->getDateStart();
-        $flatRate["dateEnd"] = $bill->getFlatRate()->getDateEnd();
+        $flatRate["createdAt"] = $bill->getFlatRate()->getCreatedAt();
         $flatRate["nbSessions"] = $bill->getFlatRate()->getSessionNumber();
         // $flatRate["nbFreeSessions"] = $bill->getFlatRate()->getSessions();
         $currentBill["flatRate"] = $flatRate;
@@ -156,8 +154,7 @@ class AccountingController extends AbstractController
         // FlatRate
         $flatRate["id"] = $bill->getFlatRate()->getId();
         $flatRate["price"] = $bill->getFlatRate()->getPrice();
-        $flatRate["dateStart"] = $bill->getFlatRate()->getDateStart();
-        $flatRate["dateEnd"] = $bill->getFlatRate()->getDateEnd();
+        $flatRate["createdAt"] = $bill->getFlatRate()->getCreatedAt();
         $flatRate["nbSessions"] = $bill->getFlatRate()->getSessionNumber();
         // $flatRate["nbSessions"] = $bill->getFlatRate()->getSessions();
         $currentBill["flatRate"] = $flatRate;
