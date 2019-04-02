@@ -4,6 +4,17 @@
     background-color: #3E4755;
     font-family: $main-font;
 
+    #count-bill {
+        background-color: $flash-color;
+        border-radius: 5px;
+        color: $white-color;
+        font-size: 10px;
+        font-weight: bold;
+        text-align: center;
+        height: 14px;
+        transform: translate(5px, -8px) scale(0.77);
+    }
+
     h1 {
         color: $white-color;
         text-align: center;

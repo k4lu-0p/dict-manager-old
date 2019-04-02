@@ -34,6 +34,11 @@ function showAccountingWithAjax() {
             // Injecte le contenu receptionné dans le container.
             app.innerHTML = res;
 
+            // Compte du nombre de facture
+            let countBill = document.querySelectorAll(".card-accounting").length;
+            let countWrapper = document.querySelector("#count-bill");
+            countWrapper.textContent = countBill;
+
         })
         .catch(err => {
             if (err) {
