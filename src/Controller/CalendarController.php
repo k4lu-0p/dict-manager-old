@@ -41,8 +41,6 @@ class CalendarController extends AbstractController
             $flatrates[] = $sessionsDates;
         }
 
-
-
         $render = $this->render('calendar/showForOne.html.twig', [
             'customer' => $customer
         ]);
@@ -88,10 +86,10 @@ class CalendarController extends AbstractController
     public function createSession(Customer $customer, ObjectManager $manager, Request $request, FlatRateRepository $flatRateRepository)
     {
 
-
         $flatrate = $flatRateRepository->findFlateRateInsufficientSession($customer->getId());
         dump($flatrate);
         die();
+
         $session = new Session();
 
         $form = $this->createForm(SessionType::class, $session);
