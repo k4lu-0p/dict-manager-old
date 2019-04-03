@@ -67,10 +67,11 @@ class CalendarController extends AbstractController
         $startRaw = $request->request->get('dateStart');
         $endRaw = $request->request->get('dateEnd');
 
+    
         if ($startRaw && $endRaw) {
 
             $start = substr($startRaw, 0, strpos($startRaw, '('));
-            $end = substr($startRaw, 0, strpos($endRaw, '('));
+            $end = substr($endRaw, 0, strpos($endRaw, '('));
 
             $dateStart = date('Y-m-d h:i:s', strtotime($start));
             $dateEnd = date('Y-m-d h:i:s', strtotime($end));

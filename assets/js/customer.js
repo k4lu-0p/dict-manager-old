@@ -834,19 +834,14 @@ function myMap() {
 function addExistingDateToCalendar(flatratesArrays) {
   let i = -1;
 
-  // console.log(flatratesArrays);
-
   flatratesArrays.forEach(datesArrays => {
     i++;
     datesArrays.forEach(array => {
-      console.log(array.start.date);
-
       calendarForOne.addEvent({
         id: array.id.toString(),
         title: `Forfait n°${i + 1}`,
         start: new Date(array.start.date),
         end: new Date(array.end.date),
-        // end: null,
         editable: true,
         eventResizableFromStart: true,
         eventStartEditable: true,
@@ -862,13 +857,8 @@ function saveEvent(info) {
   let dateStart = info.event.start;
   let dateEnd = info.event.end;
 
-  //   console.log(info);
-
   let idSession = info.event.id;
   let formDataMove = new FormData();
-
-  //   console.log(`Date de début : ${dateStart}`);
-  //   console.log(`Date de fin : ${dateEnd}`);
 
   formDataMove.append("dateStart", dateStart);
   formDataMove.append("dateEnd", dateEnd);
@@ -880,20 +870,22 @@ function saveEvent(info) {
     .then(res => {
       return res.json();
     })
-    .then(res => {})
+    .then(res => {
+      // // DEBUG
+      // let wrapperForm = document.querySelector(
+      //   ".wrapper-form-calendar-add-session"
+      // );
+      // wrapperForm.innerHTML = res;
+      // console.log(res);
+    })
     .catch(err => {
       if (err) {
-        console.log(err); // console.log(res);
-        // app.innerHTML = res;
+        console.log(err);
       }
     });
 }
 
 function showFormNewSessionCalendar(idCustomer) {
-  //   if (document.querySelector(".wrapper-form-calendar-add-session")) {
-
-  //   }
-
   fetch(`/app/calendar/sessions/create/${idCustomer}`)
     .then(res => {
       return res.json();
@@ -954,9 +946,10 @@ function saveNewSessionCalendar(idCustomer) {
 
       calendarForOne.addEvent({
         id: res.sessionId,
-        title: res.numberFlatrate > 0
-          ? `Forfait n°${res.numberFlatrate}`
-          : `Forfait n°1`,
+        title:
+          res.numberFlatrate >= 0
+            ? `Forfait n°${res.numberFlatrate}`
+            : `Forfait n°1`,
         start: new Date(dateStartChoose),
         end: new Date(dateEndChoose),
         editable: true,
