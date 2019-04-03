@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Form\SessionType;
 use App\Entity\FlatRate;
+use App\Entity\Bill;
 
 /**
  * @Route("/app/calendar")
@@ -25,30 +26,37 @@ class CalendarController extends AbstractController
     public function getSessionsCustomer(Customer $customer, FlatRateRepository $flatRateRepository)
     {
 
-        foreach ($customer->getFlatRates() as $flatrate) {
-
-            $sessionsDates = [];
-
-            foreach ($flatrate->getSessions() as $session) {
-
-                $sessionsDates[] = [
-                    'id' => $session->getId(),
-                    'start' => $session->getDateStart(),
-                    'end' => $session->getDateEnd()
-                ];
-            }
-
-            $flatrates[] = $sessionsDates;
-        }
-
         $render = $this->render('calendar/showForOne.html.twig', [
             'customer' => $customer
         ]);
 
-        return new JsonResponse([
-            'render' => $render->getContent(),
-            'flatrates' => $flatrates
-        ], 200);
+        if (count($customer->getFlatRates()) > 0) {
+            foreach ($customer->getFlatRates() as $flatrate) {
+
+                $sessionsDates = [];
+
+                foreach ($flatrate->getSessions() as $session) {
+
+                    $sessionsDates[] = [
+                        'id' => $session->getId(),
+                        'start' => $session->getDateStart(),
+                        'end' => $session->getDateEnd()
+                    ];
+                }
+
+                $flatrates[] = $sessionsDates;
+            }
+
+            return new JsonResponse([
+                'render' => $render->getContent(),
+                'flatrates' => $flatrates
+            ], 200);
+        } else {
+            return new JsonResponse([
+                'render' => $render->getContent(),
+                // 'flatrates' => $flatrates
+            ], 200);
+        }
     }
 
     /**
@@ -83,26 +91,69 @@ class CalendarController extends AbstractController
     /**
      * @Route("/sessions/create/{id}", name="createSession")
      */
-    public function createSession(Customer $customer, ObjectManager $manager, Request $request, FlatRateRepository $flatRateRepository)
+    public function createSession(Customer $customer, ObjectManager $manager, Request $request)
     {
 
-        $flatrate = $flatRateRepository->findFlateRateInsufficientSession($customer->getId());
-        dump($flatrate);
-        die();
+        $flatratePrice = 3000;
 
         $session = new Session();
-
         $form = $this->createForm(SessionType::class, $session);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
 
-            $manager->persist($session);
+        $allFlatrates = $customer->getFlatRates()->getValues();
+        $lastFlatRate = end($allFlatrates);
+        $lastFlatRateNumberSession = $lastFlatRate ? $lastFlatRate->getSessionNumber() : $lastFlatRate;
+        
+        if ($form->isSubmitted()) {
+
+            $data = $request->request->get('session');
+            $session->setDateStart(new \DateTime($data['dateStart']));
+            $session->setDateEnd(new \DateTime($data['dateEnd']));
+
+            $session->setFree($data['free']);
+
+            if (count($customer->getFlatRates()) == 0 || $lastFlatRateNumberSession >= 10) {
+
+                if ($data['free']) {
+                    $flatratePrice -= 300;
+                }
+
+                $flatrate = new FlatRate();
+                $flatrate->setCreatedAt(new \DateTime('now'));
+                $flatrate->setCustomer($customer);
+                $flatrate->setPrice($flatratePrice);
+                $flatrate->setSessionNumber(1);
+                $manager->persist($flatrate);
+
+                $session->setFlatRate($flatrate);
+                $manager->persist($session);
+
+                $bill = new Bill();
+                $bill->setCreatedAt(new \DateTime('now'));
+                $bill->setCustomer($customer);
+                $bill->setTax(0);
+                $bill->setFlatRate($flatrate);
+                $manager->persist($bill);
+            } elseif ($lastFlatRateNumberSession < 10) {
+
+                $lastFlatRate->setSessionNumber($lastFlatRateNumberSession + 1);
+                $session->setFlatRate($lastFlatRate);
+                $manager->persist($session);
+            }
+
             $manager->flush();
+
+            return new JsonResponse([
+                'sessionId' => $session->getId(),
+                'numberFlatrate' => count($allFlatrates)
+            ], 200);
         } else {
+
             $render = $this->render('calendar/formCreateSession.html.twig', [
                 'form' => $form->createView(),
-                'customer' => $customer
+                'customer' => $customer,
+
             ]);
 
             return new JsonResponse(['render' => $render->getContent()], 200);

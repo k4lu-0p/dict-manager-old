@@ -6,7 +6,8 @@ use App\Entity\Session;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 
 class SessionType extends AbstractType
@@ -14,17 +15,20 @@ class SessionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('free')
-            ->add('dateStart', DateType::class, [
+            ->add('free', CheckboxType::class, [
+                'required' => false
+            ])
+            ->add('dateStart', DateTimeType::class, [
                 'html5' => false,
                 'widget' => 'single_text',
-                'format' => 'Y-m-d h:i:s',
+                'format' => 'MM/dd/yyyy hh:mm aa',
 
             ])
-            ->add('dateEnd', DateType::class, [
+            ->add('dateEnd', DateTimeType::class, [
+                'required' => false,
                 'html5' => false,
                 'widget' => 'single_text',
-                'format' => 'Y-m-d h:i:s',
+                'format' => 'MM/dd/yyyy hh:mm aa',
 
             ])
             // ->add('flatRate')
