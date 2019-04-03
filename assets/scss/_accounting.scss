@@ -7,6 +7,8 @@
     font-family: $main-font;
 
     #button-search-bill {
+        position: absolute;
+        left: 16px;
         outline: 0;
         background-color: transparent;
         color: $white-color;

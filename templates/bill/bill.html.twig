@@ -56,15 +56,15 @@
     </tr>
     <tr>
         <td><strong>Fullname : </strong>{{ bill.customer.lastname}} {{ bill.customer.firstname}}</td>
-        <td><strong>Start date : </strong>{{ bill.flatRate.dateStart|date("d/m/Y") }}</td>
+        <td><strong>Date : </strong>{{ bill.flatRate.createdAt|date("d/m/Y") }}</td>
     </tr>
     <tr>
         <td><strong>Makani Number : </strong>{{ bill.customer.makani }}</td>
-        <td><strong>End date : </strong>{{ bill.flatRate.dateEnd|date("d/m/Y") }}</td>
+        <td><strong>nB of sessions : </strong>{{ bill.flatRate.nbSessions }}</td>
     </tr>
     <tr>
         <td><strong>Phone Number : </strong>{{ bill.customer.phone }}</td>
-        <td><strong>nB of sessions : </strong>{{ bill.flatRate.nbSessions }}</td>
+        <td></td>
     </tr>
 
   </table>
