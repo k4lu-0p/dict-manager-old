@@ -1,14 +1,17 @@
 
+
+    <h4>Create</h4>
+
     {{form_start(form)}}
 
     {{form_widget(form.free)}}
     
-    {{ form_row(form.dateStart, {'label' : false ,'attr' : {'placeholder' : 'Date Start' ,'class': '' , 'data-date-format' : 'yyyy/mm/dd', 'date-time-format' : 'hh:mm aa'}}) }}
-    {{ form_row(form.dateEnd, {'label' : false ,'attr' : {'placeholder' : 'Date End' ,'class': '' , 'data-date-format' : 'yyyy/mm/dd', 'date-time-format' : 'hh:mm aa'}}) }}
+    {{ form_row(form.dateStart, {'label' : false ,'attr' : {'placeholder' : 'Date Start' ,'class': '' , 'data-date-format' : 'dd/mm/yyyy', 'date-time-format' : 'hh:mm AA'}}) }}
+    {{ form_row(form.dateEnd, {'label' : false ,'attr' : {'placeholder' : 'Date End' ,'class': '' , 'data-date-format' : 'dd/mm/yyyy', 'date-time-format' : 'hh:mm AA'}}) }}
 
     {{ form_row(form._token)}}
 
     {{form_end(form)}}
     
-    <button id="add-session-customer" type="submit" class="btn btn-block button-session-add" data-action="save-session" data-id="{{customer.id}}">Save</button>
+    <button id="add-session-customer" type="submit" class="btn btn-block button-session-add" data-action="save-new-session" data-id="{{customer.id}}">Save</button>
 

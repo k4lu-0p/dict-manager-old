@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SessionRepository")
@@ -15,7 +16,6 @@ class Session
      * @ORM\Column(type="integer")
      */
     private $id;
-
     
     /**
      * @ORM\Column(type="boolean")
@@ -28,11 +28,15 @@ class Session
     private $flatRate;
 
     /**
+     * @Assert\NotBlank
+     * @Assert\DateTime
+     * @var string A "d-m-Y H:i:s" formatted value
      * @ORM\Column(type="datetime")
      */
     private $dateStart;
 
     /**
+     * 
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateEnd;
@@ -42,7 +46,6 @@ class Session
         return $this->id;
     }
 
-   
     public function getFree(): ? bool
     {
         return $this->free;

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Controller;
 
@@ -13,6 +13,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use App\Form\SessionType;
 use App\Entity\FlatRate;
 use App\Entity\Bill;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/app/calendar")
@@ -60,14 +61,14 @@ class CalendarController extends AbstractController
     }
 
     /**
-     * @Route("/session/update/{id}", name="updateSession")
+     * @Route("/session/update/{id}", name="updateSessionDrop")
      */
-    public function updateSession(Session $session, Request $request, ObjectManager $manager)
+    public function updateByDropSession(Session $session, Request $request, ObjectManager $manager, ValidatorInterface $validator)
     {
         $startRaw = $request->request->get('dateStart');
         $endRaw = $request->request->get('dateEnd');
 
-    
+
         if ($startRaw && $endRaw) {
 
             $start = substr($startRaw, 0, strpos($startRaw, '('));
@@ -79,10 +80,19 @@ class CalendarController extends AbstractController
             $session->setDateStart(new \DateTime($dateStart));
             $session->setDateEnd(new \DateTime($dateEnd));
 
-            $manager->persist($session);
-            $manager->flush();
+            $errors = $validator->validate($session);
 
-            return new JsonResponse(['status' => 200]);
+            if (count($errors) > 0) {
+
+                $errorsString = (string)$errors;
+                return new JsonResponse(['error' => $errorsString]);
+            } else {
+
+                $manager->persist($session);
+                $manager->flush();
+
+                return new JsonResponse(['status' => 200]);
+            }
         } else {
 
             return new JsonResponse(['status' => 500]);
@@ -92,7 +102,7 @@ class CalendarController extends AbstractController
     /**
      * @Route("/sessions/create/{id}", name="createSession")
      */
-    public function createSession(Customer $customer, ObjectManager $manager, Request $request)
+    public function createSession(Customer $customer, ObjectManager $manager, Request $request, ValidatorInterface $validator,  FlatRateRepository $repo)
     {
 
         $flatratePrice = 3000;
@@ -102,21 +112,18 @@ class CalendarController extends AbstractController
         $form->handleRequest($request);
 
 
-        $allFlatrates = $customer->getFlatRates()->getValues();
-        $lastFlatRate = end($allFlatrates);
-        $lastFlatRateNumberSession = $lastFlatRate ? $lastFlatRate->getSessionNumber() : $lastFlatRate;
-        
+        $currentFlatrate = $this->getGoodCurrentFlatRate($customer);
+
         if ($form->isSubmitted()) {
 
             $data = $request->request->get('session');
-            $session->setDateStart(new \DateTime($data['dateStart']));
-            $session->setDateEnd(new \DateTime($data['dateEnd']));
+            $session->setDateStart(\DateTime::createFromFormat('d/m/Y H:i a', $data['dateStart']));
+            $session->setDateEnd(\DateTime::createFromFormat('d/m/Y H:i a', $data['dateEnd']));
+            $session->setFree(filter_var($data['free'], FILTER_VALIDATE_BOOLEAN));
 
-            $session->setFree($data['free']);
+            if (!$currentFlatrate) {
 
-            if (count($customer->getFlatRates()) == 0 || $lastFlatRateNumberSession >= 10) {
-
-                if ($data['free']) {
+                if (filter_var($data['free'], FILTER_VALIDATE_BOOLEAN)) {
                     $flatratePrice -= 300;
                 }
 
@@ -127,6 +134,8 @@ class CalendarController extends AbstractController
                 $flatrate->setSessionNumber(1);
                 $manager->persist($flatrate);
 
+                //DEBUG VERS LA
+
                 $session->setFlatRate($flatrate);
                 $manager->persist($session);
 
@@ -136,31 +145,116 @@ class CalendarController extends AbstractController
                 $bill->setTax(0);
                 $bill->setFlatRate($flatrate);
                 $manager->persist($bill);
-            } elseif ($lastFlatRateNumberSession < 10) {
+            } else {
 
-                $lastFlatRate->setSessionNumber($lastFlatRateNumberSession + 1);
-                $session->setFlatRate($lastFlatRate);
+                $currentFlatratePrice = $currentFlatrate->getPrice();
+                $currentFlatrateNumberSession = $currentFlatrate->getSessionNumber();
+
+                if (filter_var($data['free'], FILTER_VALIDATE_BOOLEAN)) {
+                    $currentFlatratePrice -= 300;
+                }
+
+                $currentFlatrate->setSessionNumber($currentFlatrateNumberSession + 1);
+                $currentFlatrate->setPrice($currentFlatratePrice);
+                $session->setFlatRate($currentFlatrate);
                 $manager->persist($session);
             }
 
-            $manager->flush();
+            $errors = $validator->validate($session);
 
-            return new JsonResponse([
-                'sessionId' => $session->getId(),
-                'numberFlatrate' => count($allFlatrates)
-            ], 200);
+            if (count($errors) > 0) {
+                $errorsString = (string)$errors;
+                return new JsonResponse(['error' => $errorsString]);
+            } else {
+
+
+                // OU LA 
+                // dump(count($customer->getFlatRates()->getValues()));
+                // die();
+
+                $manager->flush();
+
+                return new JsonResponse([
+                    'sessionId' => $session->getId(),
+                    'numberFlatrate' => count($repo->findBy(['customer' => $customer]))
+                ], 200);
+            }
         } else {
 
             $render = $this->render('calendar/formCreateSession.html.twig', [
                 'form' => $form->createView(),
                 'customer' => $customer,
-
             ]);
 
             return new JsonResponse(['render' => $render->getContent()], 200);
         }
+    }
 
-        // TODO: Fouiller dans tout les forfaits du client, et regarder si ils sont tous à 10 sessions.
-        // SI un forfait n'est pas à 10 , compléter avec la session créée ici-même.
+
+    private function getGoodCurrentFlatRate($customer)
+    {
+        $all = $customer->getFlatRates()->getValues();
+        foreach ($all as $flatrate) {
+            if ($flatrate->getSessionNumber()  < 10) {
+                return $flatrate;
+                break;
+            }
+        }
+    }
+
+    /**
+     * @Route("/sessions/modify/{id}", name="updateSession")
+     */
+    public function updateByFormSession(Session $session, Request $request, ObjectManager $manager)
+    {
+        $form = $this->createForm(SessionType::class, $session);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $data = $request->request->get('session');
+            $session->setDateStart(new \DateTime($data['dateStart']));
+            $session->setDateEnd(new \DateTime($data['dateEnd']));
+            $session->setFree(filter_var($data['free'], FILTER_VALIDATE_BOOLEAN));
+
+            $currentFlatrate = $session->getFlatRate();
+            $currentFlatratePrice = $currentFlatrate->getPrice();
+
+            if (filter_var($data['free'], FILTER_VALIDATE_BOOLEAN)) {
+                $currentFlatratePrice -= 300;
+            } else {
+                $currentFlatratePrice += 300;
+            }
+
+            $currentFlatrate->setPrice($currentFlatratePrice);
+            $manager->persist($session);
+            $manager->flush();
+
+            return new JsonResponse([
+                'status' => 200,
+            ], 200);
+        } else {
+
+            $render = $this->render('calendar/formUpdateDeleteSession.html.twig', [
+                'form' => $form->createView(),
+                'session' => $session
+            ]);
+
+            return new JsonResponse([
+                'render' => $render->getContent(),
+            ], 200);
+        }
+    }
+
+    /**
+     * @Route("/sessions/delete/{id}", name="deleteSession")
+     */
+    public function deleteSession(Session $session, ObjectManager $manager)
+    {
+        $manager->remove($session);
+        $manager->flush();
+
+        return new JsonResponse([
+            'status' => 200,
+        ], 200);
     }
 }

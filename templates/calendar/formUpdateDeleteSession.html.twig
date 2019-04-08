@@ -1,0 +1,17 @@
+
+
+    <h4>Update / Delete</h4>
+    {{form_start(form)}}
+
+    {{form_widget(form.free)}}
+    
+    {{ form_row(form.dateStart, {'label' : false ,'attr' : {'placeholder' : 'Date Start' ,'class': '' , 'data-date-format' : 'dd/mm/yyyy', 'date-time-format' : 'hh:mm aa'}}) }}
+    {{ form_row(form.dateEnd, {'label' : false ,'attr' : {'placeholder' : 'Date End' ,'class': '' , 'data-date-format' : 'dd/mm/yyyy', 'date-time-format' : 'hh:mm aa'}}) }}
+
+    {{ form_row(form._token)}}
+
+    {{form_end(form)}}
+    
+    <button id="update-session-customer" type="submit" class="btn btn-block button-session-add" data-action="save-update-session" data-id="{{session.id}}">Update</button>
+    <button id="delete-session-customer" type="submit" class="btn btn-block button-session-add" data-action="delete-session" data-id="{{session.id}}">Delete</button>
+

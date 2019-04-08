@@ -1,4 +1,7 @@
-import { Calendar } from "@fullcalendar/core";
+import {
+  Calendar,
+  formatDate
+} from "@fullcalendar/core";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
@@ -7,6 +10,14 @@ import interactionPlugin from "@fullcalendar/interaction";
 // Bouton clients du menu.
 const buttonNavCustomers = document.querySelector("#nav-button-customers");
 const navbar = document.querySelector(".navbar");
+
+// 2019-12-01 01:01 pm
+const regexDateStart = /^\d{4}\/(0?[1-9]|1[012])\/(0?[1-9]|[12][0-9]|3[01])\s\b((1[0-2]|0?[1-9]):([0-5][0-9]) ([AaPp][Mm]))$/;
+const regexDateEnd = /^\d{4}\/(0?[1-9]|1[012])\/(0?[1-9]|[12][0-9]|3[01])\s\b((1[0-2]|0?[1-9]):([0-5][0-9]) ([AaPp][Mm]))$/;
+// 01-12-2019 01:01 pm
+const regexDateStart2 = /^(0?[1-9]|[12][0-9]|3[01])\/(0?[1-9]|1[012])\/\d{4}\s\b((1[0-2]|0?[1-9]):([0-5][0-9]) ([AaPp][Mm]))$/;
+const regexDateEnd2 = /^(0?[1-9]|[12][0-9]|3[01])\/(0?[1-9]|1[012])\/\d{4}\s\b((1[0-2]|0?[1-9]):([0-5][0-9]) ([AaPp][Mm]))$/;
+
 let buttonPrevious;
 let buttonConfirmDelete;
 let containerConfirm;
@@ -30,6 +41,7 @@ let colorsFlatrates = [
   "#92a2bc",
   "#424C61"
 ];
+let x = 0;
 
 // Evénements :
 // Faire disparaître le menu quand on affiche le clavier smartphone
@@ -65,9 +77,9 @@ window.addEventListener("keyup", e => {
 
 // Action sur les customers.
 window.addEventListener("click", e => {
-  let id = e.target.getAttribute("data-id")
-    ? e.target.getAttribute("data-id")
-    : undefined;
+  let id = e.target.getAttribute("data-id") ?
+    e.target.getAttribute("data-id") :
+    undefined;
 
   switch (e.target.getAttribute("data-action")) {
     case "show":
@@ -112,8 +124,14 @@ window.addEventListener("click", e => {
     case "show-calendar":
       showCalendarOfOneCustomer(id);
       break;
-    case "save-session":
+    case "save-new-session":
       saveNewSessionCalendar(id);
+      break;
+    case "save-update-session":
+      saveUpdateSessionCalendar(id);
+      break;
+    case "delete-session":
+      deleteSession(id);  
     default:
       break;
   }
@@ -132,8 +150,8 @@ function showCalendarOfOneCustomer(idCustomer) {
 
   // Requête AJAX :
   fetch(`/app/calendar/session/customer/${idCustomer}`, {
-    method: "GET"
-  })
+      method: "GET"
+    })
     .then(res => {
       return res.json();
     })
@@ -146,8 +164,6 @@ function showCalendarOfOneCustomer(idCustomer) {
 
       // Revenir sur la page info client
       defineActionPreviousButton("show", idCustomer);
-
-      console.log(idCustomer);
 
       // Boutton d'envois du formulaire.
       // buttonUpdateCustomer = document.querySelector('#update-button-customer');
@@ -165,7 +181,7 @@ function showCalendarOfOneCustomer(idCustomer) {
         customButtons: {
           myCustomButton: {
             text: "New Session",
-            click: function(event) {
+            click: function (event) {
               showFormNewSessionCalendar(idCustomer);
             }
           }
@@ -176,7 +192,7 @@ function showCalendarOfOneCustomer(idCustomer) {
           center: "title",
           right: "dayGridMonth,timeGridWeek,timeGridDay"
         },
-        dateClick: function(info) {
+        dateClick: function (info) {
           // Déclenche la fonction suivante au clique d'un jour.
           console.log(info);
           calendarForOne.addEvent({
@@ -192,13 +208,18 @@ function showCalendarOfOneCustomer(idCustomer) {
             textColor: "EAFFFE"
           });
         },
+        eventClick: function (info) {
+          console.log(info);
+          showFormUpdateDeleteSession(info.event.id);
+        },
         eventDrop: info => {
-          saveEvent(info);
+          saveEventDropResize(info);
         },
         eventResizeStop: info => {
-          saveEvent(info);
+          saveEventDropResize(info);
         }
       });
+
 
       if (res.flatrates) {
         // Ajoute les sessions du forfait du client au calendrier
@@ -236,9 +257,9 @@ function searchCustomer() {
       loader.style.display = "flex";
 
       fetch("/app/customers/search", {
-        method: "POST",
-        body: formData
-      })
+          method: "POST",
+          body: formData
+        })
         .then(res => {
           return res.text();
         })
@@ -478,9 +499,9 @@ function updateOneCustomer(e, id) {
 
   // Requête AJAX :
   fetch(`/app/customers/edit/${id}`, {
-    method: "POST",
-    body: formData
-  })
+      method: "POST",
+      body: formData
+    })
     .then(res => {
       return res.text();
     })
@@ -514,8 +535,8 @@ function showFormEditCustomer(id) {
 
   // Requête AJAX :
   fetch(`/app/customers/edit/${id}`, {
-    method: "GET"
-  })
+      method: "GET"
+    })
     .then(res => {
       return res.text();
     })
@@ -587,9 +608,9 @@ function addOneCustomer(e) {
 
   // Requête AJAX :
   fetch("/app/customers/add", {
-    method: "POST",
-    body: formData
-  })
+      method: "POST",
+      body: formData
+    })
     .then(res => {
       return res.text();
     })
@@ -623,8 +644,8 @@ function showFormNewCustomer() {
 
   // Requête AJAX :
   fetch("/app/customers/add", {
-    method: "GET"
-  })
+      method: "GET"
+    })
     .then(res => {
       return res.text();
     })
@@ -678,8 +699,8 @@ function deleteConfirmCustomer(id) {
   loader.style.display = "flex";
 
   fetch(`/app/customers/delete/${id}`, {
-    method: "DELETE"
-  })
+      method: "DELETE"
+    })
     .then(res => {
       return res.text();
     })
@@ -712,8 +733,8 @@ function showOneCustomer(id) {
   loader.style.display = "flex";
 
   fetch(`/app/customers/show/${id}`, {
-    method: "GET"
-  })
+      method: "GET"
+    })
     .then(res => {
       return res.text();
     })
@@ -765,7 +786,7 @@ function showOneCustomer(id) {
           title: "Hello World!"
         });
 
-        marker.addListener("click", function() {
+        marker.addListener("click", function () {
           infowindow.open(map, marker);
         });
       }
@@ -824,6 +845,7 @@ function defineActionPreviousButton(dataAction, id) {
   }
 }
 
+// Instancie la carte Google Map
 function myMap() {
   let mapProp = {
     center: new google.maps.LatLng(51.508742, -0.12085),
@@ -831,6 +853,7 @@ function myMap() {
   };
 }
 
+// Permet de faire le rendu des sessions existante dans le calendrier.
 function addExistingDateToCalendar(flatratesArrays) {
   let i = -1;
 
@@ -853,7 +876,8 @@ function addExistingDateToCalendar(flatratesArrays) {
   });
 }
 
-function saveEvent(info) {
+// Sauvegarde le déplacement d'une session via Drag'n Drop.
+function saveEventDropResize(info) {
   let dateStart = info.event.start;
   let dateEnd = info.event.end;
 
@@ -864,9 +888,9 @@ function saveEvent(info) {
   formDataMove.append("dateEnd", dateEnd);
 
   fetch(`/app/calendar/session/update/${idSession}`, {
-    method: "POST",
-    body: formDataMove
-  })
+      method: "POST",
+      body: formDataMove
+    })
     .then(res => {
       return res.json();
     })
@@ -885,6 +909,7 @@ function saveEvent(info) {
     });
 }
 
+// Montre le formulaire de création d'une session (forfait) pour un client.
 function showFormNewSessionCalendar(idCustomer) {
   fetch(`/app/calendar/sessions/create/${idCustomer}`)
     .then(res => {
@@ -898,18 +923,24 @@ function showFormNewSessionCalendar(idCustomer) {
 
       $("#session_dateEnd").datepicker({
         language: "en",
-        timepicker: true
+        timepicker: true,
+        dateFormat: "dd/mm/yyyy",
+        timeFormat: "hh:ii AA"
       });
 
       $("#session_dateStart").datepicker({
         language: "en",
-        timepicker: true
+        timepicker: true,
+        dateFormat: "dd/mm/yyyy",
+        timeFormat: "hh:ii AA"
       });
     })
     .catch(err => console.log(err));
   // TODO: afficher le formulaire.
 }
 
+
+// Déclencher lorsqu'on valide le formulaire de création d'une session pour un client.
 function saveNewSessionCalendar(idCustomer) {
   let wrapperForm = document.querySelector(
     ".wrapper-form-calendar-add-session"
@@ -920,50 +951,163 @@ function saveNewSessionCalendar(idCustomer) {
   let dateEndChoose = document.querySelector("#session_dateEnd").value;
   let tokenSessionForm = document.querySelector("#session__token").value;
 
-  console.log(new Date(dateStartChoose));
+  if (dateStartChoose != "" && dateEndChoose != "") {
+    if (regexDateStart2.test(dateStartChoose) && regexDateEnd2.test(dateEndChoose)) {
 
-  // Formulaire à envoyer en POST.
-  let formDataSession = new FormData();
+      let formDataSession = new FormData();
 
-  formDataSession.append("session[free]", isFree);
-  formDataSession.append("session[dateStart]", dateStartChoose);
-  formDataSession.append("session[dateEnd]", dateEndChoose);
-  formDataSession.append("session[_token]", tokenSessionForm);
+      formDataSession.append("session[free]", isFree);
+      formDataSession.append("session[dateStart]", dateStartChoose);
+      formDataSession.append("session[dateEnd]", dateEndChoose);
+      formDataSession.append("session[_token]", tokenSessionForm);
 
-  console.log(formDataSession);
+      document.querySelector("#session_free").checked = false;
+      document.querySelector("#session_dateStart").value = "";
+      document.querySelector("#session_dateEnd").value = "";
 
-  fetch(`/app/calendar/sessions/create/${idCustomer}`, {
-    method: "POST",
-    body: formDataSession
-  })
+      fetch(`/app/calendar/sessions/create/${idCustomer}`, {
+          method: "POST",
+          body: formDataSession
+        })
+        .then(res => {
+          return res.json();
+        })
+        .then(res => {
+
+          // DEBUG
+          // console.log(res.sessionId);
+          // wrapperForm.innerHTML = res;
+          // console.log(res);
+
+          let newEvent = {
+            id: res.sessionId,
+            title: res.numberFlatrate > 0 ?
+              `Forfait n°${res.numberFlatrate}` : `Forfait n°1`,
+            start: createFormatDate(dateStartChoose),
+            end: createFormatDate(dateEndChoose),
+            editable: true,
+            eventResizableFromStart: true,
+            eventStartEditable: true,
+            backgroundColor: colorsFlatrates[res.numberFlatrate - 1] ?
+              colorsFlatrates[res.numberFlatrate - 1] : colorsFlatrates[0],
+            borderColor: colorsFlatrates[res.numberFlatrate - 1] ?
+              colorsFlatrates[res.numberFlatrate - 1] : colorsFlatrates[0],
+            textColor: "EAFFFE"
+          };
+
+          calendarForOne.addEvent(newEvent);
+
+        })
+
+        .catch(err => console.log(err));
+
+    } else {
+      // DATES INCORRECT
+    }
+  }
+
+}
+
+// Montre le formulaire de modification d'une session (forfait) pour un client.
+function showFormUpdateDeleteSession(idSession) {
+  fetch(`/app/calendar/sessions/modify/${idSession}`)
     .then(res => {
       return res.json();
     })
     .then(res => {
-      // DEBUG
-      // console.log(res.sessionId);
-      //   wrapperForm.innerHTML = res;
+      let wrapperForm = document.querySelector(
+        ".wrapper-form-calendar-add-session"
+      );
+      wrapperForm.innerHTML = res.render;
 
-      calendarForOne.addEvent({
-        id: res.sessionId,
-        title:
-          res.numberFlatrate >= 0
-            ? `Forfait n°${res.numberFlatrate}`
-            : `Forfait n°1`,
-        start: new Date(dateStartChoose),
-        end: new Date(dateEndChoose),
-        editable: true,
-        eventResizableFromStart: true,
-        eventStartEditable: true,
-        backgroundColor: colorsFlatrates[res.numberFlatrate - 1]
-          ? colorsFlatrates[res.numberFlatrate - 1]
-          : colorsFlatrates[0],
-        borderColor: colorsFlatrates[res.numberFlatrate - 1]
-          ? colorsFlatrates[res.numberFlatrate - 1]
-          : colorsFlatrates[0],
-        textColor: "EAFFFE"
+      $("#session_dateEnd").datepicker({
+        language: "en",
+        timepicker: true,
+        dateFormat: "dd/mm/yyyy",
+        timeFormat: "hh:ii aa"
+      });
+
+      $("#session_dateStart").datepicker({
+        language: "en",
+        timepicker: true,
+        dateFormat: "dd/mm/yyyy",
+        timeFormat: "hh:ii aa"
       });
     })
-
     .catch(err => console.log(err));
+  // TODO: afficher le formulaire.
+}
+
+// Déclencher lorsqu'on valide le formulaire de modification d'une session pour un client.
+function saveUpdateSessionCalendar(idSession) {
+  let wrapperForm = document.querySelector(
+    ".wrapper-form-calendar-add-session"
+  );
+
+  let isFree = document.querySelector("#session_free").checked;
+  let dateStartChoose = document.querySelector("#session_dateStart").value;
+  let dateEndChoose = document.querySelector("#session_dateEnd").value;
+  let tokenSessionForm = document.querySelector("#session__token").value;
+
+  if (dateStartChoose != "" && dateEndChoose != "") {
+    if (regexDateStart2.test(dateStartChoose) && regexDateEnd2.test(dateEndChoose)) {
+
+      let formDataSession = new FormData();
+
+      formDataSession.append("session[free]", isFree);
+      formDataSession.append("session[dateStart]", dateStartChoose);
+      formDataSession.append("session[dateEnd]", dateEndChoose);
+      formDataSession.append("session[_token]", tokenSessionForm);
+
+      document.querySelector("#session_free").checked = false;
+      document.querySelector("#session_dateStart").value = "";
+      document.querySelector("#session_dateEnd").value = "";
+
+      fetch(`/app/calendar/sessions/modify/${idSession}`, {
+          method: "POST",
+          body: formDataSession
+        })
+        .then(res => {
+          return res.text();
+        })
+        .then(res => {
+          // DEBUG
+          // console.log(res.sessionId);
+          wrapperForm.innerHTML = res;
+
+          // EFFACE TOUT LES EVENEMENTS , REFETCH TOUS LES EVENEMENTS
+
+        })
+
+        .catch(err => console.log(err));
+
+    } else {
+      // DATES INCORRECT
+    }
+  }
+}
+
+// Permet de formatter une date SQL dans le format accepté par Full Calendar
+function createFormatDate(dateStr) {
+  let array = dateStr.split("/");
+  return new Date(`${array[1]}/${array[0]}/${array[2]}`);
+
+}
+// Effacer une session depuis le formulaire de modification de la session concerné.
+function deleteSession(id) {
+
+//  calendarForOne.getEventById(id).remove();
+
+ fetch(`app/calendar/sessions/delete/${id}`)
+   .then(res => {
+     return res.json;
+   })
+   .then(res => {
+     console.log(res.status);
+     calendarForOne.getEventById(id).setProp('backgroundColor', 'red');
+
+   })
+   .catch(err => {
+     console.log(err);
+   })
 }
