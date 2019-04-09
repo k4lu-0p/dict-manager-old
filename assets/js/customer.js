@@ -951,6 +951,8 @@ function saveNewSessionCalendar(idCustomer) {
   let dateEndChoose = document.querySelector("#session_dateEnd").value;
   let tokenSessionForm = document.querySelector("#session__token").value;
 
+  
+
   if (dateStartChoose != "" && dateEndChoose != "") {
     if (regexDateStart2.test(dateStartChoose) && regexDateEnd2.test(dateEndChoose)) {
 
@@ -961,9 +963,9 @@ function saveNewSessionCalendar(idCustomer) {
       formDataSession.append("session[dateEnd]", dateEndChoose);
       formDataSession.append("session[_token]", tokenSessionForm);
 
-      document.querySelector("#session_free").checked = false;
-      document.querySelector("#session_dateStart").value = "";
-      document.querySelector("#session_dateEnd").value = "";
+      // document.querySelector("#session_free").checked = false;
+      // document.querySelector("#session_dateStart").value = "";
+      // document.querySelector("#session_dateEnd").value = "";
 
       fetch(`/app/calendar/sessions/create/${idCustomer}`, {
           method: "POST",

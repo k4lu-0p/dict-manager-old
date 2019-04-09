@@ -23,7 +23,7 @@ class Session
     private $free;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\FlatRate", inversedBy="sessions",  cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\FlatRate", inversedBy="sessions")
      */
     private $flatRate;
 
