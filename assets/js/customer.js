@@ -131,7 +131,7 @@ window.addEventListener("click", e => {
       saveUpdateSessionCalendar(id);
       break;
     case "delete-session":
-      deleteSession(id);  
+      deleteSession(id);
     default:
       break;
   }
@@ -951,8 +951,6 @@ function saveNewSessionCalendar(idCustomer) {
   let dateEndChoose = document.querySelector("#session_dateEnd").value;
   let tokenSessionForm = document.querySelector("#session__token").value;
 
-  
-
   if (dateStartChoose != "" && dateEndChoose != "") {
     if (regexDateStart2.test(dateStartChoose) && regexDateEnd2.test(dateEndChoose)) {
 
@@ -1065,19 +1063,20 @@ function saveUpdateSessionCalendar(idSession) {
       document.querySelector("#session_dateStart").value = "";
       document.querySelector("#session_dateEnd").value = "";
 
+
       fetch(`/app/calendar/sessions/modify/${idSession}`, {
           method: "POST",
           body: formDataSession
         })
         .then(res => {
-          return res.text();
+          return res.json();
         })
         .then(res => {
           // DEBUG
           // console.log(res.sessionId);
-          wrapperForm.innerHTML = res;
+          // wrapperForm.innerHTML = res;
+          console.log(res);
 
-          // EFFACE TOUT LES EVENEMENTS , REFETCH TOUS LES EVENEMENTS
 
         })
 
@@ -1098,18 +1097,21 @@ function createFormatDate(dateStr) {
 // Effacer une session depuis le formulaire de modification de la session concerné.
 function deleteSession(id) {
 
-//  calendarForOne.getEventById(id).remove();
+  calendarForOne.getEventById(id).remove();
+  // let wrapperForm = document.querySelector(
+  //   ".wrapper-form-calendar-add-session"
+  // )
 
- fetch(`app/calendar/sessions/delete/${id}`)
-   .then(res => {
-     return res.json;
-   })
-   .then(res => {
-     console.log(res.status);
-     calendarForOne.getEventById(id).setProp('backgroundColor', 'red');
-
-   })
-   .catch(err => {
-     console.log(err);
-   })
+  fetch(`app/calendar/sessions/delete/${id}`)
+    .then(res => {
+      return res.json();
+    })
+    .then(res => {
+      //  console.log(res.status);
+      //  wrapperForm.innerHTML = res;
+      //  calendarForOne.getEventById(id).setProp('backgroundColor', 'red');
+    })
+    .catch(err => {
+      console.log(err);
+    })
 }

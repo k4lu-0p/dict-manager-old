@@ -110,8 +110,6 @@ class CalendarController extends AbstractController
         $session = new Session();
         $form = $this->createForm(SessionType::class, $session);
         $form->handleRequest($request);
-
-
         $currentFlatrate = $this->getGoodCurrentFlatRate($customer);
 
         if ($form->isSubmitted()) {
@@ -133,8 +131,6 @@ class CalendarController extends AbstractController
                 $flatrate->setPrice($flatratePrice);
                 $flatrate->setSessionNumber(1);
                 $manager->persist($flatrate);
-
-                //DEBUG VERS LA
 
                 $session->setFlatRate($flatrate);
                 $manager->persist($session);
@@ -167,11 +163,6 @@ class CalendarController extends AbstractController
                 return new JsonResponse(['error' => $errorsString]);
             } else {
 
-
-                // OU LA 
-                // dump(count($customer->getFlatRates()->getValues()));
-                // die();
-
                 $manager->flush();
 
                 return new JsonResponse([
@@ -189,7 +180,6 @@ class CalendarController extends AbstractController
             return new JsonResponse(['render' => $render->getContent()], 200);
         }
     }
-
 
     private function getGoodCurrentFlatRate($customer)
     {
@@ -250,6 +240,15 @@ class CalendarController extends AbstractController
      */
     public function deleteSession(Session $session, ObjectManager $manager)
     {
+        $flatrate = $session->getFlatRate();
+        $nbSession = $flatrate->getSessionNumber();
+
+        if ($nbSession > 1) {
+            $flatrate->setSessionNumber($nbSession - 1);
+        } else {
+            $manager->remove($flatrate);
+        }
+
         $manager->remove($session);
         $manager->flush();
 
