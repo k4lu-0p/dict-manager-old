@@ -28,14 +28,14 @@ class FlatRate
      */
     private $price;
 
-    
+
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="flatRate", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="flatRate", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $sessions;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="flatRates",  cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="flatRates")
      */
     private $customer;
 

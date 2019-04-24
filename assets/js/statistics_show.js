@@ -38,7 +38,7 @@ function showChartsWithAjax() {
             return res.json();
         })
         .then(res => {
-            console.log(res)
+            // console.log(res)
 // app.innerHTML = res;
             // Dès reception, disparition du loader.
             loader.style.display = "none";

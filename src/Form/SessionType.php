@@ -21,14 +21,14 @@ class SessionType extends AbstractType
             ->add('dateStart', DateTimeType::class, [
                 'html5' => false,
                 'widget' => 'single_text',
-                'format' => 'MM/dd/yyyy hh:mm aa',
+                'format' => 'dd/MM/yyyy hh:mm aa',
 
             ])
             ->add('dateEnd', DateTimeType::class, [
                 'required' => false,
                 'html5' => false,
                 'widget' => 'single_text',
-                'format' => 'MM/dd/yyyy hh:mm aa',
+                'format' => 'dd/MM/yyyy hh:mm aa',
 
             ])
             // ->add('flatRate')
