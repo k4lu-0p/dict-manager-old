@@ -1,105 +1,234 @@
 // FENETRE AJOUT *********************
 
 .wrapper-form-calendar-add-session {
-    position: absolute;
-    margin-left: auto;
-    margin-right: auto;
+    z-index: 1;
+    opacity: 0;
+    transition: all 0.3s;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
     left: 0;
-    right: 0;
-    height: 80vh;
-    width: 80vw;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    visibility: hidden;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    font-family: $main-font;
+    color: $white-color;
 
-    // Boutton d'envois du formulaire.
-    .button-session-add {
-        outline: 0;
+    .container-form-session {
+
+        background-color: #343D49;
+        border-radius: 3px;
+
+        h4 {
+            font-size: 22px;
+            font-family: $main-font;
+        }
+
+        input[type='text']{
+            outline: none;
+            color: $white-color;
+            min-height: 50px;
+            width: 75vw;
+            border-radius: 5px;
+            background-color: transparent;
+            border: solid $elem-color 2px;
+            transition: all 0.5s;
+        }
+
+        input[type='text']::placeholder {
+            color: $less-light-color;
+        }
+
+        input[type='text']:focus {
+            border-color: $flash-color;
+        }
+
+        button[data-action='cancel-session-add'] {
+            background-color: transparent;
+            border-color: #55617B;
+            color: $less-light-color;
+            width: 80px;
+        }
+
+        // Boutton d'envois du formulaire.
+        .button-session-add {
+            outline: 0;
+            background-color: $flash-color;
+            color: $white-color;
+            width: 80px;
+        }
+    
+        .button-session-add::focus {
+            outline: 0;
+        }
+
+        .wrapper-input-free {
+
+            .label-input-free {
+                line-height: 50px;
+                color: $less-light-color;
+            }
+        }
+
     }
 
-    .button-session-add::focus {
-        outline: 0;
-    }
+}
+
+.title-name-calendar {
+    font-size: 20px;
+    padding: 10px;
+    height: 53px;
+    line-height: 40px;
+    margin: 0;
+    color: $less-light-color;
+    background-color: #3E4755;
+    font-family: $main-font;
 }
 
 // HEADER CALENDRIER **************************
+.fc-header-toolbar {
 
-// Tout les bouttons du calendrier
-.fc-dayGridMonth-button,
-.fc-timeGridWeek-button,
-.fc-timeGridDay-button,
-.fc-next-button,
-.fc-prev-button,
-.fc-today-button,
-.fc-myCustomButton-button {}
+    background-color: $dark-color;
+    margin: 0 !important;
+    padding: 20px;
 
-// Partie gauche du header, du calendrier
-.fc-left {
-
-    
-    // BOUTTONS
-    .fc-button-group {
-        .fc-next-button {}
-    
-        .fc-prev-button {}
-
-    }
-
-    .fc-today-button {}
-
+    // Tout les bouttons du calendrier
+    .fc-dayGridMonth-button,
+    .fc-timeGridWeek-button,
+    .fc-timeGridDay-button,
+    .fc-next-button,
+    .fc-prev-button,
+    .fc-today-button,
     .fc-myCustomButton-button {}
 
-}
+    // Partie gauche du header, du calendrier
+    .fc-left {
 
+        // BOUTTONS
+        .fc-button-group {
+            .fc-next-button {
+                background-color: $elem-color;
+                border-color: transparent;
+                color: $white-color;
+            }
+        
+            .fc-prev-button {
+                background-color: $elem-color;
+                border-color: transparent;
+                color: $white-color;
+            }
+        }
 
-// Partie central du header, du calendrier
-.fc-center {
+        .fc-today-button {}
 
-    h2 {}
-}
+        .fc-myCustomButton-button {
+            background-color: $flash-color;
+            color: $white-color;
+            height: 39px;
+            width: 39px;
+            font-weight: bold;
+        }
 
-// Partie droite du header, du calendrier
-.fc-right {
-
-    // BOUTTONS
-    .fc-button-group {
-
-        .fc-dayGridMonth-button {}
-    
-        .fc-timeGridWeek-button {}
-    
-        .fc-timeGridDay-button {}
     }
 
+    // Partie central du header, du calendrier
+    .fc-center {
 
+        h2 {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 10px;
+            color: $white-color;
+            font-family: $main-font;
+        }
+    }
+
+    // Partie droite du header, du calendrier
+    .fc-right {
+
+        // BOUTTONS
+        .fc-button-group {
+
+            .fc-dayGridMonth-button {
+                background-color: $elem-color;
+                border-color: transparent;
+                color: $white-color;
+            }
+
+            .fc-button-primary:not(:disabled):active:focus,
+            .fc-button-primary:not(:disabled).fc-button-active:focus  {
+                background-color: $less-light-color !important;
+                border-color: transparent;
+                color: $white-color;
+            }
+
+            // .fc-dayGridMonth-button:active {
+            //     background-color: $less-light-color;
+            //     border-color: transparent;
+            //     color: $white-color;
+            // }
+        
+            .fc-timeGridWeek-button {
+                background-color: $elem-color;
+                border-color: transparent;
+                color: $white-color;
+            }
+        
+            .fc-timeGridDay-button {
+                background-color: $elem-color;
+                border-color: transparent;
+                color: $white-color;
+            }
+        }
+    }
 }
-
 // GRILLE CALENDRIER ********************
+.fc-view-container {
 
-// Ordonnée X : JOUR
-.fc-head {
-    .fc-day-header {
-        color: red;
+    font-family: $main-font;
+
+    // Ordonnée X : JOUR
+    .fc-head {
+        .fc-day-header {
+            color: $white-color;
+        }
     }
-}
 
-// Numéro des jours dans les cases
-.fc-day-number {
-    color: red;
-}
+    // Numéro des jours dans les cases
+    .fc-day-number {
+        color: $white-color;
+    }
 
-// Jour actuel
-.fc-today {
-    background-color: blue !important;
-}
+    // Jour actuel
+    .fc-today {
+        background-color: rgba(146,162,188,0.5) !important;
+    }
 
-// Header d'une cellule jour
-.fc-day-top {
-    border-bottom-color: transparent !important;
-    border-left-color: transparent !important;
-    border-right-color: transparent !important;
-}
+    // Header d'une cellule jour
+    .fc-day-top {
+        border-bottom-color: transparent !important;
+        border-left-color: transparent !important;
+        border-right-color: transparent !important;
+    }
 
+    // Description vignette
+    .fc-title {
+        color: $white-color;
+    }
 
-tr,
-td,
-th {
-    border: 1px solid red !important;
+    // Heure vignettes
+    .fc-time {
+        color: $white-color;
+    }
+
+    tr,
+    td,
+    th {
+        border: 1px solid $less-light-color !important;
+    }
+
 }

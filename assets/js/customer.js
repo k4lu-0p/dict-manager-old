@@ -21,6 +21,7 @@ const regexDateEnd2 = /^(0?[1-9]|[12][0-9]|3[01])\/(0?[1-9]|1[012])\/\d{4}\s\b((
 let buttonPrevious;
 let buttonConfirmDelete;
 let containerConfirm;
+let containerSessionAdd;
 let buttonAddCustomer;
 let onFilterAlphabetics;
 let toggleDisplaySearchBar;
@@ -100,6 +101,9 @@ window.addEventListener("click", e => {
     case "no":
       deleteCancelCustomer();
       break;
+    case "cancel-session-add":
+      sessionAddCancel();
+      break;  
     case "new":
       showFormNewCustomer();
       break;
@@ -180,7 +184,7 @@ function showCalendarOfOneCustomer(idCustomer) {
         // selectMirror: true,
         customButtons: {
           myCustomButton: {
-            text: "New Session",
+            text: "+",
             click: function (event) {
               showFormNewSessionCalendar(idCustomer);
             }
@@ -188,7 +192,7 @@ function showCalendarOfOneCustomer(idCustomer) {
         },
         header: {
           // Définir les boutons ainsi que leurs positions dans le header.
-          left: "prev,next today myCustomButton",
+          left: "prev,next, myCustomButton",
           center: "title",
           right: "dayGridMonth,timeGridWeek,timeGridDay"
         },
@@ -209,7 +213,6 @@ function showCalendarOfOneCustomer(idCustomer) {
           });
         },
         eventClick: function (info) {
-          console.log(info);
           showFormUpdateDeleteSession(info.event.id);
         },
         eventDrop: info => {
@@ -720,6 +723,13 @@ function deleteCancelCustomer() {
   containerConfirm.style.opacity = 0;
 }
 
+// Button No Confirm to add Session :
+function sessionAddCancel() {
+  containerSessionAdd = document.querySelector(".wrapper-form-calendar-add-session");
+  containerSessionAdd.style.visibility = "hidden";
+  containerSessionAdd.style.opacity = 0;
+}
+
 // Button Détail :
 function showOneCustomer(id) {
   // Container de rendu.
@@ -919,6 +929,10 @@ function showFormNewSessionCalendar(idCustomer) {
       let wrapperForm = document.querySelector(
         ".wrapper-form-calendar-add-session"
       );
+
+      wrapperForm.style.opacity = 1.0;  
+      wrapperForm.style.visibility = 'visible';  
+
       wrapperForm.innerHTML = res.render;
 
       $("#session_dateEnd").datepicker({
@@ -1018,6 +1032,10 @@ function showFormUpdateDeleteSession(idSession) {
       let wrapperForm = document.querySelector(
         ".wrapper-form-calendar-add-session"
       );
+
+      wrapperForm.style.opacity = 1.0;  
+      wrapperForm.style.visibility = 'visible';  
+
       wrapperForm.innerHTML = res.render;
 
       $("#session_dateEnd").datepicker({

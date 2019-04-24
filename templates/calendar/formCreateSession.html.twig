@@ -1,17 +1,34 @@
 
+<div class="container-form-session d-flex flex-column justify-content-around align-items-center p-4">
 
-    <h4>Create</h4>
+    <h4 class="p-4 text-align-center">Create a new session</h4>
 
     {{form_start(form)}}
 
-    {{form_widget(form.free)}}
     
-    {{ form_row(form.dateStart, {'label' : false ,'attr' : {'placeholder' : 'Date Start' ,'class': '' , 'data-date-format' : 'dd/mm/yyyy', 'date-time-format' : 'hh:mm AA'}}) }}
-    {{ form_row(form.dateEnd, {'label' : false ,'attr' : {'placeholder' : 'Date End' ,'class': '' , 'data-date-format' : 'dd/mm/yyyy', 'date-time-format' : 'hh:mm AA'}}) }}
+    {{ form_row(form.dateStart, {'label' : false ,'attr' : {'placeholder' : 'Date Start' ,'class': 'px-3 py-2 my-2' , 'data-date-format' : 'dd/mm/yyyy', 'date-time-format' : 'hh:mm AA'}}) }}
+    {{ form_row(form.dateEnd, {'label' : false ,'attr' : {'placeholder' : 'Date End' ,'class': 'px-3 py-2 my-2' , 'data-date-format' : 'dd/mm/yyyy', 'date-time-format' : 'hh:mm AA', 'data-position':'top left'}}) }}
+     <div class="wrapper-input-free w-100 d-flex justify-content-start px-3 py-2 my-2 container-checkbox">
+        <p class="m-0 mr-3 label-input-free">This session is free :</p>
+        <label class="toggleButton">
+            {{ form_widget(form.free, {'required' : true, 'label' : false ,'attr' : {'class': 'styled-checkbox
+            ml-3'}}) }}
+            <div>
+                <svg viewBox="0 0 44 44">
+                    <path d="M14,24 L21,31 L39.7428882,11.5937758 C35.2809627,6.53125861 30.0333333,4 24,4 C12.95,4 4,12.95 4,24 C4,35.05 12.95,44 24,44 C35.05,44 44,35.05 44,24 C44,19.3 42.5809627,15.1645919 39.7428882,11.5937758"
+                        transform="translate(-2.000000, -2.000000)"></path>
+                </svg>
+            </div>
+        </label>
+    </div>
 
     {{ form_row(form._token)}}
 
     {{form_end(form)}}
-    
-    <button id="add-session-customer" type="submit" class="btn btn-block button-session-add" data-action="save-new-session" data-id="{{customer.id}}">Save</button>
+    <div class="d-flex justify-content-around align-items-center w-75">
+        <button id="add-session-customer" type="submit" class="btn button-session-add" data-action="save-new-session" data-id="{{customer.id}}">Save</button>
+        <button class="btn" data-action="cancel-session-add">Cancel</button>
+
+    </div>
+</div>
 
