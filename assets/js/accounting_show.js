@@ -107,6 +107,9 @@ function showOneBill(id) {
 
 function downloadBill(id) {
 
+    // DEBUG
+    let app = document.querySelector('#app');
+
     // Apparition du loader.
     let loader = document.querySelector('.container-fluid-loader');
     loader.style.display = "flex";
@@ -116,7 +119,8 @@ function downloadBill(id) {
             return res.text();
         })
         .then(res => {
-
+            // // DEBUG
+            // app.innerHTML = res;
             // Dès reception, disparition du loader.
             loader.style.display = "none";
 

@@ -156,6 +156,7 @@ class AccountingController extends AbstractController
         $flatRate["price"] = $bill->getFlatRate()->getPrice();
         $flatRate["createdAt"] = $bill->getFlatRate()->getCreatedAt();
         $flatRate["nbSessions"] = $bill->getFlatRate()->getSessionNumber();
+        $flatRate["dateStart"] = $bill->getFlatRate()->getCreatedAt();
         // $flatRate["nbSessions"] = $bill->getFlatRate()->getSessions();
         $currentBill["flatRate"] = $flatRate;
 

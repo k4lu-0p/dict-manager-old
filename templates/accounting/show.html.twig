@@ -31,7 +31,8 @@
 
             <div class="bill-options bill-options-{{ bill.id }} d-flex justify-content-between">
                 <button class="btn-bill-details btn" title="Show details" data-action="showBill" data-id="{{ bill.id }}">Details</button>
-                <button class="btn-bill-download btn" title="Download" data-action="downloadBill" data-id="{{ bill.id }}">Download</button>
+                {# <button class="btn-bill-download btn" title="Download" data-action="downloadBill" data-id="{{ bill.id }}">Download</button> #}
+                <a class="btn-bill-download btn" title="Download" href="{{path('downloadBill', {'id': bill.id})}}">Download</a>
             </div>
 
         </div>
