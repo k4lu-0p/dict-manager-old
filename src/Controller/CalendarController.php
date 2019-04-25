@@ -14,6 +14,8 @@ use App\Form\SessionType;
 use App\Entity\FlatRate;
 use App\Entity\Bill;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use App\Repository\SessionRepository;
+use App\Repository\CustomerRepository;
 
 /**
  * @Route("/app/calendar")
@@ -22,9 +24,44 @@ class CalendarController extends AbstractController
 {
 
     /**
+     * @Route("/session/all", name="getAllSessions")
+     */
+    public function getAllSessions(CustomerRepository $repo) {
+
+        
+        $allCustomer = $repo->findAll();
+
+        foreach ($allCustomer as $customer) {
+           
+            foreach ($customer->getFlatRates() as $flatrate) {
+    
+                $sessionsDates = [];
+    
+                foreach ($flatrate->getSessions() as $session) {
+    
+                    $sessionsDates[] = [
+                        'id' => $session->getId(),
+                        'firstname' => $customer->getFirstname(),
+                        'lastname' => $customer->getLastname(),
+                        'start' => $session->getDateStart(),
+                        'end' => $session->getDateEnd()
+                    ];
+                }
+    
+                $flatrates[] = $sessionsDates;
+            }
+        }
+
+        // dump($flatrates);
+        // die();
+        
+        return new JsonResponse($flatrates);
+    }
+
+    /**
      * @Route("/session/customer/{id}", name="getSessionsCustomer")
      */
-    public function getSessionsCustomer(Customer $customer, FlatRateRepository $flatRateRepository)
+    public function getSessionsCustomer(Customer $customer)
     {
 
         $render = $this->render('calendar/showForOne.html.twig', [

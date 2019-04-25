@@ -181,7 +181,6 @@ function showCalendarOfOneCustomer(idCustomer) {
         height: 625,
         longPressDelay: 500,
         selectable: true,
-        // selectMirror: true,
         customButtons: {
           myCustomButton: {
             text: "+",
@@ -728,6 +727,9 @@ function sessionAddCancel() {
   containerSessionAdd = document.querySelector(".wrapper-form-calendar-add-session");
   containerSessionAdd.style.visibility = "hidden";
   containerSessionAdd.style.opacity = 0;
+  document.querySelector("#session_free").checked = false;
+  document.querySelector("#session_dateStart").value = "";
+  document.querySelector("#session_dateEnd").value = "";
 }
 
 // Button Détail :
@@ -950,7 +952,6 @@ function showFormNewSessionCalendar(idCustomer) {
       });
     })
     .catch(err => console.log(err));
-  // TODO: afficher le formulaire.
 }
 
 
@@ -992,6 +993,7 @@ function saveNewSessionCalendar(idCustomer) {
           // console.log(res.sessionId);
           // wrapperForm.innerHTML = res;
           // console.log(res);
+          sessionAddCancel();
 
           let newEvent = {
             id: res.sessionId,
@@ -1077,9 +1079,9 @@ function saveUpdateSessionCalendar(idSession) {
       formDataSession.append("session[dateEnd]", dateEndChoose);
       formDataSession.append("session[_token]", tokenSessionForm);
 
-      document.querySelector("#session_free").checked = false;
-      document.querySelector("#session_dateStart").value = "";
-      document.querySelector("#session_dateEnd").value = "";
+      // document.querySelector("#session_free").checked = false;
+      // document.querySelector("#session_dateStart").value = "";
+      // document.querySelector("#session_dateEnd").value = "";
 
 
       fetch(`/app/calendar/sessions/modify/${idSession}`, {
@@ -1093,6 +1095,7 @@ function saveUpdateSessionCalendar(idSession) {
           // DEBUG
           // console.log(res.sessionId);
           // wrapperForm.innerHTML = res;
+          sessionAddCancel();
           console.log(res);
 
 

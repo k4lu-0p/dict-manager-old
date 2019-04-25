@@ -3,7 +3,7 @@
             
         <div class="d-flex justify-content-center align-items-center">
             {# <span id="count-customer" class="px-1">0</span> #}
-            <h4 class="nav-top-title-stats text-center p-0">Sessions this week</h4>
+            <h4 class="nav-top-title-stats text-center p-0">Global calendar</h4>
         </div>
 
         {# <button id="button-add-customer" data-action="new" class="new p-0 pr-3 m-0"><i class='uil uil-plus' data-action="new"></i></button> #}
@@ -19,6 +19,9 @@
 <div class="container container-statistics">
     
     <div id="charts" class="pt-4 chart-carousel">
+        <div>
+            <div id="global-calendar"></div>
+        </div>
         <div>
             <canvas height="400" id="day-chart" width="400"></canvas> 
 
@@ -58,7 +61,6 @@
         <div id="nbSessions"></div>
     </div> #}
 </div>
-
 
 <div style="display:none;">
   <img id="source"
