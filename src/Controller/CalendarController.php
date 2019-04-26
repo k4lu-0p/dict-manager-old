@@ -239,8 +239,8 @@ class CalendarController extends AbstractController
 
         if ($form->isSubmitted()) {
             $data = $request->request->get('session');
-            $session->setDateStart(new \DateTime($data['dateStart']));
-            $session->setDateEnd(new \DateTime($data['dateEnd']));
+            $session->setDateStart(\DateTime::createFromFormat('d/m/Y H:i a', $data['dateStart']));
+            $session->setDateEnd(\DateTime::createFromFormat('d/m/Y H:i a', $data['dateEnd']));
             $session->setFree(filter_var($data['free'], FILTER_VALIDATE_BOOLEAN));
 
             $currentFlatrate = $session->getFlatRate();

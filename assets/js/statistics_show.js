@@ -25,6 +25,7 @@ let colorsCustomer = [
     "#92a2bc",
     "#424C61"
   ];
+  let loader;
 
 // Premier affichage
 if (document.querySelector('#app')) {
@@ -60,7 +61,7 @@ function showChartsWithAjax() {
     app.innerHTML = "";
 
     // Apparition du loader.
-    let loader = document.querySelector('.container-fluid-loader');
+    loader = document.querySelector('.container-fluid-loader');
     loader.style.display = "flex";
 
     fetch('/app/statistics/', {
@@ -403,6 +404,11 @@ function showGeneralCalendar() {
 }
 
 function getAllSessionsForCalendar() {
+
+    // Apparition du loader
+    loader.style.display = "flex";
+
+
     return fetch(`/app/calendar/session/all`, { method : 'GET' })
     .then(res => { return res.json(); })
     .catch(err => console.log(err))
@@ -416,6 +422,10 @@ function renderAllSessionToEvent() {
         // console.log(data);
         // DEBUG
         // globalCalendarContainer.innerHTML = data;
+
+        // Disparition du loader
+        loader.style.display = "none";
+
         data.forEach(customer => {
 
             i++;
@@ -440,25 +450,3 @@ function renderAllSessionToEvent() {
     })
 }
 
-
-
-// let i = -1;
-
-//   flatratesArrays.forEach(datesArrays => {
-//     i++;
-//     datesArrays.forEach(array => {
-//       calendarForOne.addEvent({
-//         id: array.id.toString(),
-//         title: `Forfait n°${i + 1}`,
-//         start: new Date(array.start.date),
-//         end: new Date(array.end.date),
-//         editable: true,
-//         eventResizableFromStart: true,
-//         eventStartEditable: true,
-//         backgroundColor: colorsFlatrates[i],
-//         borderColor: colorsFlatrates[i],
-//         textColor: "EAFFFE"
-//       });
-//     });
-//   });
-// }
