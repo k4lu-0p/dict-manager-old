@@ -1,6 +1,6 @@
 // bouton comptabilité du menu.
 const buttonNavAccounting = document.querySelector('#nav-button-accounting');
-
+let loadSearch;
 
 // Evénement : 
 if (buttonNavAccounting) {
@@ -47,6 +47,15 @@ function showAccountingWithAjax() {
             }
         })
 }
+
+// A chaque touche pressées :
+window.addEventListener("keyup", e => {
+    clearTimeout(loadSearch);
+
+    loadSearch = setTimeout(() => {
+        searchBill();
+    }, 200);
+});
 
 // Action sur les bills.
 window.addEventListener('click', (e) => {
@@ -243,6 +252,67 @@ function displaySearchBillBar() {
         buttonSearch.style.color = "#EAFFFE";
         containerSearchBar.style.visibility = "visible";
         containerSearchBar.style.top = "70px";
+    }
+}
+
+// Rechercher une facture dynamiquement.
+function searchBill() {
+    if (document.querySelector("#input-search-bill")) {
+        // Valeur dans le champ
+        valueInputSearch = document.querySelector("#input-search-bill").value;
+
+        if (valueInputSearch.length >= 2) {
+            // Formulaire à envoyer en POST.
+            let formData = new FormData();
+            formData.append("search", valueInputSearch);
+
+            // Container de rendu.
+            let containerBill = document.querySelector(".container-accounting");
+
+            // Effacement du contenu existant.
+            containerBill.innerHTML = "";
+
+            // Apparition du loader.
+            let loader = document.querySelector(".container-fluid-loader");
+            loader.style.display = "flex";
+
+            fetch("/app/bill/search", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(res => {
+                    return res.text();
+                })
+                .then(res => {
+                    // Dès reception, disparition du loader.
+                    loader.style.display = "none";
+
+                    // Injecte le contenu receptionné dans le container.
+                    // containerBill.style.display = "grid";
+                    containerBill.innerHTML = res;
+
+                    // // Revenir sur la page principal
+                    defineActionPreviousButton("toggleBillSearch");
+
+                    // Compte le nombre de client
+                    let countBill = document.querySelectorAll(".card-accounting").length;
+                    let countWrapper = document.querySelector("#count-bill");
+                    countWrapper.textContent = countBill;
+
+                    if (countBill == 0) {
+                        containerBill.style.display = "block";
+                        containerBill.innerHTML =
+                            "<h1 class='no-result text-center'> No result found </h1>";
+                    }
+                })
+                .catch(err => {
+                    if (err) {
+                        throw err;
+                    }
+                });
+        } else if (valueInputSearch.length == 0) {
+            showAccountingWithAjax();
+        }
     }
 }
 

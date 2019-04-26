@@ -11,6 +11,7 @@ use Dompdf\Options;
 use App\Entity\FlatRate;
 use App\Entity\Bill;
 use App\Repository\AdminRepository;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/app/accounting")
@@ -178,5 +179,16 @@ class AccountingController extends AbstractController
             "Attachment" => true
         ]);
         return $this;
+    }
+
+    /**
+     * @Route("/search", name="searchBill")
+     */
+    public function searchBill(Request $request, CustomerRepository $repo)
+    {
+        $res = $repo->findBySearch($request->get('search'));
+        return $this->render('bill/search.html.twig', [
+            'bills' => $res
+        ]);
     }
 }
