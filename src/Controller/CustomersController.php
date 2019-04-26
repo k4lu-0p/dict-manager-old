@@ -110,16 +110,22 @@ class CustomersController extends AbstractController
 
             $file = $form->get('picture')->getData();
 
-            $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
+            if ($file != null) {
 
-            try {
-                $file->move(
-                    $this->getParameter('pictures_directory'),
-                    $fileName
-                );
-            } catch (FileException $e) { }
-
-            $customer->setPicture($fileName);
+                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
+    
+                try {
+                    $file->move(
+                        $this->getParameter('pictures_directory'),
+                        $fileName
+                    );
+                } catch (FileException $e) { }
+    
+                $customer->setPicture($fileName);
+            } else {
+                $customer->setPicture("user.png");
+            }
+                
             $customer->setCreatedAt(new \DateTime('now +1 hour'));
             $manager->persist($customer);
             $manager->flush();

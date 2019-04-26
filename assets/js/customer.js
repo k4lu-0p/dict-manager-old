@@ -6,6 +6,9 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
 import interactionPlugin from "@fullcalendar/interaction";
+import SecurityForm  from "./SecurityForm.js";
+
+const SF = new SecurityForm();
 
 // Bouton clients du menu.
 const buttonNavCustomers = document.querySelector("#nav-button-customers");
@@ -46,6 +49,10 @@ let x = 0;
 let toggleBtnAddSession = false;
 let toggleEventClick = false;
 let loader;
+let firstnameCheck;
+let lastnameCheck;
+let phoneCheck;
+let mailCheck;
 
 // Evénements :
 // Faire disparaître le menu quand on affiche le clavier smartphone
@@ -490,35 +497,44 @@ function updateOneCustomer(e, id) {
   formData.append("customer[newsletter]", newsletter);
   formData.append("customer[_token]", token);
 
-  // Effacement du contenu existant.
-  app.innerHTML = "";
+  firstnameCheck = SF.firstnameIsCheck(firstname, document.querySelector("#customer_firstname"));
+  lastnameCheck = SF.lastnameIsCheck(lastname, document.querySelector("#customer_lastname"));
+  phoneCheck = SF.phoneIsCheck(phone, document.querySelector("#customer_phone"));
+  mailCheck = SF.mailIsCheck(email, document.querySelector("#customer_email"));
 
-  // Apparition du loader.
-   loader = document.querySelector(".container-fluid-loader");
-  loader.style.display = "flex";
+  if (firstnameCheck && lastnameCheck && phoneCheck && mailCheck) {
 
-  // Requête AJAX :
-  fetch(`/app/customers/edit/${id}`, {
-      method: "POST",
-      body: formData
-    })
-    .then(res => {
-      return res.text();
-    })
-    .then(res => {
-      // Dès reception, disparition du loader.
-      loader.style.display = "none";
+    // Effacement du contenu existant.
+    app.innerHTML = "";
+  
+    // Apparition du loader.
+     loader = document.querySelector(".container-fluid-loader");
+    loader.style.display = "flex";
+  
+    // Requête AJAX :
+    fetch(`/app/customers/edit/${id}`, {
+        method: "POST",
+        body: formData
+      })
+      .then(res => {
+        return res.text();
+      })
+      .then(res => {
+        // Dès reception, disparition du loader.
+        loader.style.display = "none";
+  
+        // Injecte le contenu receptionné dans le container.
+        app.innerHTML = res;
+  
+        onFilterAlphabetics = true;
+      })
+      .catch(err => {
+        if (err) {
+          throw err;
+        }
+      });
 
-      // Injecte le contenu receptionné dans le container.
-      app.innerHTML = res;
-
-      onFilterAlphabetics = true;
-    })
-    .catch(err => {
-      if (err) {
-        throw err;
-      }
-    });
+  }
 }
 
 // Button edit Customer:
@@ -599,35 +615,46 @@ function addOneCustomer(e) {
   formData.append("customer[newsletter]", newsletter);
   formData.append("customer[_token]", token);
 
-  // Effacement du contenu existant.
-  app.innerHTML = "";
+  firstnameCheck = SF.firstnameIsCheck(firstname, document.querySelector("#customer_firstname"));
+  lastnameCheck = SF.lastnameIsCheck(lastname, document.querySelector("#customer_lastname"));
+  phoneCheck = SF.phoneIsCheck(phone, document.querySelector("#customer_phone"));
+  mailCheck = SF.mailIsCheck(email, document.querySelector("#customer_email"));
 
-  // Apparition du loader.
-   loader = document.querySelector(".container-fluid-loader");
-  loader.style.display = "flex";
+  if (firstnameCheck && lastnameCheck && phoneCheck && mailCheck) {
 
-  // Requête AJAX :
-  fetch("/app/customers/add", {
-      method: "POST",
-      body: formData
-    })
-    .then(res => {
-      return res.text();
-    })
-    .then(res => {
-      // Dès reception, disparition du loader.
-      loader.style.display = "none";
+    // Effacement du contenu existant.
+    app.innerHTML = "";
+  
+    // Apparition du loader.
+     loader = document.querySelector(".container-fluid-loader");
+    loader.style.display = "flex";
+  
+    // Requête AJAX :
+    fetch("/app/customers/add", {
+        method: "POST",
+        body: formData
+      })
+      .then(res => {
+        return res.text();
+      })
+      .then(res => {
+        // Dès reception, disparition du loader.
+        loader.style.display = "none";
+  
+        // Injecte le contenu receptionné dans le container.
+        app.innerHTML = res;
+  
+        onFilterAlphabetics = true;
+      })
+      .catch(err => {
+        if (err) {
+          throw err;
+        }
+      });
 
-      // Injecte le contenu receptionné dans le container.
-      app.innerHTML = res;
 
-      onFilterAlphabetics = true;
-    })
-    .catch(err => {
-      if (err) {
-        throw err;
-      }
-    });
+  }
+
 }
 
 // Button new Customer :
@@ -683,7 +710,6 @@ function deleteOneCustomer(id) {
 
   containerConfirm.style.visibility = "visible";
   containerConfirm.style.opacity = 1.0;
-  console.log(containerConfirm.style.opacity);
 }
 
 // Button Yes Confirm to Delete :
