@@ -2,7 +2,7 @@
 
 #navbar-accounting {
     z-index: 999999;
-    width: 100vw;
+    width: 100%;
     height: 82px;
     background-color: #3E4755;
     font-family: $main-font;
@@ -49,9 +49,6 @@
 //  CONTENT ACCOUNTING
 
 .container-accounting {
-    width: 92vw;
-    margin: 0 auto;
-    height: 75px;
 
     .card-accounting {
         position: relative;
@@ -60,6 +57,7 @@
         font-family: $main-font;
         margin-top: 15px;
         background-color: #3C4556;
+        overflow: hidden;
 
 
         .fade-away {
@@ -111,7 +109,7 @@
             }
 
             .iSelectedColor {
-                color: $flash-color;
+                color: $white-color;
             }
         }
 
