@@ -1,7 +1,30 @@
+import {
+    Calendar,
+    formatDate
+  } from "@fullcalendar/core";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import listPlugin from "@fullcalendar/list";
+import interactionPlugin from "@fullcalendar/interaction";
+
 let today = new Date();
 let currentMonth = today.getMonth();
 let currentDay = today.getDay() >= 7 ? 0 : today.getDay();
-
+let globalCalendar;
+let globalCalendarContainer;
+let e;
+let containerStatistics;
+let colorsCustomer = [
+    "#e12768",
+    "#92a2bc",
+    "#424C61",
+    "#e12768",
+    "#92a2bc",
+    "#424C61",
+    "#e12768",
+    "#92a2bc",
+    "#424C61"
+  ];
 
 // Premier affichage
 if (document.querySelector('#app')) {
@@ -15,6 +38,15 @@ const buttonNavChart = document.querySelector('#nav-button-chart');
 if (buttonNavChart) {
     buttonNavChart.addEventListener('click', showChartsWithAjax);
 }
+
+window.addEventListener('click', (e) => {
+    if (e.target.getAttribute('aria-label') === "next" || e.target.getAttribute('aria-label') === "prev") {
+        $('.nav-top-title-stats').text(document.querySelector('.fc-center > h2').textContent);
+
+    } else if (e.target.classList.contains('fc-icon-chevron-right') || e.target.classList.contains('fc-icon-chevron-left')) {
+        $('.nav-top-title-stats').text(document.querySelector('.fc-center > h2').textContent);
+    }
+})
 
 // Fonction(s) déclenchées lors de(s) événement(s) : 
 // Affiche la page de statistiques, en Ajax.
@@ -38,6 +70,8 @@ function showChartsWithAjax() {
             return res.json();
         })
         .then(res => {
+            // console.log(res)
+            // app.innerHTML = res;
             // Dès reception, disparition du loader.
             loader.style.display = "none";
 
@@ -90,31 +124,10 @@ function showChartsWithAjax() {
             $('.chart-carousel').slick({
                 infinite: false,
                 dots: true,
-                arrows: false
+                arrows: false  
             });
 
-            // On swipe event
-            $('.chart-carousel').on('swipe', function (event, slick, direction) {
-                if (direction == "left") {
-                    $('.nav-top-title-stats').fadeOut();
-
-                    setTimeout(() => {
-                        $('.nav-top-title-stats').text('Sessions this year');
-                        $('.nav-top-title-stats').fadeIn();
-                    }, 500)
-
-                } else {
-                    $('.nav-top-title-stats').fadeOut();
-
-                    setTimeout(() => {
-                        $('.nav-top-title-stats').text('Sessions this week');
-                        $('.nav-top-title-stats').fadeIn();
-                    }, 500)
-
-                }
-            });
-
-
+            
             Chart.defaults.global.legend.display = false;
             Chart.pluginService.register({
                 beforeDraw: function (chart, easing) {
@@ -294,6 +307,41 @@ function showChartsWithAjax() {
             // document.querySelector('#nbFlatRates').textContent = res.nbFlatRates;
             document.querySelector('#nbSessionsThisYear').textContent = res.nbSessions;
 
+            showGeneralCalendar();
+            renderAllSessionToEvent();
+
+            containerStatistics = document.querySelector('.container-statistics');
+            $('.nav-top-title-stats').text(document.querySelector('.fc-center > h2').textContent); 
+
+            // On swipe event
+            $('.chart-carousel').on('swipe', function (event, slick, direction) {
+
+
+                if (slick.currentSlide == 1) {
+                    $('.nav-top-title-stats').fadeOut();
+                    containerStatistics.style.height = "80vh";
+                    setTimeout(() => {
+                        $('.nav-top-title-stats').text('Sessions this year');
+                        $('.nav-top-title-stats').fadeIn();
+                    }, 500)
+
+                } else if (slick.currentSlide == 2) {
+                    $('.nav-top-title-stats').fadeOut();
+                    containerStatistics.style.height = "80vh";
+                    setTimeout(() => {
+                        $('.nav-top-title-stats').text('Sessions this week');
+                        $('.nav-top-title-stats').fadeIn();
+                    }, 500)
+
+                } else if (slick.currentSlide == 0) {
+                    $('.nav-top-title-stats').fadeOut();
+                    containerStatistics.style.height = "";
+                    setTimeout(() => {
+                        $('.nav-top-title-stats').text(document.querySelector('.fc-center > h2').textContent);
+                        $('.nav-top-title-stats').fadeIn();
+                    }, 500)
+                }
+            });
         })
         .catch(err => {
             if (err) {
@@ -322,3 +370,95 @@ function getMonday(d) {
         diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
     return new Date(d.setDate(diff));
 }
+
+// Affiche le calendrier montrant toute les sessions
+function showGeneralCalendar() {
+
+    globalCalendarContainer = document.querySelector('#global-calendar');
+    
+    if( globalCalendarContainer ) {
+        globalCalendar = new Calendar(globalCalendarContainer, {
+            plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin],
+            height: 625,
+            selectable: false,
+            header: {
+              left: "prev,next",
+              center: "title",
+              right: "dayGridMonth,timeGridWeek,timeGridDay"
+            },
+            dateClick: info => {
+            },
+            eventClick: info => {
+            },
+            eventDrop: info => {
+            },
+            eventResizeStop: info => {
+            }
+          });
+
+          globalCalendar.render();
+          document.querySelector('.fc-center > h2').style.visibility = "hidden";
+    }
+    
+}
+
+function getAllSessionsForCalendar() {
+    return fetch(`/app/calendar/session/all`, { method : 'GET' })
+    .then(res => { return res.json(); })
+    .catch(err => console.log(err))
+}
+
+function renderAllSessionToEvent() {
+
+    let i = -1;
+
+    getAllSessionsForCalendar().then(data => {
+        // console.log(data);
+        // DEBUG
+        // globalCalendarContainer.innerHTML = data;
+        data.forEach(customer => {
+
+            i++;
+            
+            customer.forEach(session => {
+                // console.log(session);
+                globalCalendar.addEvent({
+                    id: session.id.toString(),
+                    title: `${session.firstname} ${session.lastname}`,
+                    start: new Date(session.start.date),
+                    end: new Date(session.end.date),
+                    editable: true,
+                    eventResizableFromStart: true,
+                    eventStartEditable: true,
+                    backgroundColor: colorsCustomer[i],
+                    borderColor: colorsCustomer[i],
+                    textColor: "EAFFFE"
+                });
+            });
+        });
+
+    })
+}
+
+
+
+// let i = -1;
+
+//   flatratesArrays.forEach(datesArrays => {
+//     i++;
+//     datesArrays.forEach(array => {
+//       calendarForOne.addEvent({
+//         id: array.id.toString(),
+//         title: `Forfait n°${i + 1}`,
+//         start: new Date(array.start.date),
+//         end: new Date(array.end.date),
+//         editable: true,
+//         eventResizableFromStart: true,
+//         eventStartEditable: true,
+//         backgroundColor: colorsFlatrates[i],
+//         borderColor: colorsFlatrates[i],
+//         textColor: "EAFFFE"
+//       });
+//     });
+//   });
+// }

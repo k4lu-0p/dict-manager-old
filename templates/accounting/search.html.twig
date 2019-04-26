@@ -1,7 +1,7 @@
 {% for bill in bills %}
     <div class="card-accounting d-flex justify-content-between p-3" data-id="{{ bill.id }}">
-{{ bill }}
-        {# <img alt="Customer Picture" class="bill-customer-picture bill-customer-picture-{{ bill.id }}" src="/uploads/pictures/{{ bill.customer.picture }}">
+
+        <img alt="Customer Picture" class="bill-customer-picture bill-customer-picture-{{ bill.id }}" src="/uploads/pictures/{{ bill.customer.picture }}">
         <p class="bill-customer-name bill-customer-name-{{ bill.id }}">{{ bill.customer.firstname }}
             {{ bill.customer.lastname }}</p>
 
@@ -19,8 +19,10 @@
 
         <div class="bill-options bill-options-{{ bill.id }} d-flex justify-content-between">
             <button class="btn-bill-details btn" title="Show details" data-action="showBill" data-id="{{ bill.id }}">Details</button>
-            <button class="btn-bill-download btn" title="Download" data-action="downloadBill" data-id="{{ bill.id }}">Download</button>
-        </div> #}
+            {# <button class="btn-bill-download btn" title="Download" data-action="downloadBill" data-id="{{ bill.id }}">Download</button> #}
+            <a class="btn-bill-download btn" title="Download" href="{{path('downloadBill', {'id': bill.id})}}">Download</a>
+
+        </div>
 
     </div>
 {% endfor %}

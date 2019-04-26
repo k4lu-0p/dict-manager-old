@@ -19,6 +19,32 @@ class BillRepository extends ServiceEntityRepository
         parent::__construct($registry, Bill::class);
     }
 
+
+
+
+
+    // Cherche les clients par rapport aux factures
+    public function findBySearch(string $search)
+    {
+
+        $qb = $this->createQueryBuilder('b');
+
+        return $qb->select(['b', 'c'])
+            ->innerJoin('b.customer', 'c')
+            ->where('c.lastname LIKE :val')
+            ->orWhere('c.firstname LIKE :val')
+            ->setParameter('val', '%' . $search . '%')
+            ->orderBy('c.lastname', 'ASC')
+            ->distinct()
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+
+
+
+
+
     // /**
     //  * @return Bill[] Returns an array of Bill objects
     //  */

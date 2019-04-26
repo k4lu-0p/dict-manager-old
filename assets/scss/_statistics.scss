@@ -1,6 +1,6 @@
 .container-statistics {
 
-    height: 80vh;
+    // height: 80vh;
 
     .chart-carousel {
         height: 90%;
@@ -53,7 +53,9 @@
 }
 
 
-.slick-dots {}
+.slick-dots {
+    padding: 5px;
+}
 
 .slick-dots li button:before {
     padding-top: 5px;

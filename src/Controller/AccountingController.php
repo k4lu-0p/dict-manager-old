@@ -157,6 +157,7 @@ class AccountingController extends AbstractController
         $flatRate["price"] = $bill->getFlatRate()->getPrice();
         $flatRate["createdAt"] = $bill->getFlatRate()->getCreatedAt();
         $flatRate["nbSessions"] = $bill->getFlatRate()->getSessionNumber();
+        $flatRate["dateStart"] = $bill->getFlatRate()->getCreatedAt();
         // $flatRate["nbSessions"] = $bill->getFlatRate()->getSessions();
         $currentBill["flatRate"] = $flatRate;
 
@@ -184,10 +185,15 @@ class AccountingController extends AbstractController
     /**
      * @Route("/search", name="searchBill")
      */
-    public function searchBill(Request $request, CustomerRepository $repo)
+    public function searchBill(Request $request, BillRepository $repo)
     {
         $res = $repo->findBySearch($request->get('search'));
-        return $this->render('bill/search.html.twig', [
+
+        // foreach ($res as  $value) {
+        //     dump($value);
+        // }
+        // die();
+        return $this->render('accounting/search.html.twig', [
             'bills' => $res
         ]);
     }

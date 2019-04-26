@@ -119,6 +119,9 @@ function showOneBill(id) {
 
 function downloadBill(id) {
 
+    // DEBUG
+    let app = document.querySelector('#app');
+
     // Apparition du loader.
     let loader = document.querySelector('.container-fluid-loader');
     loader.style.display = "flex";
@@ -128,7 +131,8 @@ function downloadBill(id) {
             return res.text();
         })
         .then(res => {
-
+            // // DEBUG
+            // app.innerHTML = res;
             // Dès reception, disparition du loader.
             loader.style.display = "none";
 
@@ -276,7 +280,7 @@ function searchBill() {
             let loader = document.querySelector(".container-fluid-loader");
             loader.style.display = "flex";
 
-            fetch("/app/bill/search", {
+            fetch("/app/accounting/search", {
                     method: "POST",
                     body: formData
                 })
@@ -284,6 +288,9 @@ function searchBill() {
                     return res.text();
                 })
                 .then(res => {
+
+                    // containerBill.innerHTML = res;
+
                     // Dès reception, disparition du loader.
                     loader.style.display = "none";
 
