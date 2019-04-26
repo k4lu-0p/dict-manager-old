@@ -24,6 +24,9 @@
     {{ form_row(form._token)}}
 
     {{form_end(form)}}
+
+    <input id="hiddenCustomerId" type="hidden" value="0">
+
     <div class="d-flex justify-content-around align-items-center w-100">
         <button id="update-session-customer" type="submit" class="btn btn-block button-session-add" data-action="save-update-session" data-id="{{session.id}}">Update</button>
         <button id="delete-session-customer" type="submit" class="btn btn-block button-session-add m-0" data-action="delete-session" data-id="{{session.id}}">Delete</button>

@@ -43,6 +43,9 @@ let colorsFlatrates = [
   "#424C61"
 ];
 let x = 0;
+let toggleBtnAddSession = false;
+let toggleEventClick = false;
+let loader;
 
 // Evénements :
 // Faire disparaître le menu quand on affiche le clavier smartphone
@@ -149,7 +152,7 @@ function showCalendarOfOneCustomer(idCustomer) {
   app.innerHTML = "";
 
   // Apparition du loader.
-  let loader = document.querySelector(".container-fluid-loader");
+   loader = document.querySelector(".container-fluid-loader");
   loader.style.display = "flex";
 
   // Requête AJAX :
@@ -185,7 +188,11 @@ function showCalendarOfOneCustomer(idCustomer) {
           myCustomButton: {
             text: "+",
             click: function (event) {
-              showFormNewSessionCalendar(idCustomer);
+              if (toggleBtnAddSession == false) {
+                toggleBtnAddSession = true;
+                loader.style.display = "flex";
+                showFormNewSessionCalendar(idCustomer);
+              }
             }
           }
         },
@@ -197,22 +204,14 @@ function showCalendarOfOneCustomer(idCustomer) {
         },
         dateClick: function (info) {
           // Déclenche la fonction suivante au clique d'un jour.
-          console.log(info);
-          calendarForOne.addEvent({
-            id: 99999,
-            title: `Forfait TEST`,
-            start: new Date(),
-            //   end: new Date(dateEndChoose),
-            editable: true,
-            eventResizableFromStart: true,
-            eventStartEditable: true,
-            //   backgroundColor: colorsFlatrates[1],
-            //   borderColor: colorsFlatrates[1],
-            textColor: "EAFFFE"
-          });
+          // console.log(info);
+         
         },
         eventClick: function (info) {
-          showFormUpdateDeleteSession(info.event.id);
+          if (toggleEventClick == false ) {
+            toggleEventClick = true;
+            showFormUpdateDeleteSession(info.event.id, idCustomer);
+          }
         },
         eventDrop: info => {
           saveEventDropResize(info);
@@ -221,7 +220,6 @@ function showCalendarOfOneCustomer(idCustomer) {
           saveEventDropResize(info);
         }
       });
-
 
       if (res.flatrates) {
         // Ajoute les sessions du forfait du client au calendrier
@@ -255,7 +253,7 @@ function searchCustomer() {
       containerCustomer.innerHTML = "";
 
       // Apparition du loader.
-      let loader = document.querySelector(".container-fluid-loader");
+       loader = document.querySelector(".container-fluid-loader");
       loader.style.display = "flex";
 
       fetch("/app/customers/search", {
@@ -329,7 +327,7 @@ function showCustomers() {
   app.innerHTML = "";
 
   // Apparition du loader.
-  let loader = document.querySelector(".container-fluid-loader");
+   loader = document.querySelector(".container-fluid-loader");
   loader.style.display = "flex";
 
   fetch("/app/customers/show/all")
@@ -377,7 +375,7 @@ function showByAlphabeticCustomer(e) {
     containerCustomer.innerHTML = "";
 
     // Apparition du loader.
-    let loader = document.querySelector(".container-fluid-loader");
+     loader = document.querySelector(".container-fluid-loader");
     loader.style.display = "flex";
 
     fetch("/app/customers/show/alphabetics")
@@ -426,7 +424,7 @@ function showByRecentCustomer(e) {
     containerCustomer.innerHTML = "";
 
     // Apparition du loader.
-    let loader = document.querySelector(".container-fluid-loader");
+     loader = document.querySelector(".container-fluid-loader");
     loader.style.display = "flex";
 
     fetch("/app/customers/show/recent")
@@ -496,7 +494,7 @@ function updateOneCustomer(e, id) {
   app.innerHTML = "";
 
   // Apparition du loader.
-  let loader = document.querySelector(".container-fluid-loader");
+   loader = document.querySelector(".container-fluid-loader");
   loader.style.display = "flex";
 
   // Requête AJAX :
@@ -532,7 +530,7 @@ function showFormEditCustomer(id) {
   app.innerHTML = "";
 
   // Apparition du loader.
-  let loader = document.querySelector(".container-fluid-loader");
+   loader = document.querySelector(".container-fluid-loader");
   loader.style.display = "flex";
 
   // Requête AJAX :
@@ -605,7 +603,7 @@ function addOneCustomer(e) {
   app.innerHTML = "";
 
   // Apparition du loader.
-  let loader = document.querySelector(".container-fluid-loader");
+   loader = document.querySelector(".container-fluid-loader");
   loader.style.display = "flex";
 
   // Requête AJAX :
@@ -641,7 +639,7 @@ function showFormNewCustomer() {
   app.innerHTML = "";
 
   // Apparition du loader.
-  let loader = document.querySelector(".container-fluid-loader");
+   loader = document.querySelector(".container-fluid-loader");
   loader.style.display = "flex";
 
   // Requête AJAX :
@@ -697,7 +695,7 @@ function deleteConfirmCustomer(id) {
   app.innerHTML = "";
 
   // Apparition du loader.
-  let loader = document.querySelector(".container-fluid-loader");
+   loader = document.querySelector(".container-fluid-loader");
   loader.style.display = "flex";
 
   fetch(`/app/customers/delete/${id}`, {
@@ -741,7 +739,7 @@ function showOneCustomer(id) {
   app.innerHTML = "";
 
   // Apparition du loader.
-  let loader = document.querySelector(".container-fluid-loader");
+   loader = document.querySelector(".container-fluid-loader");
   loader.style.display = "flex";
 
   fetch(`/app/customers/show/${id}`, {
@@ -817,7 +815,7 @@ function showAllCustomers() {
   containerCustomer.innerHTML = "";
 
   // Apparition du loader.
-  let loader = document.querySelector(".container-fluid-loader");
+   loader = document.querySelector(".container-fluid-loader");
   loader.style.display = "flex";
 
   fetch("/app/customers/show/ajax")
@@ -950,6 +948,10 @@ function showFormNewSessionCalendar(idCustomer) {
         dateFormat: "dd/mm/yyyy",
         timeFormat: "hh:ii AA"
       });
+
+      loader.style.display = "none";
+      toggleBtnAddSession = false;
+
     })
     .catch(err => console.log(err));
 }
@@ -979,6 +981,8 @@ function saveNewSessionCalendar(idCustomer) {
       // document.querySelector("#session_free").checked = false;
       // document.querySelector("#session_dateStart").value = "";
       // document.querySelector("#session_dateEnd").value = "";
+      sessionAddCancel();
+      loader.style.display = "flex";
 
       fetch(`/app/calendar/sessions/create/${idCustomer}`, {
           method: "POST",
@@ -993,7 +997,6 @@ function saveNewSessionCalendar(idCustomer) {
           // console.log(res.sessionId);
           // wrapperForm.innerHTML = res;
           // console.log(res);
-          sessionAddCancel();
 
           let newEvent = {
             id: res.sessionId,
@@ -1011,6 +1014,7 @@ function saveNewSessionCalendar(idCustomer) {
             textColor: "EAFFFE"
           };
 
+          loader.style.display = "none";
           calendarForOne.addEvent(newEvent);
 
         })
@@ -1025,7 +1029,10 @@ function saveNewSessionCalendar(idCustomer) {
 }
 
 // Montre le formulaire de modification d'une session (forfait) pour un client.
-function showFormUpdateDeleteSession(idSession) {
+function showFormUpdateDeleteSession(idSession, idCustomer) {
+
+  loader.style.display = "flex";
+
   fetch(`/app/calendar/sessions/modify/${idSession}`)
     .then(res => {
       return res.json();
@@ -1039,6 +1046,7 @@ function showFormUpdateDeleteSession(idSession) {
       wrapperForm.style.visibility = 'visible';  
 
       wrapperForm.innerHTML = res.render;
+      document.querySelector('#hiddenCustomerId').value = idCustomer;
 
       $("#session_dateEnd").datepicker({
         language: "en",
@@ -1053,6 +1061,10 @@ function showFormUpdateDeleteSession(idSession) {
         dateFormat: "dd/mm/yyyy",
         timeFormat: "hh:ii aa"
       });
+
+      loader.style.display = "none";
+      toggleEventClick = false;
+
     })
     .catch(err => console.log(err));
   // TODO: afficher le formulaire.
@@ -1063,6 +1075,8 @@ function saveUpdateSessionCalendar(idSession) {
   let wrapperForm = document.querySelector(
     ".wrapper-form-calendar-add-session"
   );
+
+  let hiddenCustomerId = document.querySelector("#hiddenCustomerId").value;
 
   let isFree = document.querySelector("#session_free").checked;
   let dateStartChoose = document.querySelector("#session_dateStart").value;
@@ -1083,6 +1097,8 @@ function saveUpdateSessionCalendar(idSession) {
       // document.querySelector("#session_dateStart").value = "";
       // document.querySelector("#session_dateEnd").value = "";
 
+      sessionAddCancel();
+      loader.style.display = "flex";
 
       fetch(`/app/calendar/sessions/modify/${idSession}`, {
           method: "POST",
@@ -1094,9 +1110,10 @@ function saveUpdateSessionCalendar(idSession) {
         .then(res => {
           // DEBUG
           // console.log(res.sessionId);
-          // wrapperForm.innerHTML = res;
-          sessionAddCancel();
-          console.log(res);
+          // app.innerHTML = res;
+          // console.log(res);
+          loader.style.display = "none";
+          showCalendarOfOneCustomer(hiddenCustomerId);
 
 
         })
@@ -1117,7 +1134,7 @@ function createFormatDate(dateStr) {
 }
 // Effacer une session depuis le formulaire de modification de la session concerné.
 function deleteSession(id) {
-
+  sessionAddCancel();
   calendarForOne.getEventById(id).remove();
   // let wrapperForm = document.querySelector(
   //   ".wrapper-form-calendar-add-session"

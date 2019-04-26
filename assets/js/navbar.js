@@ -23,7 +23,7 @@ navbar.addEventListener('click', (e) => {
 
         if (e.target.nodeName === "BUTTON") {
             // activeButton(e.target.firstChild);
-            console.log(e.target.firstChild);
+            // console.log(e.target.firstChild);
         } else {
             activeButton(e.target);
         }
