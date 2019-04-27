@@ -17,31 +17,38 @@ window.onscroll = function () {
 }
 
 
-// Ecoute le clique sur tout les boutons du menu.
-navbar.addEventListener('click', (e) => {
-    if (e.target.classList.contains('buttons-menu') || e.target.parentNode.classList.contains('buttons-menu')) {
+if (navbar) {
 
-        if (e.target.nodeName === "BUTTON") {
-            // activeButton(e.target.firstChild);
-            // console.log(e.target.firstChild);
-        } else {
-            activeButton(e.target);
+    // Ecoute le clique sur tout les boutons du menu.
+    navbar.addEventListener('click', (e) => {
+        if (e.target.classList.contains('buttons-menu') || e.target.parentNode.classList.contains('buttons-menu')) {
+    
+            if (e.target.nodeName === "BUTTON") {
+                // activeButton(e.target.firstChild);
+                // console.log(e.target.firstChild);
+            } else {
+                activeButton(e.target);
+            }
+    
         }
-
-    }
-})
+    })
+}
 
 // Fonction chargé d'allumé le boutton de la page sur laquelle on se trouve.
 function activeButton(buttonSelected) {
 
-    // On éteint tout les boutons déjà allumés.
-    buttonsMenu.forEach(button => {
-        button.style.color = "#92A2BC";
+    if (buttonSelected) {
+        // On éteint tout les boutons déjà allumés.
+        buttonsMenu.forEach(button => {
+            button.style.color = "#92A2BC";
+    
+        });
+    
+        // Allume le boutton sélectionné.
+        buttonSelected.style.color = "#EAFFFE";
 
-    });
+    }
 
-    // Allume le boutton sélectionné.
-    buttonSelected.style.color = "#EAFFFE";
 
 }
 

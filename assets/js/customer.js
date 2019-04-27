@@ -64,18 +64,21 @@ window.onresize = e => {
   }
 };
 
-// Lorsque je clique sur l'icone Client du menu :
-navbar.addEventListener("click", e => {
-  if (e.target != null && e.target != undefined) {
-    // Affichage de tous les clients
-    if (
-      e.target.id == "nav-button-customers" ||
-      e.target.parentElement.id == "nav-button-customers"
-    ) {
-      showCustomers();
+if (navbar) {
+  // Lorsque je clique sur l'icone Client du menu :
+  navbar.addEventListener("click", e => {
+    if (e.target != null && e.target != undefined) {
+      // Affichage de tous les clients
+      if (
+        e.target.id == "nav-button-customers" ||
+        e.target.parentElement.id == "nav-button-customers"
+      ) {
+        showCustomers();
+      }
     }
-  }
-});
+  });
+}
+
 
 // A chaque touche pressées :
 window.addEventListener("keyup", e => {
@@ -88,6 +91,9 @@ window.addEventListener("keyup", e => {
 
 // Action sur les customers.
 window.addEventListener("click", e => {
+
+  displayNameCustomerOnChangeViewCalendar(e.target);
+
   let id = e.target.getAttribute("data-id") ?
     e.target.getAttribute("data-id") :
     undefined;
@@ -1178,4 +1184,18 @@ function deleteSession(id) {
     .catch(err => {
       console.log(err);
     })
+}
+
+function displayNameCustomerOnChangeViewCalendar(target) {
+
+  if (target.classList.contains('fc-timeGridWeek-button') || target.classList.contains('fc-timeGridDay-button') ) {
+    if (document.querySelector('.title-name-calendar')) {
+      document.querySelector('.title-name-calendar').style.color =  'transparent';
+    }
+  } else if (target.classList.contains('fc-dayGridMonth-button')) {
+    if (document.querySelector('.title-name-calendar')) {
+      document.querySelector('.title-name-calendar').style.color =  '#92a2bc';
+
+    }
+  }
 }

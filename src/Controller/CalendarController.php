@@ -142,24 +142,25 @@ class CalendarController extends AbstractController
     public function createSession(Customer $customer, ObjectManager $manager, Request $request, ValidatorInterface $validator,  FlatRateRepository $repo)
     {
 
-        $flatratePrice = 3000;
-
+        
         $session = new Session();
         $form = $this->createForm(SessionType::class, $session);
         $form->handleRequest($request);
         $currentFlatrate = $this->getGoodCurrentFlatRate($customer);
-
+        
         if ($form->isSubmitted()) {
-
+            
             $data = $request->request->get('session');
             $session->setDateStart(\DateTime::createFromFormat('d/m/Y H:i a', $data['dateStart']));
             $session->setDateEnd(\DateTime::createFromFormat('d/m/Y H:i a', $data['dateEnd']));
             $session->setFree(filter_var($data['free'], FILTER_VALIDATE_BOOLEAN));
-
+            
             if (!$currentFlatrate) {
-
-                if (filter_var($data['free'], FILTER_VALIDATE_BOOLEAN)) {
-                    $flatratePrice -= 300;
+                
+                $flatratePrice = 0;
+                
+                if (!filter_var($data['free'], FILTER_VALIDATE_BOOLEAN)) {
+                    $flatratePrice += 300;
                 }
 
                 $flatrate = new FlatRate();
@@ -183,8 +184,8 @@ class CalendarController extends AbstractController
                 $currentFlatratePrice = $currentFlatrate->getPrice();
                 $currentFlatrateNumberSession = $currentFlatrate->getSessionNumber();
 
-                if (filter_var($data['free'], FILTER_VALIDATE_BOOLEAN)) {
-                    $currentFlatratePrice -= 300;
+                if (!filter_var($data['free'], FILTER_VALIDATE_BOOLEAN)) {
+                    $currentFlatratePrice += 300;
                 }
 
                 $currentFlatrate->setSessionNumber($currentFlatrateNumberSession + 1);

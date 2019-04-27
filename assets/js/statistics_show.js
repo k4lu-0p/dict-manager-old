@@ -26,6 +26,7 @@ let colorsCustomer = [
     "#424C61"
   ];
   let loader;
+  let timeOutMonthTextByDefault;
 
 // Premier affichage
 if (document.querySelector('#app')) {
@@ -42,9 +43,11 @@ if (buttonNavChart) {
 
 window.addEventListener('click', (e) => {
     if (e.target.getAttribute('aria-label') === "next" || e.target.getAttribute('aria-label') === "prev") {
+        $('.nav-top-title-stats').stop();
         $('.nav-top-title-stats').text(document.querySelector('.fc-center > h2').textContent);
 
     } else if (e.target.classList.contains('fc-icon-chevron-right') || e.target.classList.contains('fc-icon-chevron-left')) {
+        $('.nav-top-title-stats').stop();
         $('.nav-top-title-stats').text(document.querySelector('.fc-center > h2').textContent);
     }
 })
@@ -382,6 +385,8 @@ function showGeneralCalendar() {
             plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin],
             height: 625,
             selectable: false,
+            droppable: false,
+            editable: false,
             header: {
               left: "prev,next",
               center: "title",
@@ -390,6 +395,7 @@ function showGeneralCalendar() {
             dateClick: info => {
             },
             eventClick: info => {
+                showInfoEventOnHeader(info);
             },
             eventDrop: info => {
             },
@@ -426,27 +432,47 @@ function renderAllSessionToEvent() {
         // Disparition du loader
         loader.style.display = "none";
 
-        data.forEach(customer => {
-
-            i++;
-            
-            customer.forEach(session => {
-                // console.log(session);
-                globalCalendar.addEvent({
-                    id: session.id.toString(),
-                    title: `${session.firstname} ${session.lastname}`,
-                    start: new Date(session.start.date),
-                    end: new Date(session.end.date),
-                    editable: true,
-                    eventResizableFromStart: true,
-                    eventStartEditable: true,
-                    backgroundColor: colorsCustomer[i],
-                    borderColor: colorsCustomer[i],
-                    textColor: "EAFFFE"
+        if (data) {
+            data.forEach(customer => {
+    
+                i++;
+                
+                customer.forEach(session => {
+                    // console.log(session);
+                    globalCalendar.addEvent({
+                        id: session.id.toString(),
+                        title: `${session.firstname} ${session.lastname}`,
+                        start: new Date(session.start.date),
+                        end: new Date(session.end.date),
+                        editable: false,
+                        eventResizableFromStart: false,
+                        eventStartEditable: false,
+                        backgroundColor: colorsCustomer[i],
+                        borderColor: colorsCustomer[i],
+                        textColor: "EAFFFE"
+                    });
                 });
             });
-        });
+
+        }
+
 
     })
 }
 
+// Affiche le détail de l'événement dans le header (nav top)
+function showInfoEventOnHeader(info) {
+    clearTimeout(timeOutMonthTextByDefault);
+    $('.nav-top-title-stats').fadeOut(() => {
+        $('.nav-top-title-stats').text(info.el.innerText);
+        $('.nav-top-title-stats').fadeIn(() => {
+            timeOutMonthTextByDefault = setTimeout(() => {
+                $('.nav-top-title-stats').fadeOut(() => {
+                    $('.nav-top-title-stats').text(document.querySelector('.fc-center > h2').textContent);
+                    $('.nav-top-title-stats').fadeIn();
+                })
+            }, 2000)
+        });
+    });
+
+}
