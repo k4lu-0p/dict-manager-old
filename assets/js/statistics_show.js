@@ -320,6 +320,8 @@ function showChartsWithAjax() {
             // On swipe event
             $('.chart-carousel').on('swipe', function (event, slick, direction) {
 
+                $('.nav-top-title-stats').stop();
+                clearTimeout(timeOutMonthTextByDefault);
 
                 if (slick.currentSlide == 1) {
                     $('.nav-top-title-stats').fadeOut();
