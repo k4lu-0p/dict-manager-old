@@ -58,7 +58,7 @@ window.addEventListener("keyup", e => {
 });
 
 // Action sur les bills.
-window.addEventListener('click', (e) => {
+window.addEventListener('touchstart', (e) => {
     let id = e.target.getAttribute('data-id') ? e.target.getAttribute('data-id') : undefined;
 
     switch (e.target.getAttribute('data-action')) {

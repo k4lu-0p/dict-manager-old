@@ -19,14 +19,14 @@ class SessionType extends AbstractType
                 'required' => false
             ])
             ->add('dateStart', DateTimeType::class, [
-                'html5' => false,
+                'html5' => true,
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy hh:mm aa',
 
             ])
             ->add('dateEnd', DateTimeType::class, [
                 'required' => false,
-                'html5' => false,
+                'html5' => true,
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy hh:mm aa',
 

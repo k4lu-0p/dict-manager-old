@@ -6,11 +6,11 @@ let buttonSendNewsletter;
 
 // Evénement : 
 if (buttonNavNewsletter) {
-    buttonNavNewsletter.addEventListener('click', showFormNewsletterWithAjax);
+    buttonNavNewsletter.addEventListener('touchstart', showFormNewsletterWithAjax);
 }
 
 // Ecoute le click sur le boutton d'envois du formulaire.
-window.addEventListener('click', (e) => {
+window.addEventListener('touchstart', (e) => {
     if (e.target.id == "send-button-newsletter") {
 
         // Désactive le comportement par défaut du bouton d'envois de formulaire.

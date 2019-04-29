@@ -5,7 +5,7 @@ const inputPassword = document.querySelector('.input-password');
 const buttonConnexion = document.querySelector('.button-connexion');
 
 if (buttonConnexion) {
-    buttonConnexion.addEventListener('click', (e) => {
+    buttonConnexion.addEventListener('touchstart', (e) => {
         let valueIn = inputEmail.value;
 
         if (!regexMail.test(valueIn)) {

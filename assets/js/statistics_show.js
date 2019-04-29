@@ -41,7 +41,7 @@ if (buttonNavChart) {
     buttonNavChart.addEventListener('click', showChartsWithAjax);
 }
 
-window.addEventListener('click', (e) => {
+window.addEventListener('touchstart', (e) => {
     if (e.target.getAttribute('aria-label') === "next" || e.target.getAttribute('aria-label') === "prev") {
         $('.nav-top-title-stats').clearQueue();
         $('.nav-top-title-stats').stop();
