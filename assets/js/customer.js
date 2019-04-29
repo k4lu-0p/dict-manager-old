@@ -90,7 +90,7 @@ window.addEventListener("keyup", e => {
 });
 
 // Action sur les customers.
-window.addEventListener("click", e => {
+window.addEventListener("touchstart", e => {
 
   displayNameCustomerOnChangeViewCalendar(e.target);
 
