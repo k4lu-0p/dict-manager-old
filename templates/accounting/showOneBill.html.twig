@@ -12,10 +12,14 @@
         </div>
         <p>Sessions :
             <span class="data">{{ bill.flatRate.nbSessions }}</span>
-        </p>
-        <p>Flat rate created at :
-            <span class="data">{{ bill.flatRate.createdAt|date("m/d/Y") }}</span>
-        </p>
+</p>
+<p>Flat rate created at :
+    <span class="data">{{ bill.flatRate.createdAt|date("m/d/Y") }}</span>
+</p>
+<p>Price :
+    <span class="data">{{ bill.flatRate.price }} aed</span>
+</p>
+
 
     </div>
     <div class="d-flex justify-content-center align-items-center py-4">
