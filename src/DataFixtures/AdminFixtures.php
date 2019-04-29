@@ -22,14 +22,14 @@ class AdminFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $admin = new Admin();
-        $hash = $this->passwordEncoder->encodePassword($admin, "online@2017");
+        $hash = $this->passwordEncoder->encodePassword($admin, "dictfze70300");
 
-        $admin->setUsername('admin@admin.com')
-        ->setFirstname('john')
-        ->setLastname('doe')
-        ->setPhone('0909090909')
+        $admin->setUsername('lionl70@aol.com')
+        ->setFirstname('Lionel')
+        ->setLastname('Cholley')
+        ->setPhone('+971568788903')
         ->setRoles(['ROLE_ADMIN'])
-        ->setSocietyNumber('9Y9XXX9Y9')
+        ->setSocietyNumber('000000')
         ->setPassword($hash);
         
         $manager->persist($admin);
