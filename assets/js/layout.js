@@ -23,5 +23,7 @@ require('./customer.js');
 require('./newsletter_create.js');
 require('./statistics_show.js');
 require('./navbar.js');
+import "./SecurityForm";
+
 
 
