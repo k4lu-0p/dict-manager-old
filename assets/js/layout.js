@@ -23,6 +23,9 @@ require('./customer.js');
 require('./newsletter_create.js');
 require('./statistics_show.js');
 require('./navbar.js');
+require('./screen_limit.js');
+
+// Object
 import "./SecurityForm";
 
 
