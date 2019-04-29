@@ -573,7 +573,7 @@ function showFormEditCustomer(id) {
       defineActionPreviousButton("show", id);
 
       // Boutton d'envois du formulaire.
-      buttonUpdateCustomer = document.querySelector("#update-button-customer");
+      let buttonUpdateCustomer = document.querySelector("#update-button-customer");
     })
     .catch(err => {
       if (err) {
@@ -657,7 +657,6 @@ function addOneCustomer(e) {
           throw err;
         }
       });
-
 
   }
 
@@ -831,6 +830,21 @@ function showOneCustomer(id) {
         marker.addListener("click", function () {
           infowindow.open(map, marker);
         });
+      } else {
+
+        // Affiche la map
+        let mapProp = {
+          center: new google.maps.LatLng(25.2, 55.27),
+          zoom: 10,
+          streetViewControl: false
+        };
+
+        map = new google.maps.Map(
+          document.getElementById("googleMap"),
+          mapProp
+        );
+
+        
       }
     });
 }
