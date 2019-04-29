@@ -43,10 +43,12 @@ if (buttonNavChart) {
 
 window.addEventListener('click', (e) => {
     if (e.target.getAttribute('aria-label') === "next" || e.target.getAttribute('aria-label') === "prev") {
+        $('.nav-top-title-stats').clearQueue();
         $('.nav-top-title-stats').stop();
         $('.nav-top-title-stats').text(document.querySelector('.fc-center > h2').textContent);
 
     } else if (e.target.classList.contains('fc-icon-chevron-right') || e.target.classList.contains('fc-icon-chevron-left')) {
+        $('.nav-top-title-stats').clearQueue();
         $('.nav-top-title-stats').stop();
         $('.nav-top-title-stats').text(document.querySelector('.fc-center > h2').textContent);
     }
